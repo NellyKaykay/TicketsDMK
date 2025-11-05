@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,27 +8,14 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		// GitHub Pages configuration
+		// Render.com configuration
 		adapter: adapter({
-			// default options are shown. On some platforms
-			// these options are set automatically — see below
-			pages: 'build',
-			assets: 'build',
-			fallback: undefined,
-			precompress: false,
-			strict: true
+			out: 'build'
 		}),
-		paths: {
-			base: process.argv.includes('dev') ? '' : (process.env.NODE_ENV === 'production' ? '' : process.env.BASE_PATH)
-		},
+		// Removed paths configuration as it's not needed for Render
+		// Completely disable prerendering for dynamic content
 		prerender: {
-			entries: [
-				'*',
-				'/events/barcelona',
-				'/events/madrid', 
-				'/events/valencia',
-				'/events/alicante'
-			]
+			entries: []
 		}
 	}
 };
