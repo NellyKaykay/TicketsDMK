@@ -10,9 +10,10 @@ const config = {
 	kit: {
 		// Render.com configuration
 		adapter: adapter({
-			out: 'build'
+			out: 'build',
+			precompress: false,
+			envPrefix: ''
 		}),
-		// Removed paths configuration as it's not needed for Render
 		// Completely disable prerendering for dynamic content
 		prerender: {
 			entries: []
