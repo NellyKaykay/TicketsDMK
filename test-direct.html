@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Directo de Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Test básico de Tailwind -->
+    <div class="min-h-screen bg-gray-100 p-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold text-center text-blue-600 mb-8">
+                Test de Tailwind CSS - CDN
+            </h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">¿Funciona Tailwind?</h2>
+                <p class="text-gray-600 mb-4">Si ves colores y estilos aplicados, Tailwind está funcionando.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-red-500 text-white p-4 rounded text-center">Rojo</div>
+                    <div class="bg-green-500 text-white p-4 rounded text-center">Verde</div>
+                    <div class="bg-blue-500 text-white p-4 rounded text-center">Azul</div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded transition-colors">
+                        Botón Purple
+                    </button>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded transition-colors">
+                        Botón Orange
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4">
+                <h3 class="text-lg font-semibold text-yellow-800">Estado del Proyecto:</h3>
+                <ul class="text-yellow-700 mt-2 space-y-1">
+                    <li>✅ Tailwind CSS v3.4.18 instalado</li>
+                    <li>❌ Errores de TypeScript (291 errores)</li>
+                    <li>❌ Servidor no inicia correctamente</li>
+                    <li>⚠️ Necesita corrección de tipos Svelte</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
