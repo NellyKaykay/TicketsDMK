@@ -19,7 +19,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+			base: process.argv.includes('dev') ? '' : (process.env.NODE_ENV === 'production' ? '' : process.env.BASE_PATH)
 		},
 		prerender: {
 			entries: [
