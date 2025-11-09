@@ -8,57 +8,65 @@
   --text: #0a0a0a;
 }
 
-/* Estilos base con reset específico */
+/* Estilos base */
 html, body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
-  font-size: 16px; /* Forzar tamaño base consistente */
+  font-size: 16px !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100% !important;
 }
 
-/* Asegurar que las fuentes se carguen consistentemente */
-@layer base {
-  * {
-    box-sizing: border-box;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px !important; /* Forzar tamaño en producción */
-  }
-  
-  body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px !important;
 }
 
-/* Clases de utilidad personalizadas */
-@layer components {
-  .line-clamp-1 {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 1 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-  
-  .card-text-lg {
-    font-size: 1.125rem !important;
-    line-height: 1.75rem !important;
-    font-weight: 600 !important;
-  }
-  
-  .card-text-sm {
-    font-size: 0.875rem !important;
-    line-height: 1.25rem !important;
-  }
-  
-  .card-text-xs {
-    font-size: 0.75rem !important;
-    line-height: 1rem !important;
-  }
+/* CSS específico para igualar tamaños de fuente localhost vs producción */
+.concert-card-title {
+  font-size: 18px !important;
+  line-height: 28px !important;
+  font-weight: 600 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.concert-card-subtitle {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.concert-card-details {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 400 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.concert-card-price {
+  font-size: 18px !important;
+  line-height: 28px !important;
+  font-weight: 400 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.concert-card-price-amount {
+  font-size: 18px !important;
+  line-height: 28px !important;
+  font-weight: 700 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.concert-card-badge {
+  font-size: 12px !important;
+  line-height: 16px !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 /* Animaciones personalizadas */
@@ -104,4 +112,11 @@ html, body {
 
 .animate-fade-in {
   animation: fade-in 0.2s ease-out forwards;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
