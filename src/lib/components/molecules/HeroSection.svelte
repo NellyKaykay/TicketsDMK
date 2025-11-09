@@ -14,20 +14,20 @@
   export let secondaryButtonHref = '/about';
 </script>
 
-<div class="relative text-white overflow-hidden">
+<div class="relative text-white overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center">
   <!-- Background image -->
   <img src="/heroe-image.jpg" alt="Hero background" class="absolute inset-0 w-full h-full object-cover" />
   
   <!-- Content -->
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+  <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
     <div class="text-center max-w-4xl mx-auto">
       <!-- Main title -->
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-green-800">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style="color: #003333;">
         {title}
       </h1>
       
       <!-- Subtitle -->
-      <p class="text-xl sm:text-2xl font-light text-green-700 mb-8">
+      <p class="text-xl sm:text-2xl font-light mb-8" style="color: #004d4d;">
         {subtitle}
       </p>
       

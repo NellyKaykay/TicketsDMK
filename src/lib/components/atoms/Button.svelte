@@ -9,9 +9,9 @@
   const baseStyles = 'inline-flex items-center justify-center font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variants = {
-    primary: 'bg-green-800 hover:bg-green-700 text-white focus:ring-green-800',
+    primary: 'text-white focus:ring-offset-2',
     secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-900 focus:ring-gray-500',
-    outline: 'border border-green-800 bg-transparent hover:bg-green-800 text-white focus:ring-green-800',
+    outline: 'border bg-transparent focus:ring-offset-2',
     ghost: 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500'
   };
   
@@ -24,14 +24,18 @@
   const disabledStyles = 'opacity-50 cursor-not-allowed pointer-events-none';
   
   $: classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${disabled ? disabledStyles : ''}`;
+  
+  $: customStyle = variant === 'primary' ? 'background-color: #003333;' : 
+                   variant === 'outline' ? 'border-color: #003333; color: white; background-color: transparent;' : 
+                   '';
 </script>
 
 {#if href && !disabled}
-  <a {href} class={classes}>
+  <a {href} class={classes} style={customStyle}>
     <slot />
   </a>
 {:else}
-  <button {type} class={classes} {disabled} on:click={onClick}>
+  <button {type} class={classes} style={customStyle} {disabled} on:click={onClick}>
     <slot />
   </button>
 {/if}

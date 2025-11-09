@@ -17,7 +17,7 @@
     { href: '/events/alicante', label: 'Alicante' }
   ];
   
-  const baseStyles = 'text-gray-600 hover:text-green-800 transition-colors duration-200';
+  const baseStyles = 'text-gray-600 transition-colors duration-200';
   
   const variantStyles = {
     desktop: 'hidden md:flex items-center space-x-8',
@@ -44,6 +44,9 @@
       <a 
         href="/#eventos" 
         class="{baseStyles} {linkStyles[variant]} flex items-center"
+        style="color: #666666;"
+        on:mouseenter={(e) => e.target.style.color='#003333'}
+        on:mouseleave={(e) => e.target.style.color='#666666'}
         on:click={(e) => e.preventDefault()}
       >
         Eventos
@@ -57,7 +60,10 @@
           {#each ciudades as ciudad}
             <a 
               href={ciudad.href}
-              class="block px-4 py-2 text-sm text-gray-600 hover:text-green-800 hover:bg-gray-50 first:rounded-t-md last:rounded-b-md transition-colors duration-200"
+              class="block px-4 py-2 text-sm transition-colors duration-200 first:rounded-t-md last:rounded-b-md text-gray-600 hover:bg-gray-50" 
+              style="color: #666666;"
+              on:mouseenter={(e) => { e.target.style.color='#003333'; e.target.style.backgroundColor='#f9fafb'; }}
+              on:mouseleave={(e) => { e.target.style.color='#666666'; e.target.style.backgroundColor='transparent'; }}
               on:click={() => { showEventosDropdown = false; onLinkClick(); }}
             >
               {ciudad.label}
@@ -72,8 +78,11 @@
       <a 
         href={item.href} 
         class={`${baseStyles} ${linkStyles[variant]}`}
+        style="color: #666666;"
         target={item.external ? '_blank' : '_self'}
         rel={item.external ? 'noopener noreferrer' : ''}
+        on:mouseenter={(e) => e.target.style.color='#003333'}
+        on:mouseleave={(e) => e.target.style.color='#666666'}
         on:click={onLinkClick}
       >
         {item.label}
@@ -89,6 +98,9 @@
     <a 
       href="/#eventos" 
       class={`${baseStyles} ${linkStyles[variant]}`}
+      style="color: #666666;"
+      on:mouseenter={(e) => e.target.style.color='#003333'}
+      on:mouseleave={(e) => e.target.style.color='#666666'}
       on:click={(e) => e.preventDefault()}
     >
       Eventos
@@ -97,8 +109,11 @@
       <a 
         href={item.href} 
         class={`${baseStyles} ${linkStyles[variant]}`}
+        style="color: #666666;"
         target={item.external ? '_blank' : '_self'}
         rel={item.external ? 'noopener noreferrer' : ''}
+        on:mouseenter={(e) => e.target.style.color='#003333'}
+        on:mouseleave={(e) => e.target.style.color='#666666'}
         on:click={onLinkClick}
       >
         {item.label}

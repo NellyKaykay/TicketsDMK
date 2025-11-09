@@ -16,7 +16,7 @@
 
 <a href="/" class="flex items-center">
   <img 
-    src="/logo-ticketsdmk.png" 
+    src="/logo-ticketsdmk.svg" 
     alt="TicketsDMK" 
     class={`object-contain ${sizes[size]}`}
   />

@@ -15,7 +15,7 @@
   };
   
   const availabilityStyles = {
-    available: 'bg-green-100 text-green-800',
+    available: 'text-white' + ' style="background-color: #e6f7f7; color: #003333;"',
     limited: 'bg-yellow-100 text-yellow-800',
     'sold-out': 'bg-red-100 text-red-800'
   };
@@ -58,7 +58,7 @@
   <div class="p-6">
     <!-- Artist & Title -->
     <div class="mb-3">
-      <h3 class="concert-card-title text-green-800 mb-1 line-clamp-1">
+      <h3 class="concert-card-title mb-1 line-clamp-1" style="color: #003333;">
         {concert.artist}
       </h3>
       <p class="concert-card-subtitle text-gray-900">
@@ -87,7 +87,7 @@
     <!-- Price & Button -->
     <div class="flex items-center justify-between">
       <div class="concert-card-price text-gray-900">
-        desde <span class="concert-card-price-amount text-green-800">{concert.price}</span>
+        desde <span class="concert-card-price-amount" style="color: #003333;">{concert.price}</span>
       </div>
       
       {#if concert.availability !== 'sold-out'}

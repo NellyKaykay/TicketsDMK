@@ -28,7 +28,10 @@
   {#each socialLinks as social}
     <a 
       href={social.href}
-      class="text-green-800 hover:text-green-600 transition-colors duration-200"
+      class="transition-colors duration-200"
+      style="color: #003333;"
+      on:mouseenter={(e) => e.target.style.color='#004d4d'}
+      on:mouseleave={(e) => e.target.style.color='#003333'}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Síguenos en ${platformNames[social.platform]}${social.username ? ` @${social.username}` : ''}`}

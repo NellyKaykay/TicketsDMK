@@ -196,11 +196,11 @@
 
 <main class="min-h-screen bg-gray-50">
   <!-- Header -->
-  <section class="bg-green-800 text-white py-16">
+  <section class="text-white py-16" style="background-color: #003333;">
     <Container>
       <div class="text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Todos los Eventos</h1>
-        <p class="text-xl text-green-100 max-w-2xl mx-auto">
+        <p class="text-xl max-w-2xl mx-auto" style="color: #b3e0e0;">
           Descubre nuestra completa colección de eventos musicales
         </p>
       </div>
@@ -214,7 +214,7 @@
         <!-- City Filter -->
         <div class="flex flex-col">
           <label for="city-filter-all" class="text-sm font-medium text-gray-700 mb-2">Ciudad</label>
-          <select id="city-filter-all" bind:value={selectedCity} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+          <select id="city-filter-all" bind:value={selectedCity} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
             {#each cities as city}
               <option value={city}>{city}</option>
             {/each}
@@ -224,7 +224,7 @@
         <!-- Category Filter -->
         <div class="flex flex-col">
           <label for="category-filter-all" class="text-sm font-medium text-gray-700 mb-2">Categoría</label>
-          <select id="category-filter-all" bind:value={selectedCategory} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+          <select id="category-filter-all" bind:value={selectedCategory} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
             {#each categories as category}
               <option value={category}>{category}</option>
             {/each}
@@ -234,7 +234,7 @@
         <!-- Status Filter -->
         <div class="flex flex-col">
           <label for="status-filter-all" class="text-sm font-medium text-gray-700 mb-2">Estado</label>
-          <select id="status-filter-all" bind:value={selectedStatus} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+          <select id="status-filter-all" bind:value={selectedStatus} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
             {#each statuses as status}
               <option value={status}>{status}</option>
             {/each}
@@ -280,7 +280,7 @@
           <p class="text-gray-600 mb-6">Intenta ajustar los filtros para encontrar más eventos.</p>
           <button 
             on:click={() => { selectedCity = 'Todas'; selectedCategory = 'Todas'; selectedStatus = 'Todos'; }}
-            class="px-6 py-3 bg-green-800 text-white rounded-lg hover:bg-green-700 transition-colors"
+            class="px-6 py-3 text-white rounded-lg transition-colors" style="background-color: #003333;"
           >
             Ver todos los eventos
           </button>
@@ -291,7 +291,7 @@
       <div class="text-center mt-16">
         <a 
           href="/" 
-          class="inline-flex items-center px-6 py-3 border border-green-800 text-green-800 rounded-lg hover:bg-green-50 transition-colors"
+          class="inline-flex items-center px-6 py-3 border rounded-lg transition-colors" style="border-color: #003333; color: #003333;"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>

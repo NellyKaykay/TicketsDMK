@@ -90,7 +90,7 @@
           <p class="text-sm font-medium text-gray-900">{user?.name || 'Usuario'}</p>
           <p class="text-sm text-gray-500 truncate">{user?.email}</p>
           {#if user?.loginMethod}
-            <p class="text-xs text-green-600 mt-1">
+            <p class="text-xs mt-1" style="color: #003333;">
               Conectado via {user.loginMethod === 'google' ? 'Google' : user.loginMethod === 'facebook' ? 'Facebook' : 'Email'}
             </p>
           {/if}
@@ -151,7 +151,8 @@
       </a>
       <a 
         href="/register" 
-        class={variant === 'desktop' ? 'bg-green-800 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors' : 'bg-green-800 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center transition-colors'}
+        class={variant === 'desktop' ? 'text-white px-4 py-2 rounded-md text-sm font-medium transition-colors' : 'text-white px-4 py-2 rounded-md text-sm font-medium text-center transition-colors'}
+        style="background-color: #003333;"
       >
         Registrarse
       </a>

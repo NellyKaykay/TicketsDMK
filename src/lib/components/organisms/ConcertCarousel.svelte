@@ -107,7 +107,7 @@
 {#if title}
 <!-- Header -->
 <div class="text-center mb-8">
-  <h2 class="text-3xl font-bold text-green-800 mb-2">{title}</h2>
+  <h2 class="text-3xl font-bold mb-2" style="color: #003333;">{title}</h2>
   {#if subtitle}
     <p class="text-lg text-gray-600 mb-6">{subtitle}</p>
   {/if}
@@ -120,7 +120,7 @@
         {#each cities as city}
           <button
             class="px-4 py-2 text-sm font-medium transition-colors duration-200 {selectedCity === city 
-              ? 'bg-green-800 text-white' 
+              ? 'text-white' + ' style=\"background-color: #003333;\"'
               : 'text-gray-700 hover:bg-gray-50'}"
             on:click={() => selectCity(city)}
           >
@@ -132,7 +132,7 @@
       <!-- Mobile Version -->
       <div class="md:hidden relative city-selector">
         <button
-          class="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500"
+          class="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2" style="--tw-ring-color: #003333;"
           on:click={toggleCitySelector}
         >
           <span>{selectedCity}</span>
@@ -146,7 +146,7 @@
           <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 animate-slide-down">
             {#each cities as city}
               <button
-                class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none {selectedCity === city ? 'bg-green-50 text-green-800 font-medium' : ''}"
+                class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none {selectedCity === city ? 'font-medium' + ' style=\"background-color: #e6f7f7; color: #003333;\"' : ''}"
                 on:click={() => selectCity(city)}
               >
                 {city}
@@ -202,7 +202,7 @@
       <h3 class="text-lg font-medium text-gray-900 mb-2">No hay eventos en {selectedCity}</h3>
       <p class="text-gray-500 mb-4">Selecciona otra ciudad o vuelve más tarde para ver nuevos eventos.</p>
       <button 
-        class="px-4 py-2 bg-green-800 text-white rounded-lg hover:bg-green-700 transition-colors"
+        class="px-4 py-2 text-white rounded-lg transition-colors" style="background-color: #003333;"
         on:click={() => selectCity('Todas')}
       >
         Ver todos los eventos
@@ -216,7 +216,7 @@
   <div class="flex justify-center mt-8 space-x-2">
     {#each Array(Math.ceil(filteredConcerts.length / itemsPerView)) as _, index}
       <button
-        class="w-2 h-2 rounded-full transition-colors duration-200 {index === Math.floor(currentIndex / itemsPerView) ? 'bg-green-800' : 'bg-gray-300'}"
+        class="w-2 h-2 rounded-full transition-colors duration-200 {index === Math.floor(currentIndex / itemsPerView) ? '' + ' style=\"background-color: #003333;\"' : 'bg-gray-300'}"
         on:click={() => currentIndex = index * itemsPerView}
         aria-label="Ir a slide {index + 1}"
       ></button>
@@ -228,7 +228,7 @@
 <div class="text-center mt-12">
   <a 
     href={viewAllLink} 
-    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-green-800 bg-green-50 hover:bg-green-100 transition-colors duration-200"
+    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md transition-colors duration-200" style="color: #003333; background-color: #e6f7f7;"
   >
     Ver todos los eventos
     <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
