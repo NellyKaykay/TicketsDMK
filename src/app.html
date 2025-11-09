@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- ✅ SEO Meta Tags -->
@@ -29,21 +29,15 @@
     <!-- ✅ Title -->
     <title>TicketsDMK – Entradas y vuelos musicales</title>
 
-    <!-- ✅ Fonts / Styles - Carga optimizada -->
+    <!-- ✅ Fonts / Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS base para evitar FOUC -->
-    <style>
-      html { font-family: system-ui, -apple-system, sans-serif; }
-      .font-loading { font-family: 'Inter', system-ui, -apple-system, sans-serif !important; }
-    </style>
 
     %sveltekit.head%
   </head>
 
-  <body data-sveltekit-preload-data="hover" class="font-loading">
+  <body data-sveltekit-preload-data="hover">
     <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>
