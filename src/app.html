@@ -29,15 +29,21 @@
     <!-- ✅ Title -->
     <title>TicketsDMK – Entradas y vuelos musicales</title>
 
-    <!-- ✅ Fonts / Styles -->
+    <!-- ✅ Fonts / Styles - Carga optimizada -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS base para evitar FOUC -->
+    <style>
+      html { font-family: system-ui, -apple-system, sans-serif; }
+      .font-loading { font-family: 'Inter', system-ui, -apple-system, sans-serif !important; }
+    </style>
 
     %sveltekit.head%
   </head>
 
-  <body data-sveltekit-preload-data="hover">
+  <body data-sveltekit-preload-data="hover" class="font-loading">
     <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>

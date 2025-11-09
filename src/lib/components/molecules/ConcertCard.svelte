@@ -48,7 +48,7 @@
     
     <!-- Availability badge -->
     <div class="absolute top-3 right-3">
-      <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${availabilityStyles[concert.availability]}`}>
+      <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full card-text-xs font-medium ${availabilityStyles[concert.availability]}`}>
         {availabilityText[concert.availability]}
       </span>
     </div>
@@ -58,24 +58,24 @@
   <div class="p-6">
     <!-- Artist & Title -->
     <div class="mb-3">
-      <h3 class="text-lg font-semibold text-green-800 mb-1 line-clamp-1">
+      <h3 class="card-text-lg text-green-800 mb-1 line-clamp-1">
         {concert.artist}
       </h3>
-      <p class="text-sm text-gray-900 font-medium">
+      <p class="card-text-sm text-gray-900 font-medium">
         {concert.title}
       </p>
     </div>
     
     <!-- Event details -->
     <div class="space-y-2 mb-4">
-      <div class="flex items-center text-sm text-gray-600">
+      <div class="flex items-center card-text-sm text-gray-600">
         <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
         {formatDate(concert.date)}
       </div>
       
-      <div class="flex items-center text-sm text-gray-600">
+      <div class="flex items-center card-text-sm text-gray-600">
         <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -86,8 +86,8 @@
     
     <!-- Price & Button -->
     <div class="flex items-center justify-between">
-      <div class="text-lg font-bold text-gray-900">
-        desde <span class="text-green-800">{concert.price}</span>
+      <div class="card-text-lg text-gray-900">
+        desde <span class="text-green-800 font-bold">{concert.price}</span>
       </div>
       
       {#if concert.availability !== 'sold-out'}

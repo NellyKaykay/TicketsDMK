@@ -20,8 +20,26 @@ export default {
       },
       fontFamily: {
         'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
       }
     },
   },
   plugins: [],
+  // Asegurar que no se pierdan clases importantes
+  safelist: [
+    'bg-green-100',
+    'text-green-800',
+    'bg-yellow-100', 
+    'text-yellow-800',
+    'bg-red-100',
+    'text-red-800',
+    'line-clamp-1'
+  ]
 };
