@@ -52,7 +52,7 @@
       <div class="md:col-span-1 space-y-8">
         <div>
           <img 
-            src="/logo-ticketsdmk.svg" 
+            src="/logo-ticketsdmk.jpg" 
             alt="TicketsDMK" 
             class="h-32 w-32 object-contain"
           />

@@ -2,6 +2,7 @@
   import Navigation from './Navigation.svelte';
   import UserMenu from './UserMenu.svelte';
   import LanguageSelector from '../atoms/LanguageSelector.svelte';
+  import Logo from '../atoms/Logo.svelte';
   
   export let isOpen = false;
   export let onClose: () => void = () => {};
@@ -23,6 +24,7 @@
     <div class="h-full flex flex-col">
       <!-- Header -->
       <div class="flex items-center justify-between p-4 border-b border-gray-200">
+        <Logo size="sm" />
         <h2 class="text-lg font-semibold text-gray-900">Menú</h2>
         <button
           on:click={onClose}

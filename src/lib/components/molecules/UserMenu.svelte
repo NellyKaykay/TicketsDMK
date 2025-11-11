@@ -145,13 +145,13 @@
     <div class={variant === 'desktop' ? 'flex items-center space-x-3' : 'flex flex-col space-y-2'}>
       <a 
         href="/login" 
-        class={variant === 'desktop' ? 'text-gray-600 hover:text-gray-900 text-sm font-medium' : 'text-center py-2 text-gray-600 hover:text-gray-900 text-sm font-medium'}
+        class={variant === 'desktop' ? 'text-gray-600 hover:text-gray-900 text-2xl font-semibold px-4 py-2' : 'text-center py-3 text-gray-600 hover:text-gray-900 text-2xl font-semibold'}
       >
         Iniciar Sesión
       </a>
       <a 
         href="/register" 
-        class={variant === 'desktop' ? 'text-white px-4 py-2 rounded-md text-sm font-medium transition-colors' : 'text-white px-4 py-2 rounded-md text-sm font-medium text-center transition-colors'}
+        class={variant === 'desktop' ? 'text-white px-6 py-3 rounded-md text-2xl font-semibold transition-colors' : 'text-white px-6 py-3 rounded-md text-2xl font-semibold text-center transition-colors'}
         style="background-color: #003333;"
       >
         Registrarse

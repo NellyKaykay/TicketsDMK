@@ -14,11 +14,51 @@ html, body {
   color: var(--text);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Floating card optimizations */
+@media (min-width: 1280px) {
+  .floating-card {
+    transform-origin: center;
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  .floating-card > div {
+    min-width: 440px;
+    max-width: 440px;
+  }
+}
+
+/* Ensure consistent text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fix for zoom/scale inconsistencies */
+@media screen and (min-width: 1024px) {
+  .floating-card {
+    zoom: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
 
 /* Animaciones personalizadas */

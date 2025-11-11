@@ -41,26 +41,22 @@
   });
 </script>
 
-<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      
+<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40 text-xl">
+  <div class="max-w-7xl mx-auto px-0">
+  <div class="flex justify-between items-center h-28">
       <!-- Logo -->
-      <div class="flex-shrink-0">
-        <Logo size="md" />
+      <div class="flex-shrink-0 flex items-center h-full mr-16">
+        <Logo size="header" />
       </div>
-      
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-8">
+      <div class="hidden md:flex items-center space-x-16">
         <Navigation variant="desktop" />
       </div>
-      
       <!-- Desktop Right Side -->
-      <div class="hidden md:flex items-center space-x-4">
+      <div class="hidden md:flex items-center space-x-8 text-2xl">
         <LanguageSelector />
         <UserMenu variant="desktop" />
       </div>
-      
       <!-- Mobile Hamburger -->
       <div class="md:hidden">
         <HamburgerButton 
@@ -68,7 +64,6 @@
           onClick={toggleMobileMenu} 
         />
       </div>
-      
     </div>
   </div>
 </header>

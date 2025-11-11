@@ -3,7 +3,6 @@
   export let onLinkClick: () => void = () => {};
   
   const navItems = [
-    { href: 'https://skyarmenia.com', label: 'Vuelos', external: true },
     { href: '/about', label: 'Nosotros' },
     { href: '/contact', label: 'Contacto' }
   ];
@@ -25,8 +24,8 @@
   };
   
   const linkStyles = {
-    desktop: 'text-base font-medium',
-    mobile: 'text-lg font-medium px-3 py-2 rounded-md hover:bg-gray-100'
+    desktop: 'text-2xl font-semibold',
+    mobile: 'text-2xl font-semibold px-4 py-3 rounded-md hover:bg-gray-100'
   };
   
   let showEventosDropdown = false;
@@ -79,18 +78,14 @@
         href={item.href} 
         class={`${baseStyles} ${linkStyles[variant]}`}
         style="color: #666666;"
-        target={item.external ? '_blank' : '_self'}
-        rel={item.external ? 'noopener noreferrer' : ''}
+  target="_self"
+  rel=""
         on:mouseenter={(e) => e.target.style.color='#003333'}
         on:mouseleave={(e) => e.target.style.color='#666666'}
         on:click={onLinkClick}
       >
         {item.label}
-        {#if item.external}
-          <svg class="ml-1 h-3 w-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-          </svg>
-        {/if}
+        <!-- ...existing code... -->
       </a>
     {/each}
   {:else}
@@ -110,18 +105,14 @@
         href={item.href} 
         class={`${baseStyles} ${linkStyles[variant]}`}
         style="color: #666666;"
-        target={item.external ? '_blank' : '_self'}
-        rel={item.external ? 'noopener noreferrer' : ''}
+  target="_self"
+  rel=""
         on:mouseenter={(e) => e.target.style.color='#003333'}
         on:mouseleave={(e) => e.target.style.color='#666666'}
         on:click={onLinkClick}
       >
         {item.label}
-        {#if item.external}
-          <svg class="ml-1 h-3 w-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-          </svg>
-        {/if}
+        <!-- ...existing code... -->
       </a>
     {/each}
   {/if}

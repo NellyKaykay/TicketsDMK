@@ -37,70 +37,64 @@
 </script>
 
 <Card variant="elevated" padding="none" clickable>
-  <!-- Image -->
-  <div class="relative overflow-hidden">
-    <img 
-      src={concert.image} 
-      alt={concert.title}
-      class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-      loading="lazy"
-    />
-    
-    <!-- Availability badge -->
-    <div class="absolute top-3 right-3">
-      <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full concert-card-badge ${availabilityStyles[concert.availability]}`}>
-        {availabilityText[concert.availability]}
-      </span>
+  <div class="flex flex-col h-[32rem]">
+    <!-- Imagen -->
+    <div class="relative flex-grow overflow-hidden">
+      <img 
+        src={concert.image} 
+        alt={concert.title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+      />
+      <!-- Availability badge -->
+      <div class="absolute top-3 right-3">
+        <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full concert-card-badge ${availabilityStyles[concert.availability]}`}>
+          {availabilityText[concert.availability]}
+        </span>
+      </div>
     </div>
-  </div>
-  
-  <!-- Content -->
-  <div class="p-6">
-    <!-- Artist & Title -->
-    <div class="mb-3">
-      <h3 class="concert-card-title mb-1 line-clamp-1" style="color: #003333;">
+    <!-- Texto -->
+    <div class="p-4 flex flex-col justify-between mb-4">
+    <!-- Artist & Title (compact) -->
+    <div>
+      <h3 class="concert-card-title mb-1 line-clamp-1 text-lg font-semibold" style="color: #003333;">
         {concert.artist}
       </h3>
-      <p class="concert-card-subtitle text-gray-900">
-        {concert.title}
-      </p>
+      <p class="concert-card-subtitle text-gray-900 text-sm line-clamp-1">{concert.title}</p>
     </div>
-    
-    <!-- Event details -->
-    <div class="space-y-2 mb-4">
-      <div class="flex items-center concert-card-details text-gray-600">
+
+    <!-- Small details row -->
+    <div class="flex items-center justify-between text-sm text-gray-600 mt-2">
+      <div class="flex items-center">
         <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
-        {formatDate(concert.date)}
+        <span class="line-clamp-1">{formatDate(concert.date)}</span>
       </div>
-      
-      <div class="flex items-center concert-card-details text-gray-600">
-        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        <span class="truncate">{concert.venue}</span>
-      </div>
+      <div class="text-right line-clamp-1 truncate" style="max-width: 45%">{concert.venue}</div>
     </div>
-    
-    <!-- Price & Button -->
-    <div class="flex items-center justify-between">
-      <div class="concert-card-price text-gray-900">
-        desde <span class="concert-card-price-amount" style="color: #003333;">{concert.price}</span>
-      </div>
-      
+
+    <!-- Button only (no price) -->
+    <div class="mt-3 w-full">
       {#if concert.availability !== 'sold-out'}
-        <Button variant="primary" size="sm" href={`/concert/${concert.id}`}>
+        <a
+          href={`/concert/${concert.id}`}
+          class="w-full block text-center px-0 py-4 mb-4 border border-transparent text-lg font-semibold rounded-md text-white transition-colors duration-200"
+          style="background-color: #003333;"
+        >
           Ver entradas
-        </Button>
+        </a>
       {:else}
-        <Button variant="secondary" size="sm" disabled>
+        <span
+          class="w-full block text-center px-0 py-4 mb-4 border border-transparent text-lg font-semibold rounded-md text-white transition-colors duration-200 opacity-50 cursor-not-allowed"
+          style="background-color: #003333;"
+        >
           Agotado
-        </Button>
+        </span>
       {/if}
     </div>
   </div>
+</div>
 </Card>
 
 <style>
