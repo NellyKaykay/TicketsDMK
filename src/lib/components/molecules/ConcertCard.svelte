@@ -1,8 +1,5 @@
-<script lang="ts">
-  import Card from '../atoms/Card.svelte';
-  import Button from '../atoms/Button.svelte';
-  
-  export let concert: {
+<script context="module" lang="ts">
+  export interface Concert {
     id: string;
     title: string;
     artist: string;
@@ -12,20 +9,13 @@
     price: string;
     category: string;
     availability: 'available' | 'limited' | 'sold-out';
-  };
-  
-  const availabilityStyles = {
-    available: 'text-white' + ' style="background-color: #e6f7f7; color: #003333;"',
-    limited: 'bg-yellow-100 text-yellow-800',
-    'sold-out': 'bg-red-100 text-red-800'
-  };
-  
-  const availabilityText = {
-    available: 'Disponible',
-    limited: 'Pocas entradas',
-    'sold-out': 'Agotado'
-  };
-  
+  }
+</script>
+<script lang="ts">
+  import Card from '../atoms/Card.svelte';
+
+  export let concert: Concert;
+
   function formatDate(dateString: string) {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', {
@@ -36,57 +26,48 @@
   }
 </script>
 
-<Card variant="elevated" padding="none" clickable>
-  <div class="flex flex-col h-[32rem]">
-    <!-- Imagen -->
-    <div class="relative flex-grow overflow-hidden">
-      <img 
-        src={concert.image} 
-        alt={concert.title}
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
-      <!-- Availability badge -->
-      <div class="absolute top-3 right-3">
-        <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full concert-card-badge ${availabilityStyles[concert.availability]}`}>
-          {availabilityText[concert.availability]}
-        </span>
-      </div>
-    </div>
-    <!-- Texto -->
-    <div class="p-4 flex flex-col justify-between mb-4">
-    <!-- Artist & Title (compact) -->
+
+
+<Card>
+  <div class="relative h-2/3 w-full">
+    <img
+      src={concert.image}
+      alt={concert.title}
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+    <span class="absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-semibold"
+      class:bg-green-100={concert.availability === 'available'}
+      class:text-green-800={concert.availability === 'available'}
+      class:bg-yellow-100={concert.availability === 'limited'}
+      class:text-yellow-800={concert.availability === 'limited'}
+      class:bg-red-100={concert.availability === 'sold-out'}
+      class:text-red-800={concert.availability === 'sold-out'}
+    >
+      {concert.availability === 'available' ? 'Disponible' : concert.availability === 'limited' ? 'Pocas entradas' : 'Agotado'}
+    </span>
+  </div>
+  <div class="flex flex-col justify-between h-1/3 p-2">
     <div>
-      <h3 class="concert-card-title mb-1 line-clamp-1 text-lg font-semibold" style="color: #003333;">
-        {concert.artist}
-      </h3>
-      <p class="concert-card-subtitle text-gray-900 text-sm line-clamp-1">{concert.title}</p>
+      <h3 class="text-base font-bold text-[#003333] truncate mb-0.5">{concert.artist}</h3>
+      <p class="text-xs text-gray-700 truncate">{concert.title}</p>
     </div>
-
-    <!-- Small details row -->
-    <div class="flex items-center justify-between text-sm text-gray-600 mt-2">
-      <div class="flex items-center">
-        <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
-        <span class="line-clamp-1">{formatDate(concert.date)}</span>
-      </div>
-      <div class="text-right line-clamp-1 truncate" style="max-width: 45%">{concert.venue}</div>
+    <div class="flex items-center justify-between text-xs text-gray-600 mt-1">
+      <span>{formatDate(concert.date)}</span>
+      <span class="truncate max-w-[50%] text-right">{concert.venue}</span>
     </div>
-
-    <!-- Button only (no price) -->
-    <div class="mt-3 w-full">
+    <div class="mt-2">
       {#if concert.availability !== 'sold-out'}
         <a
           href={`/concert/${concert.id}`}
-          class="w-full block text-center px-0 py-4 mb-4 border border-transparent text-lg font-semibold rounded-md text-white transition-colors duration-200"
+          class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold transition-colors duration-200"
           style="background-color: #003333;"
         >
           Ver entradas
         </a>
       {:else}
         <span
-          class="w-full block text-center px-0 py-4 mb-4 border border-transparent text-lg font-semibold rounded-md text-white transition-colors duration-200 opacity-50 cursor-not-allowed"
+          class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold opacity-50 cursor-not-allowed"
           style="background-color: #003333;"
         >
           Agotado
@@ -94,14 +75,6 @@
       {/if}
     </div>
   </div>
-</div>
 </Card>
 
-<style>
-  .line-clamp-1 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>
+

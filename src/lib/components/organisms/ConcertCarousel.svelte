@@ -26,7 +26,7 @@
   let showCitySelector = false;
   
   // Obtener ciudades únicas
-  $: cities = ['Todas', ...new Set(concerts.map(concert => concert.title))].sort();
+  $: cities = ['Todas', ...Array.from(new Set(concerts.map(concert => concert.title)))];
   
   // Filtrar eventos por ciudad seleccionada
   $: filteredConcerts = selectedCity === 'Todas' 
@@ -104,6 +104,8 @@
   });
 </script>
 
+
+
 {#if title}
 <!-- Header -->
 <div class="text-center mb-8">
@@ -111,53 +113,53 @@
   {#if subtitle}
     <p class="text-lg text-gray-600 mb-6">{subtitle}</p>
   {/if}
-  
-  <!-- City Selector -->
-  {#if cities.length > 1}
-    <div class="flex justify-center mb-6">
-      <!-- Desktop Version -->
-      <div class="hidden md:flex bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        {#each cities as city}
-          <button
-            class="px-4 py-2 text-sm font-medium transition-colors duration-200 {selectedCity === city 
-              ? 'text-white' + ' style=\"background-color: #003333;\"'
-              : 'text-gray-700 hover:bg-gray-50'}"
-            on:click={() => selectCity(city)}
-          >
-            {city}
-          </button>
-        {/each}
-      </div>
-      
-      <!-- Mobile Version -->
-      <div class="md:hidden relative city-selector">
-        <button
-          class="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2" style="--tw-ring-color: #003333;"
-          on:click={toggleCitySelector}
-        >
-          <span>{selectedCity}</span>
-          <svg class="w-5 h-5 transition-transform duration-200 {showCitySelector ? 'rotate-180' : ''}" 
-               fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </button>
-        
-        {#if showCitySelector}
-          <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 animate-slide-down">
-            {#each cities as city}
-              <button
-                class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none {selectedCity === city ? 'font-medium' + ' style=\"background-color: #e6f7f7; color: #003333;\"' : ''}"
-                on:click={() => selectCity(city)}
-              >
-                {city}
-              </button>
-            {/each}
-          </div>
-        {/if}
-      </div>
-    </div>
-  {/if}
 </div>
+{/if}
+
+<!-- Aquí iría la imagen del fondo del héroe -->
+<!-- <div class="hero-bg"> ... </div> -->
+
+{#if cities.length > 1}
+  <div class="flex justify-center mb-8">
+    <!-- Desktop Version -->
+    <div class="hidden md:flex bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      {#each cities as city}
+        <button
+          class="px-4 py-2 text-sm font-medium transition-colors duration-200 {selectedCity === city 
+            ? 'text-white' + ' bg-[#003333]'
+            : 'text-gray-700 hover:bg-gray-50'}"
+          on:click={() => selectCity(city)}
+        >
+          {city}
+        </button>
+      {/each}
+    </div>
+    <!-- Mobile Version -->
+    <div class="md:hidden relative city-selector">
+      <button
+        class="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2" style="--tw-ring-color: #003333;"
+        on:click={toggleCitySelector}
+      >
+        <span>{selectedCity}</span>
+        <svg class="w-5 h-5 transition-transform duration-200 {showCitySelector ? 'rotate-180' : ''}" 
+             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      {#if showCitySelector}
+        <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 animate-slide-down">
+          {#each cities as city}
+            <button
+              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none {selectedCity === city ? 'font-medium' + ' style=\"background-color: #e6f7f7; color: #003333;\"' : ''}"
+              on:click={() => selectCity(city)}
+            >
+              {city}
+            </button>
+          {/each}
+        </div>
+      {/if}
+    </div>
+  </div>
 {/if}
 
 <!-- Carousel -->
@@ -176,7 +178,7 @@
         style="transform: translateX({translateX}%)"
       >
         {#each filteredConcerts as concert (concert.id)}
-          <div class="w-full flex-shrink-0 px-3" style="width: {100 / itemsPerView}%">
+          <div class="flex-shrink-0" style="width: {100 / itemsPerView}%">
             <ConcertCard {concert} />
           </div>
         {/each}
