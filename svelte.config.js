@@ -17,7 +17,8 @@ const config = {
 		// Completely disable prerendering for dynamic content
 		prerender: {
 			entries: []
-		}
+		},
+		handleUnseenRoutes: 'ignore' // Solución para Render.com
 	}
 };
 
