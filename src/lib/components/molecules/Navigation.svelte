@@ -9,11 +9,11 @@
   
 
   
-  const ciudades = [
-    { href: '/events/barcelona', label: 'Barcelona' },
-    { href: '/events/madrid', label: 'Madrid' },
-    { href: '/events/valencia', label: 'Valencia' },
-    { href: '/events/alicante', label: 'Alicante' }
+  const eventosCategorias = [
+    { href: '/concerts', label: 'Concierto' },
+    { href: '/teatro', label: 'Teatro' },
+    { href: '/pelicula', label: 'Película' },
+    { href: '/monologo', label: 'Monólogo' }
   ];
   
   const baseStyles = 'text-gray-600 transition-colors duration-200';
@@ -56,16 +56,16 @@
       
       {#if showEventosDropdown}
         <div class="absolute top-full left-0 mt-1 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-          {#each ciudades as ciudad}
+          {#each eventosCategorias as categoria}
             <a 
-              href={ciudad.href}
+              href={categoria.href}
               class="block px-4 py-2 text-sm transition-colors duration-200 first:rounded-t-md last:rounded-b-md text-gray-600 hover:bg-gray-50" 
               style="color: #666666;"
               on:mouseenter={(e) => { e.target.style.color='#003333'; e.target.style.backgroundColor='#f9fafb'; }}
               on:mouseleave={(e) => { e.target.style.color='#666666'; e.target.style.backgroundColor='transparent'; }}
               on:click={() => { showEventosDropdown = false; onLinkClick(); }}
             >
-              {ciudad.label}
+              {categoria.label}
             </a>
           {/each}
         </div>

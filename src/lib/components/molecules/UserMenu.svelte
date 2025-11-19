@@ -149,13 +149,7 @@
       >
         Iniciar Sesión
       </a>
-      <a 
-        href="/register" 
-        class={variant === 'desktop' ? 'text-white px-6 py-3 rounded-md text-2xl font-semibold transition-colors' : 'text-white px-6 py-3 rounded-md text-2xl font-semibold text-center transition-colors'}
-        style="background-color: #003333;"
-      >
-        Registrarse
-      </a>
+      <!-- Botón Registrarse eliminado -->
     </div>
   {/if}
 </div>

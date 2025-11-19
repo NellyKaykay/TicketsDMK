@@ -26,7 +26,7 @@
   $: classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${disabled ? disabledStyles : ''}`;
   
   $: customStyle = variant === 'primary' ? 'background-color: #003333;' : 
-                   variant === 'outline' ? 'border-color: #003333; color: white; background-color: transparent;' : 
+                   variant === 'outline' ? 'border-color: #003333; color: #033333; background-color: transparent;' : 
                    '';
 </script>
 
