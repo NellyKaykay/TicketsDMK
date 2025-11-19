@@ -16,7 +16,8 @@ const config = {
 		}),
 		// Completely disable prerendering for dynamic content
 		prerender: {
-			entries: []
+			entries: [],
+			handleUnseenRoutes: 'ignore' // suprime el error para rutas no prerenderizadas
 		}
 	}
 };
