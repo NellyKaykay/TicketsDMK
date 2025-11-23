@@ -1,0 +1,12 @@
+{
+  "welcome": "Добро пожаловать в TicketsDMK",
+  "login": "Войти",
+  "register": "Регистрация",
+  "events": "События",
+  "concert": "Концерт",
+  "theater": "Театр",
+  "movie": "Фильм",
+  "monologue": "Монолог",
+  "exploreEvents": "Исследовать события",
+  "howItWorks": "Как это работает"
+}
