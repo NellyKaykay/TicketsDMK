@@ -60,7 +60,7 @@
 
 <div class="relative text-[#003333] overflow-hidden min-h-[70vh] sm:min-h-[80vh] flex items-center">
   <!-- Background image -->
-  <img src="heroe-image.jpg" alt="Hero background" class="absolute inset-0 w-full h-full object-cover" />
+  <img src="/heroe-image.jpg" alt="Hero background" class="absolute inset-0 w-full h-full object-cover" on:error={(e) => { e.target.src = 'heroe-image.jpg'; }} />
   <!-- Content -->
   <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
     <div class="text-center max-w-4xl mx-auto">

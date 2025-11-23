@@ -21,5 +21,6 @@
     src="/logo-ticketsdmk.jpg" 
     alt="TicketsDMK" 
     class={`object-contain transition-transform duration-200 hover:scale-105 ${sizes[size]}`}
+    on:error={(e) => { e.target.src = 'logo-ticketsdmk.jpg'; }}
   />
 </a>
