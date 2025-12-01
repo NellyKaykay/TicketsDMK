@@ -2,6 +2,7 @@
   import '../app.css';
   import HeroSection from '$lib/components/molecules/HeroSection.svelte';
   import ConcertCarousel from '$lib/components/organisms/ConcertCarousel.svelte';
+  import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
   import Footer from '$lib/components/organisms/Footer.svelte';
   
 
@@ -162,15 +163,23 @@
   <!-- Hero Section with Floating Event Card -->
   <div class="relative min-h-[60vh] sm:min-h-[70vh]">
     <HeroSection />
-    
-    <!-- Floating Event Card - Desktop -->
-    <!-- Tarjeta flotante eliminada temporalmente para depuración -->
   </div>
 
-  <!-- Mobile Event Card -->
-  <!-- Tarjeta flotante móvil eliminada temporalmente para depuración -->
+  <!-- Bloque Próximos Eventos Destacados -->
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Próximos Eventos</h2>
+    <ConcertCarousel
+      title=""
+      subtitle=""
+      viewAllLink="/proximos-eventos"
+      concerts={concerts}
+    />
+  </section>
 
-  <!-- Concert Carousel -->
+
+
+
+  <!-- Concert Carousel: Eventos Pasados -->
   <section id="eventos" class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
@@ -181,15 +190,9 @@
           Revive los increíbles momentos que ya hemos vivido
         </p>
       </div>
-      
       <!-- Eventos Pasados -->
       <div class="mb-16">
         <ConcertCarousel concerts={pastConcerts} title="" subtitle="" />
-      </div>
-      
-      <!-- Próximos Eventos -->
-      <div>
-        <ConcertCarousel {concerts} title="Próximos Eventos" subtitle="No te pierdas estos increíbles eventos que vienen" viewAllLink="/proximos-eventos" />
       </div>
     </div>
   </section>

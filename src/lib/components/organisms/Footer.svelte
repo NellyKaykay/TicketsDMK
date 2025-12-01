@@ -51,11 +51,6 @@
       <!-- Company info -->
       <div class="md:col-span-1 space-y-8">
         <div>
-          <img 
-            src="/logo-ticketsdmk.jpg" 
-            alt="TicketsDMK" 
-            class="h-32 w-32 object-contain"
-          />
           <p class="text-base text-gray-500 max-w-md">
             Tu plataforma de confianza para descubrir y comprar entradas para los mejores eventos musicales. 
             Conectamos artistas, venues y fans para crear experiencias inolvidables.

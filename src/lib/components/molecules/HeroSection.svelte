@@ -1,9 +1,5 @@
 <script lang="ts">
   import Button from '../atoms/Button.svelte';
-  import Container from '../layout/Container.svelte';
-  import ResponsiveText from '../layout/ResponsiveText.svelte';
-  import Stack from '../layout/Stack.svelte';
-  import ResponsiveGrid from '../layout/ResponsiveGrid.svelte';
   import CardFlotante from '../atoms/CardFlotante.svelte';
   import { translations } from '../../stores/i18n';
   type HeroTranslations = {
@@ -75,13 +71,21 @@
 <div class="w-full flex justify-center relative z-10 hero-card-float mt-[-18rem] sm:mt-[-24rem] lg:mt-[-32rem]">
   <div class="w-full sm:w-4/5 lg:w-3/5 bg-transparent">
     <style>
-      /* Efecto flotante visible para el contenedor de la tarjeta en el hero */
+      /* Efecto flotante MUY visible para el contenedor de la tarjeta en el hero */
       .hero-card-float {
-        filter: drop-shadow(0 40px 120px rgba(0,0,0,0.7)) drop-shadow(0 4px 32px rgba(0,0,0,0.22));
+        filter:
+          drop-shadow(0 -32px 0px #1de9b6)
+          drop-shadow(0 0px 0px 24px #1de9b6)
+          drop-shadow(0 60px 260px rgba(0,51,51,1))
+          drop-shadow(0 24px 96px rgba(0,51,51,0.45));
         transition: filter 0.4s cubic-bezier(.4,2,.6,1);
       }
       .hero-card-float:hover {
-        filter: drop-shadow(0 60px 180px rgba(0,0,0,0.85)) drop-shadow(0 8px 48px rgba(0,0,0,0.28));
+        filter:
+          drop-shadow(0 -48px 0px #1de9b6)
+          drop-shadow(0 0px 0px 36px #1de9b6)
+          drop-shadow(0 90px 320px #003333)
+          drop-shadow(0 36px 128px rgba(0,51,51,0.55));
       }
     </style>
     <CardFlotante
@@ -98,19 +102,4 @@
       }}
     />
   </div>
-</div>
-<!-- Botones debajo del card flotante -->
-<div class="w-full flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-  <Button variant="primary" size="lg" href="#eventos">
-    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-    </svg>
-    {t.buttons.exploreEvents}
-  </Button>
-  <Button variant="outline" size="lg" href="/about">
-    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-    </svg>
-    {t.buttons.howItWorks}
-  </Button>
 </div>

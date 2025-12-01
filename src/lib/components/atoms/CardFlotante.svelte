@@ -13,6 +13,12 @@
 </script>
 
 <script lang="ts">
+    import { onMount } from 'svelte';
+    import { fade, scale, fly } from 'svelte/transition';
+    let show = false;
+    onMount(() => {
+      setTimeout(() => { show = true; }, 50);
+    });
   import Card from '../atoms/Card.svelte';
   import { translations } from '../../stores/i18n';
 
@@ -59,19 +65,23 @@
   }
 </script>
 
-<Card
-    class="hero-floating-card border border-[#003333]/25 rounded-2xl absolute left-1/2 -translate-x-1/2 -top-56 z-30 bg-white/95 backdrop-blur-sm 
-      shadow-[0_28px_100px_rgba(0,0,0,0.65)] hover:shadow-[0_40px_160px_rgba(0,0,0,0.85)]
-      transition-transform transition-shadow duration-500 ease-out 
-      hover:-translate-y-8"
->
+{#if show}
+  <div transition:fly={{ y: -80, duration: 420, delay: 60 }}>
+    <Card
+        class="hero-floating-card border-4 border-[#003333]/60 rounded-2xl absolute left-1/2 -translate-x-1/2 -top-56 z-30 bg-white/95 backdrop-blur-sm 
+          shadow-[0_40px_180px_rgba(0,51,51,0.85),0_8px_48px_rgba(0,51,51,0.28),0_0px_0px_8px_rgba(0,51,51,0.18)] hover:shadow-[0_60px_240px_rgba(0,51,51,1),0_16px_64px_rgba(0,51,51,0.35),0_0px_0px_12px_rgba(0,51,51,0.28)]
+          transition-transform transition-shadow duration-500 ease-out 
+          hover:-translate-y-12"
+        style="width: 520px; max-width: 96vw; min-width: 320px; height: 850px; box-shadow: 0 0 0 8px #1de9b6, 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid #1de9b6; outline-offset: 0px;"
+    >
   <!-- CONTENEDOR DE IMAGEN: imagen ocupa 100% del bloque -->
-  <div class="relative w-full h-full overflow-hidden rounded-2xl bg-transparent p-0 m-0">
+  <div class="relative w-full h-full overflow-hidden rounded-2xl bg-transparent p-0 m-0 flex-shrink-0" style="aspect-ratio: 16/7; max-height: 750px;">
     <img
       src={concert.image ?? '/carousel/image-4.jpg'}
       alt="Foto del evento"
       class="w-full h-full object-cover object-center rounded-2xl"
       loading="lazy"
+      style="min-height: 600px; max-height: 750px;"
     />
 
     <span
@@ -122,14 +132,18 @@
       {/if}
     </div>
   </div>
-</Card>
+    </Card>
+    </div>
+
+{/if}
 
 <style>
-  /* Estilos globales para el efecto flotante */
+  /* Estilos globales para el efecto flotante más visible */
   :global(.hero-floating-card) {
-    /* efecto flotante MUY visible */
-    transform: translateX(-50%) translateY(-18px) scale(1.03);
-    box-shadow: 0 28px 100px 0 rgba(0,0,0,0.65), 0 2px 16px 0 rgba(0,0,0,0.18);
+    transform: translateX(-50%) translateY(-28px) scale(1.04);
+    box-shadow: 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18);
+    border-width: 4px;
+    border-color: #00333399;
   }
 
   :global(.hero-floating-card)::before {
@@ -140,23 +154,24 @@
     z-index: -1;
     background: radial-gradient(
       circle at 50% 120%,
-      rgba(0, 0, 0, 0.55),
+      rgba(0,51,51,0.75),
       transparent 70%
     );
-    opacity: 0.95;
-    filter: blur(22px);
+    opacity: 1;
+    filter: blur(32px);
     transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
-    transform: translate3d(0, 24px, 0) scale(1.04);
+    transform: translate3d(0, 32px, 0) scale(1.08);
   }
 
   :global(.hero-floating-card:hover) {
-    transform: translateX(-50%) translateY(-38px) scale(1.06);
-    box-shadow: 0 40px 160px 0 rgba(0,0,0,0.85), 0 4px 32px 0 rgba(0,0,0,0.22);
+    transform: translateX(-50%) translateY(-48px) scale(1.08);
+    box-shadow: 0 60px 240px 0 rgba(0,51,51,1), 0 16px 64px 0 rgba(0,51,51,0.35), 0 0px 0px 12px rgba(0,51,51,0.28);
+    border-color: #003333cc;
   }
 
   :global(.hero-floating-card:hover)::before {
     opacity: 1;
-    filter: blur(32px);
-    transform: translate3d(0, 38px, 0) scale(1.08);
+    filter: blur(48px);
+    transform: translate3d(0, 48px, 0) scale(1.12);
   }
 </style>

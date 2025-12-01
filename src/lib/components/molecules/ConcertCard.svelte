@@ -29,12 +29,13 @@
 
 
 <Card>
-  <div class="relative h-2/3 w-full">
+  <div class="relative w-full aspect-[4/3] bg-gray-100 overflow-hidden">
     <img
       src={concert.image}
       alt={concert.title}
-      class="w-full h-full object-cover"
+      class="w-full h-full object-cover object-center min-h-[180px] max-h-[220px] aspect-[4/3] rounded-t-lg"
       loading="lazy"
+      style="display: block;"
     />
     <span class="absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-semibold"
       class:bg-green-100={concert.availability === 'available'}
