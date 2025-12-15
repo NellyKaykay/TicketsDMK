@@ -70,24 +70,7 @@
 <!-- Card flotante integrado -->
 <div class="w-full flex justify-center relative z-10 hero-card-float mt-[-18rem] sm:mt-[-24rem] lg:mt-[-32rem]">
   <div class="w-full sm:w-4/5 lg:w-3/5 bg-transparent">
-    <style>
-      /* Efecto flotante MUY visible para el contenedor de la tarjeta en el hero */
-      .hero-card-float {
-        filter:
-          drop-shadow(0 -32px 0px #1de9b6)
-          drop-shadow(0 0px 0px 24px #1de9b6)
-          drop-shadow(0 60px 260px rgba(0,51,51,1))
-          drop-shadow(0 24px 96px rgba(0,51,51,0.45));
-        transition: filter 0.4s cubic-bezier(.4,2,.6,1);
-      }
-      .hero-card-float:hover {
-        filter:
-          drop-shadow(0 -48px 0px #1de9b6)
-          drop-shadow(0 0px 0px 36px #1de9b6)
-          drop-shadow(0 90px 320px #003333)
-          drop-shadow(0 36px 128px rgba(0,51,51,0.55));
-      }
-    </style>
+    <!-- Eliminado el estilo de drop-shadow y hover del contenedor para evitar conflicto con el efecto de CardFlotante -->
     <CardFlotante
       concert={{
         id: "1",
