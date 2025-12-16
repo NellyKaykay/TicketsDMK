@@ -71,8 +71,8 @@
 {#if show}
   <div class="card-fadein-wrapper">
     <Card
-      class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] absolute left-1/2 -translate-x-1/2 -top-56 z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 hover:scale-105 animate-floating"
-      style="width: 520px; max-width: 96vw; min-width: 320px; height: 850px; box-shadow: 0 0 0 8px #1de9b6, 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid #1de9b6; outline-offset: 0px;"
+      class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] absolute left-1/2 -translate-x-1/2 -top-[224px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 hover:scale-105 animate-floating"
+      style="top: -224px; width: 520px; max-width: 96vw; min-width: 320px; height: 850px; box-shadow: 0 0 0 8px #1de9b6, 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid #1de9b6; outline-offset: 0px;"
     >
       <!-- CONTENEDOR DE IMAGEN: ocupa 100%, sin fondo blanco -->
       <div

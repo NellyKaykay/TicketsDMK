@@ -41,11 +41,11 @@
   });
 </script>
 
-<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40 text-xl">
+<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40 text-xl" style="height:112px;">
   <div class="max-w-7xl mx-auto px-0">
-  <div class="flex justify-between items-center h-28">
+  <div class="flex justify-between items-center" style="height:100%;">
       <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center h-full mr-16">
+      <div class="flex-shrink-0 flex items-center mr-16" style="height:100%;">
         <Logo size="header" />
       </div>
       <!-- Desktop Navigation -->
