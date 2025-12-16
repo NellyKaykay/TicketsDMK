@@ -30,8 +30,13 @@
   async function handleGoogleLogin() {
     loading = true;
     error = '';
-    const { error: supaError } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-    if (supaError) error = supaError.message;
+    try {
+      const redirectTo = typeof window !== 'undefined' && window.location?.origin ? window.location.origin : undefined;
+      const { error: supaError } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+      if (supaError) error = supaError.message;
+    } catch (e) {
+      error = e?.message || String(e);
+    }
     loading = false;
   }
 </script>
