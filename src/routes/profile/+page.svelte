@@ -68,14 +68,14 @@
                 <div class="text-lg font-semibold text-gray-900">Concierto Ejemplo</div>
                 <div class="text-sm text-gray-500">20 Ene 2026 · Madrid</div>
               </div>
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=Ticket-12345" alt="QR" class="w-20 h-20" />
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=Ticket-12345" alt="QR" class="w-16 h-16 md:w-20 md:h-20 object-contain" />
             </div>
             <div class="flex items-center gap-3 py-4 border-b border-gray-100">
               <div class="flex-1">
                 <div class="text-lg font-semibold text-gray-900">Festival Primavera</div>
                 <div class="text-sm text-gray-500">10 Feb 2026 · Barcelona</div>
               </div>
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=Ticket-54321" alt="QR" class="w-20 h-20" />
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=Ticket-54321" alt="QR" class="w-16 h-16 md:w-20 md:h-20 object-contain" />
             </div>
           </div>
         {/if}

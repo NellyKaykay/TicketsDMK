@@ -16,7 +16,7 @@
           <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Disponible</span>
         </div>
         <div class="flex flex-col items-center">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Ticket-12345" alt="QR Ticket 1" class="w-24 h-24" />
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Ticket-12345" alt="QR Ticket 1" class="w-20 h-20 md:w-24 md:h-24 object-contain" />
           <span class="text-xs text-gray-400 mt-2">#12345</span>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <span class="inline-block bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">Usada</span>
         </div>
         <div class="flex flex-col items-center">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Ticket-54321" alt="QR Ticket 2" class="w-24 h-24" />
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Ticket-54321" alt="QR Ticket 2" class="w-20 h-20 md:w-24 md:h-24 object-contain" />
           <span class="text-xs text-gray-400 mt-2">#54321</span>
         </div>
       </div>
