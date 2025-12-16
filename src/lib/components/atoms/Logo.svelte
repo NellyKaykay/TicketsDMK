@@ -2,10 +2,10 @@
   export let size: 'sm' | 'md' | 'lg' | 'header' = 'md';
   
   const sizes = {
-    sm: 'h-8 w-8',
-    md: 'h-32 w-32', 
-    lg: 'h-40 w-40',
-  header: 'h-16 w-auto sm:h-24'
+    sm: 'h-6 w-6',
+    md: 'h-16 w-16',
+    lg: 'h-24 w-24',
+    header: 'h-10 w-auto sm:h-16'
   };
   
   const textSizes = {
