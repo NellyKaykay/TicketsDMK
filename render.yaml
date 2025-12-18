@@ -5,7 +5,7 @@ services:
     plan: free
     buildCommand: npm ci && npm run build
     startCommand: npm start
-    healthCheckPath: /
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
@@ -29,6 +29,12 @@ services:
         sync: false
       - key: EMAIL_PASS
         sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-4.5
+      - key: ENABLE_CLAUDE_SONNET
+        value: "true"
 
 databases:
   - name: ticketsdmk-db

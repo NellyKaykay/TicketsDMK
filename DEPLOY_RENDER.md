@@ -1,3 +1,69 @@
+# Despliegue en Render para TicketsDMK
+
+Este documento describe los pasos recomendados para desplegar la aplicación en Render, aprovechando la configuración inicial en `render.yaml`.
+
+Resumen rápido
+- El proyecto usa SvelteKit con `@sveltejs/adapter-node` (server-side). Render debe ejecutar `npm ci && npm run build` y arrancar con `npm start`.
+
+1) Conectar repositorio
+- En Render, crea un nuevo Web Service y conecta tu repo Git (GitHub/GitLab/Bitbucket).
+
+2) Configuración del servicio (render.yaml ya contiene una base)
+- `type: web`, `runtime: node`, `buildCommand: npm ci && npm run build`, `startCommand: npm start`.
+- `healthCheckPath` puede apuntar a `/` o a un endpoint de estado si lo añades (recomendado: `/api/health`).
+
+3) Variables de entorno y secretos
+- No pongas claves en el repositorio. Usa los Secrets/Environment en Render Dashboard o `envVars.fromDatabase` como ya aparece para `DATABASE_URL`.
+- Añadir/actualizar en Render:
+  - `NODE_ENV=production`
+  - `ORIGIN=https://www.ticketsdmk.com`
+  - `PUBLIC_API_URL=https://api.ticketsdmk.com`
+  - `ANTHROPIC_API_KEY` (secret)
+  - `ANTHROPIC_MODEL=claude-sonnet-4.5`
+  - `ENABLE_CLAUDE_SONNET=true`
+  - `STRIPE_SECRET_KEY` (secret)
+  - `JWT_SECRET` (puede generarse en Render o provenir de un secret manager)
+  - `EMAIL_USER`, `EMAIL_PASS` (secret)
+
+4) Puerto
+- Render inyecta `PORT`; asegúrate de que la app escuche `process.env.PORT` (SvelteKit + adapter-node ya lo soporta). En `render.yaml` está `PORT=10000` como ejemplo; Render sobrescribe con su puerto asignado.
+
+5) CORS / Origen
+- Configurar en la app o en middlewares CORS que permitan `https://www.ticketsdmk.com` y `https://api.ticketsdmk.com` según corresponda.
+
+6) Protecciones y límites
+- Usar autenticación (ya integrado con Supabase en el proyecto). Asegura endpoints de IA con `Authorization: Bearer <token>`.
+- Añadir rate limiting y logging para controlar costes de Anthropic.
+
+7) Monitorización y salud
+- Añadir un endpoint `/api/health` simple que devuelva 200. Configura `healthCheckPath` a ese endpoint en `render.yaml`.
+
+8) Despliegue y verificación
+- Push a la rama configurada; Render ejecutará build y start.
+- Verifica logs para errores y verifica que `ANTHROPIC_API_KEY` esté presente en el entorno (prueba con un prompt corto y usuario de prueba).
+
+9) Rollback
+- Si detectas problemas en producción, desactiva la flag `ENABLE_CLAUDE_SONNET=false` y/o rollback a la versión anterior desde el dashboard de Render.
+
+Notas adicionales
+- `render.yaml` ya incluye `DATABASE_URL` desde la base de datos (`ticketsdmk-db`). Ajusta los planes y nombre si cambias de entorno.
+- Recomendación: habilitar TLS/Custom Domain en Render para `www.ticketsdmk.com` y `api.ticketsdmk.com` y apuntar DNS.
+
+Comandos útiles localmente
+```
+# instalar deps
+npm ci
+
+# construir
+npm run build
+
+# iniciar (modo producción)
+npm start
+```
+
+¿Quieres que:
+- A: Añada un endpoint `/api/health` y lo configure en `render.yaml` (lo hago), o
+- B: Generar una versión actualizada de `render.yaml` con `ANTHROPIC` envVars marcados como `sync: false` para que Render los pida en el dashboard?
 # TicketsDMK - Despliegue en Render
 
 ## 🚀 Guía de Despliegue
