@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ['./src/**/*.{html,js,svelte,ts,jsx,tsx}'],
   safelist: [
     // Containers
     'max-w-7xl', 'max-w-5xl', 'max-w-8xl', 'mx-auto', 'px-4', 'sm:px-6', 'lg:px-8', 'xl:px-12',
@@ -28,6 +28,19 @@ export default {
     'transition-transform', 'transition-shadow', 'duration-500', 'ease-out', 'hover:-translate-y-8',
     // Responsive helpers
     'mt-[-18rem]', 'sm:mt-[-24rem]', 'lg:mt-[-32rem]', 'w-full', 'sm:w-4/5', 'lg:w-3/5', 'bg-transparent',
+  ],
+  // Patrones para clases generadas dinámicamente (ej. class={cond ? 'bg-red-500' : 'bg-blue-500'})
+  // Añadir patrones evita que Tailwind purgue estas clases en producción.
+  safelistPatterns: [
+    // Color utilities with optional variant prefixes (sm:, md:, lg:, hover:, focus:, dark:, etc.)
+    /^(?:(?:sm|md|lg|xl|2xl|hover|focus|active|disabled|dark):)*(?:bg|text|border|from|to|ring|stroke|fill)-(?:red|blue|green|yellow|indigo|purple|pink|gray|orange|teal|cyan|amber|lime|rose|emerald)-\d{3}$/,
+    // Arbitrary value utilities like bg-[#123456] or text-[var(--color)]
+    /^(?:(?:sm|md|lg|xl|2xl|hover|focus|active|disabled|dark):)*bg-\[.*\]$/,
+    /^(?:(?:sm|md|lg|xl|2xl|hover|focus|active|disabled|dark):)*text-\[.*\]$/,
+    /^(?:(?:sm|md|lg|xl|2xl|hover|focus|active|disabled|dark):)*border-\[.*\]$/,
+    // Width/height fractions and common spacing classes
+    /^(?:(?:sm|md|lg|xl|2xl):)?w-(?:full|\d+\/\d+)$/,
+    /^(?:(?:sm|md|lg|xl|2xl):)?h-(?:full|\d+\/\d+)$/
   ],
   theme: {
     extend: {

@@ -3,7 +3,8 @@
 Este documento describe los pasos recomendados para desplegar la aplicación en Render, aprovechando la configuración inicial en `render.yaml`.
 
 Resumen rápido
-- El proyecto usa SvelteKit con `@sveltejs/adapter-node` (server-side). Render debe ejecutar `npm ci && npm run build` y arrancar con `npm start`.
+- El proyecto usa SvelteKit con `@sveltejs/adapter-node` (server-side).
+- Importante: durante el build necesitamos que `devDependencies` (Tailwind/PostCSS) estén instaladas. En `render.yaml` se ha ajustado el comando de build a `NPM_CONFIG_PRODUCTION=false npm ci && npm run build` para forzar la instalación de `devDependencies` en la fase de build. El servicio se arranca con `npm start`.
 
 1) Conectar repositorio
 - En Render, crea un nuevo Web Service y conecta tu repo Git (GitHub/GitLab/Bitbucket).
