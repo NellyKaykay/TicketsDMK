@@ -3,6 +3,32 @@
   <url>
     <loc>https://ticketsdmk.com/</loc>
     <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
-  <!-- Agrega aquí más URLs de tus páginas importantes -->
+  <url>
+    <loc>https://ticketsdmk.com/concerts</loc>
+    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://ticketsdmk.com/proximos-eventos</loc>
+    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://ticketsdmk.com/tickets</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ticketsdmk.com/login</loc>
+    <priority>0.4</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ticketsdmk.com/register</loc>
+    <priority>0.4</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <!-- Add other important pages or generate sitemap dynamically for many event pages -->
 </urlset>

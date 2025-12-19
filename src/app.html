@@ -19,6 +19,32 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ticketsdmk.com" />
 
+    <!-- Canonical (default) -->
+    <link rel="canonical" href="https://ticketsdmk.com/" />
+
+    <!-- Structured data to help search engines understand the site -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://ticketsdmk.com/#organization",
+            "name": "TicketsDMK",
+            "url": "https://ticketsdmk.com/",
+            "logo": "https://ticketsdmk.com/logo-ticketsdmk.jpg"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://ticketsdmk.com/#website",
+            "url": "https://ticketsdmk.com/",
+            "name": "TicketsDMK",
+            "publisher": { "@id": "https://ticketsdmk.com/#organization" }
+          }
+        ]
+      }
+    </script>
+
     <!-- ✅ Favicon Pack -->
     <link rel="icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
