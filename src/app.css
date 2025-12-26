@@ -224,3 +224,13 @@ body {
   white-space: nowrap;
   border: 0; padding: 0; margin: -1px;
 }
+
+/* Ensure floating hero card is not clipped by parent containers in production */
+:global(.hero-card-float) {
+  overflow: visible !important;
+}
+
+/* Safety: allow floating card pseudo-element to show outside */
+:global(.hero-floating-card) {
+  overflow: visible !important;
+}
