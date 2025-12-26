@@ -17,18 +17,8 @@
   $: currentPath = $page.url?.pathname;
 
   function handleHeaderClick() {
-    if (variant === 'desktop') {
-      // On desktop: open profile page if not there, otherwise go back (close)
-      if (currentPath !== '/profile') {
-        goto('/profile');
-      } else {
-        goto('/');
-      }
-      closeMenu();
-    } else {
-      // Mobile: keep dropdown toggle behavior
-      toggleMenu();
-    }
+    // Toggle menu on click (desktop and mobile) so user can access dropdown options
+    toggleMenu();
   }
   function closeMenu() {
     isOpen = false;
@@ -87,9 +77,23 @@
           <!-- Proveedor de conexión eliminado -->
         </div>
         
-        <!-- Menú de opciones (solo Cerrar Sesión abajo) -->
+        <!-- Menú de opciones -->
         <div class="py-1">
-          <!-- Opciones removidas: Mi Perfil y Mis Entradas -->
+          <a
+            href="/profile"
+            on:click|preventDefault={() => { closeMenu(); goto('/profile'); }}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
+          >
+            Mi Perfil
+          </a>
+
+          <a
+            href="/tickets"
+            on:click|preventDefault={() => { closeMenu(); goto('/tickets'); }}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
+          >
+            Mis Entradas
+          </a>
         </div>
         
         <hr class="my-1 border-gray-200">

@@ -59,13 +59,12 @@
     </div>
     <div class="mt-2">
       {#if concert.availability !== 'sold-out'}
-        <a
-          href={`/concert/${concert.id}`}
-          class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold transition-colors duration-200"
-          style="background-color: #003333;"
+        <span
+          class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold bg-gray-400 opacity-80"
+          title="Página de detalle eliminada"
         >
           Ver entradas
-        </a>
+        </span>
       {:else}
         <span
           class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold opacity-50 cursor-not-allowed"

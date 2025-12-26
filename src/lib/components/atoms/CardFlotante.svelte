@@ -116,14 +116,13 @@
 
         <div class="flex items-center justify-end mt-3">
           {#if concert.availability !== 'sold-out'}
-            <a
-              href={`/concert/${concert.id}`}
-              class="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide
-                     transition-transform duration-200"
-              style="background-color: #003333; min-width: 120px; text-align: center;"
+            <span
+              class="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide bg-gray-400 opacity-80"
+              style="min-width: 120px; text-align: center; display: inline-block;"
+              title="Página de detalle eliminada"
             >
               {t.card.viewTickets}
-            </a>
+            </span>
           {:else}
             <span
               class="px-4 py-2 rounded-md text-white text-xs font-semibold opacity-60 cursor-not-allowed"
