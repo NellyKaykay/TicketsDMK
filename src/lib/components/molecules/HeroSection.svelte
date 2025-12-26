@@ -2,6 +2,7 @@
   import Button from '../atoms/Button.svelte';
   import CardFlotante from '../atoms/CardFlotante.svelte';
   import { translations } from '../../stores/i18n';
+  import { base } from '$app/paths';
   type HeroTranslations = {
     homepage: {
       title: string;
@@ -56,7 +57,7 @@
 
 <div class="relative text-[#003333] overflow-hidden min-h-[70vh] sm:min-h-[80vh] flex items-center">
   <!-- Background image -->
-  <img src="/heroe-image.jpg" alt="Hero background" class="absolute inset-0 w-full h-full object-cover" on:error={(e) => { e.target.src = 'heroe-image.jpg'; }} />
+  <img src={base + '/heroe-image.jpg'} alt="Hero background" class="absolute inset-0 w-full h-full object-cover" on:error={(e) => { e.target.src = base + '/heroe-image.jpg'; }} />
   <!-- Content -->
   <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
     <div class="text-center max-w-4xl mx-auto">
@@ -78,7 +79,7 @@
         artist: t.homepage.cardArtist,
         date: "2024-07-01",
         venue: t.homepage.cardVenue,
-        image: "/carousel/image-4.jpg",
+        image: `${base}/carousel/image-4.jpg`,
         price: "25",
         category: t.homepage.cardCategory,
         availability: "available"

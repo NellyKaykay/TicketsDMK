@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   export let size: 'sm' | 'md' | 'lg' | 'header' = 'md';
   
   const sizes = {
@@ -16,11 +17,11 @@
   };
 </script>
 
-<a href="/" class="flex items-center">
+<a href={base + '/'} class="flex items-center">
   <img 
-    src="/logo-ticketsdmk.jpg" 
+    src={base + '/logo-ticketsdmk.jpg'} 
     alt="TicketsDMK" 
     class={`object-contain transition-transform duration-200 hover:scale-105 ${sizes[size]}`}
-    on:error={(e) => { e.target.src = 'logo-ticketsdmk.jpg'; }}
+    on:error={(e) => { e.target.src = base + '/logo-ticketsdmk.jpg'; }}
   />
 </a>
