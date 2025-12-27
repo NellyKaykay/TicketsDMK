@@ -28,6 +28,6 @@
 {/if}
 
 <Header />
-<main class="app-main" role="main">
+<main class="app-main">
   <slot />
 </main>

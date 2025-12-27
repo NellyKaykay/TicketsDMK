@@ -55,7 +55,7 @@
   $: t = getSafeTranslations($translations);
 </script>
 
-<div class="relative text-[#003333] overflow-hidden min-h-[70vh] sm:min-h-[80vh] flex items-center">
+<div class="relative text-[#003333] overflow-hidden min-h-[70vh] sm:min-h-[80vh] flex items-center hero-no-gap">
   <!-- Background image -->
   <img src={base + '/heroe-image.jpg'} alt="Hero background" class="absolute inset-0 w-full h-full object-cover" on:error={(e) => { e.target.src = base + '/heroe-image.jpg'; }} />
   <!-- Content -->

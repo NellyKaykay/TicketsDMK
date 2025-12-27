@@ -13,7 +13,12 @@ body {
 
 /* Reserve space for the sticky header to avoid content sitting under it */
 .app-main {
-  padding-top: 112px; /* matches header height in Header.svelte */
+  padding-top: var(--header-height, 112px); /* matches header height in Header.svelte */
+}
+
+/* Allow hero to visually start under the header when desired */
+.hero-no-gap {
+  margin-top: calc(var(--header-height, 112px) * -1);
 }
 
 /* Variables CSS personalizadas */
@@ -21,6 +26,7 @@ body {
   --bg: #ffffff;
   --text: #0a0a0a;
   --brand: #003333; /* color de proyecto (ajustable) */
+  --header-height: 112px;
 }
 
 /* Estilos base */
