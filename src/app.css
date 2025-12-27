@@ -11,6 +11,11 @@ body {
   min-height: 100%;
 }
 
+/* Reserve space for the sticky header to avoid content sitting under it */
+.app-main {
+  padding-top: 112px; /* matches header height in Header.svelte */
+}
+
 /* Variables CSS personalizadas */
 :root {
   --bg: #ffffff;
