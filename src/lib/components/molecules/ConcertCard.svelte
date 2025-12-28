@@ -13,6 +13,7 @@
 </script>
 <script lang="ts">
   import Card from '../atoms/Card.svelte';
+  import { goto } from '$app/navigation';
 
   export let concert: Concert;
 
@@ -59,12 +60,14 @@
     </div>
     <div class="mt-2">
       {#if concert.availability !== 'sold-out'}
-        <span
-          class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold bg-gray-400 opacity-80"
-          title="Página de detalle eliminada"
-        >
-          Ver entradas
-        </span>
+        <a
+            href={`/events/${concert.id}`}
+            on:click|preventDefault={() => goto(`/events/${concert.id}`)}
+            class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold bg-green-800 hover:bg-green-700 transition-colors duration-150"
+            title="Ver entradas"
+          >
+            Ver entradas
+          </a>
       {:else}
         <span
           class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold opacity-50 cursor-not-allowed"
