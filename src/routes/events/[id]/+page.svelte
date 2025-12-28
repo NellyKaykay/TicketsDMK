@@ -89,7 +89,7 @@
               <h2 class="text-xl font-semibold">No se puede cargar el evento</h2>
               <p class="text-sm text-gray-600 mt-2">{data.error?.message ?? 'Ha ocurrido un error al cargar el evento.'}</p>
               <div class="mt-4">
-                <a href="/events" class="inline-block px-4 py-2 bg-green-800 text-white rounded">Volver a eventos</a>
+                <a href="/events" class="inline-block px-4 py-2 bg-[#003333] text-white rounded">Volver a eventos</a>
               </div>
             </div>
           {/if}
@@ -201,7 +201,7 @@
             <div>Total</div>
             <div>{formatMoney(totalCents, ticketTypes[0]?.currency || 'USD')}</div>
           </div>
-          <button class="mt-3 w-full bg-green-800 hover:bg-green-700 text-white py-2 rounded" on:click={pay}>Pagar</button>
+          <button class="mt-3 w-full bg-[#003333] hover:bg-[#002626] text-white py-2 rounded" on:click={pay}>Pagar</button>
         </div>
       </div>
     </aside>

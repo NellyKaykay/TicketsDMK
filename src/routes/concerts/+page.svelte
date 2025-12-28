@@ -1,5 +1,5 @@
 <script>
-  import '../../app.css';
+  
   import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
   import Container from '$lib/components/layout/Container.svelte';
   import Footer from '$lib/components/organisms/Footer.svelte';
@@ -8,7 +8,7 @@
   const allConcerts = [
     // Próximos Eventos
     {
-      id: '1',
+      id: '11111111-1111-4111-8111-111111111111',
       title: 'Barcelona',
       artist: 'Tatev Asatryan',
       date: '2025-12-15',
@@ -19,7 +19,7 @@
       availability: 'available'
     },
     {
-      id: '2',
+      id: '22222222-2222-4222-8222-222222222222',
       title: 'Valencia',
       artist: 'Tata Simonyan',
       date: '2025-11-28',
@@ -30,7 +30,7 @@
       availability: 'limited'
     },
     {
-      id: '3',
+      id: '33333333-3333-4333-8333-333333333333',
       title: 'Madrid',
       artist: 'Brunete',
       date: '2025-12-31',
@@ -41,7 +41,7 @@
       availability: 'available'
     },
     {
-      id: '4',
+      id: '44444444-4444-4444-8444-444444444444',
       title: 'Alicante',
       artist: 'Arkadi Dumikyan',
       date: '2025-11-20',
@@ -52,7 +52,7 @@
       availability: 'sold-out'
     },
     {
-      id: '5',
+      id: '55555555-5555-4555-8555-555555555555',
       title: 'Barcelona',
       artist: 'Aram MP3',
       date: '2025-11-25',
@@ -63,7 +63,7 @@
       availability: 'available'
     },
     {
-      id: '6',
+      id: '66666666-6666-4666-8666-666666666666',
       title: 'Valencia',
       artist: 'Emmy',
       date: '2025-12-10',
@@ -74,7 +74,7 @@
       availability: 'available'
     },
     {
-      id: '7',
+      id: '77777777-7777-4777-8777-777777777777',
       title: 'Madrid',
       artist: 'Armen Aloyan',
       date: '2025-11-15',
@@ -85,7 +85,7 @@
       availability: 'available'
     },
     {
-      id: '8',
+      id: '88888888-8888-4888-8888-888888888888',
       title: 'Alicante',
       artist: 'Hayko',
       date: '2025-12-08',
@@ -96,7 +96,7 @@
       availability: 'available'
     },
     {
-      id: '9',
+      id: '99999999-9999-4999-8999-999999999999',
       title: 'Barcelona',
       artist: 'Sirusho',
       date: '2025-12-05',
@@ -107,7 +107,7 @@
       availability: 'limited'
     },
     {
-      id: '10',
+      id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
       title: 'Madrid',
       artist: 'Nvard Poghosyan',
       date: '2025-12-20',
@@ -119,7 +119,7 @@
     },
     // Eventos Pasados
     {
-      id: '11',
+      id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
       title: 'Sevilla',
       artist: 'Aram Asatryan',
       date: '2025-10-15',
@@ -130,7 +130,7 @@
       availability: 'sold-out'
     },
     {
-      id: '12',
+      id: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc',
       title: 'Bilbao',
       artist: 'Sirusho',
       date: '2025-09-28',
@@ -141,7 +141,7 @@
       availability: 'sold-out'
     },
     {
-      id: '13',
+      id: 'dddddddd-dddd-4ddd-8ddd-dddddddddddd',
       title: 'Zaragoza',
       artist: 'Armen Aloyan',
       date: '2025-08-20',
@@ -152,7 +152,7 @@
       availability: 'sold-out'
     },
     {
-      id: '14',
+      id: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
       title: 'Málaga',
       artist: 'Emmy',
       date: '2025-07-12',

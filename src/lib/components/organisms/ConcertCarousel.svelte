@@ -21,7 +21,7 @@
   let currentIndex = 0;
   let carouselContainer: HTMLDivElement;
   let itemsPerView = 4;
-  let autoplayInterval: number;
+  let autoplayInterval: ReturnType<typeof setInterval>;
   let selectedCity = 'Todas';
   let showCitySelector = false;
   

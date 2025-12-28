@@ -39,8 +39,8 @@
       style="display: block;"
     />
     <span class="absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-semibold"
-      class:bg-green-100={concert.availability === 'available'}
-      class:text-green-800={concert.availability === 'available'}
+      class:bg-[#e6f7f7]={concert.availability === 'available'}
+      class:text-[#003333]={concert.availability === 'available'}
       class:bg-yellow-100={concert.availability === 'limited'}
       class:text-yellow-800={concert.availability === 'limited'}
       class:bg-red-100={concert.availability === 'sold-out'}
@@ -60,10 +60,8 @@
     </div>
     <div class="mt-2">
       {#if concert.availability !== 'sold-out'}
-        <a
-            href={`/events/${concert.id}`}
-            on:click|preventDefault={() => goto(`/events/${concert.id}`)}
-            class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold bg-green-800 hover:bg-green-700 transition-colors duration-150"
+        <a href={`/events/${concert.id}`}
+            class="block w-full text-center px-3 py-2 rounded-md text-white text-sm font-semibold bg-[#003333] hover:bg-[#002626] transition-colors duration-150"
             title="Ver entradas"
           >
             Ver entradas

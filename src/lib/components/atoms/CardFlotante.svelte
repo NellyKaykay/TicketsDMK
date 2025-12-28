@@ -73,7 +73,7 @@
   <div class="card-fadein-wrapper">
     <Card
       class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] absolute left-1/2 -translate-x-1/2 -top-[224px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 hover:scale-105 animate-floating"
-        style="top: -224px; width: 520px; max-width: 96vw; min-width: 320px; max-height: 90vh; box-shadow: 0 0 0 8px #1de9b6, 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid #1de9b6; outline-offset: 0px; overflow: visible;"
+        style="top: -224px; width: 520px; max-width: 96vw; min-width: 320px; max-height: 90vh; box-shadow: 0 0 0 8px rgba(0,51,51,0.18), 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid rgba(0,51,51,0.12); outline-offset: 0px; overflow: visible;"
     >
       <!-- CONTENEDOR DE IMAGEN: ocupa 100%, sin fondo blanco -->
       <div
@@ -90,8 +90,8 @@
         <span
           class="absolute top-3 right-3 px-3 py-1 text-xs rounded-full font-semibold shadow-sm
                  bg-white/90 backdrop-blur-sm"
-          class:bg-green-100={concert.availability === 'available'}
-          class:text-green-800={concert.availability === 'available'}
+          class:bg-[#e6f7f7]={concert.availability === 'available'}
+          class:text-[#003333]={concert.availability === 'available'}
           class:bg-yellow-100={concert.availability === 'limited'}
           class:text-yellow-800={concert.availability === 'limited'}
           class:bg-red-100={concert.availability === 'sold-out'}
@@ -117,10 +117,8 @@
 
         <div class="flex items-center justify-end mt-3">
           {#if concert.availability !== 'sold-out'}
-            <a
-              href={`/events/${concert.id}`}
-              on:click|preventDefault={() => goto(`/events/${concert.id}`)}
-              class="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide bg-green-800 hover:bg-green-700 opacity-90 inline-block text-center"
+            <a href={`/events/${concert.id}`}
+              class="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide bg-[#003333] hover:bg-[#002626] opacity-90 inline-block text-center"
               style="min-width: 120px;"
               title="Ver entradas"
             >

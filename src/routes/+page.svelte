@@ -1,5 +1,5 @@
 <script>
-  import '../app.css';
+  
   import HeroSection from '$lib/components/molecules/HeroSection.svelte';
   import ConcertCarousel from '$lib/components/organisms/ConcertCarousel.svelte';
   import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
@@ -8,7 +8,7 @@
 
   const concerts = [
     {
-      id: '1',
+      id: '11111111-1111-4111-8111-111111111111',
       title: 'Barcelona',
       artist: 'Tatev Asatryan',
       date: '2025-12-15',
@@ -19,7 +19,7 @@
       availability: 'available'
     },
     {
-      id: '2',
+      id: '22222222-2222-4222-8222-222222222222',
       title: 'Madrid',
       artist: 'Sirusho',
       date: '2025-12-20',
@@ -30,7 +30,7 @@
       availability: 'limited'
     },
     {
-      id: '3',
+      id: '33333333-3333-4333-8333-333333333333',
       title: 'Valencia',
       artist: 'Armen Aloyan',
       date: '2025-12-22',
@@ -41,7 +41,7 @@
       availability: 'available'
     },
     {
-      id: '4',
+      id: '44444444-4444-4444-8444-444444444444',
       title: 'Sevilla',
       artist: 'Emmy',
       date: '2025-12-25',
@@ -52,7 +52,7 @@
       availability: 'sold-out'
     },
     {
-      id: '5',
+      id: '55555555-5555-4555-8555-555555555555',
       title: 'Barcelona',
       artist: 'Aram MP3',
       date: '2025-11-25',
@@ -63,7 +63,7 @@
       availability: 'sold-out'
     },
     {
-      id: '6',
+      id: '66666666-6666-4666-8666-666666666666',
       title: 'Bilbao',
       artist: 'Hayko',
       date: '2025-12-28',
@@ -74,7 +74,7 @@
       availability: 'available'
     },
     {
-      id: '7',
+      id: '77777777-7777-4777-8777-777777777777',
       title: 'Zaragoza',
       artist: 'Armen Aloyan',
       date: '2025-12-30',
@@ -85,7 +85,7 @@
       availability: 'limited'
     },
     {
-      id: '8',
+      id: '88888888-8888-4888-8888-888888888888',
       title: 'Alicante',
       artist: 'Hayko',
       date: '2025-12-08',

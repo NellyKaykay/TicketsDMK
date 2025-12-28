@@ -1,5 +1,5 @@
 <script>
-  import '../../app.css';
+  
   import { goto } from '$app/navigation';
   
   let firstName = '';

@@ -1,5 +1,5 @@
 <script>
-  import '../../app.css';
+  
 </script>
 
 <svelte:head>
@@ -22,9 +22,9 @@
       <h3 class="font-bold">Rojo</h3>
       <p class="text-sm">bg-red-500</p>
     </div>
-    <div class="bg-green-500 p-6 rounded-lg">
+    <div class="bg-[#003333] p-6 rounded-lg">
       <h3 class="font-bold">Verde</h3>
-      <p class="text-sm">bg-green-500</p>
+      <p class="text-sm">bg-#003333</p>
     </div>
     <div class="bg-yellow-500 p-6 rounded-lg">
       <h3 class="font-bold">Amarillo</h3>
