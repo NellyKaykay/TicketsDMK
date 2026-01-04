@@ -1,10 +1,17 @@
 <script>
-  
+  import { onMount } from 'svelte';
+  import PageLoader from '$lib/components/atoms/PageLoader.svelte';
+  export let data;
+
   import HeroSection from '$lib/components/molecules/HeroSection.svelte';
   import ConcertCarousel from '$lib/components/organisms/ConcertCarousel.svelte';
   import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
   import Footer from '$lib/components/organisms/Footer.svelte';
-  
+
+  // show loader immediately; hide when data is present or on mount
+  let showLoader = true;
+  $: if (data && Object.keys(data).length) showLoader = false;
+  onMount(() => { showLoader = false; });
 
   const concerts = [
     {
@@ -160,6 +167,9 @@
 </svelte:head>
 
 <main class="min-h-screen bg-white">
+  {#if showLoader}
+    <PageLoader />
+  {/if}
   <!-- Hero Section with Floating Event Card -->
   <div class="relative min-h-[60vh] sm:min-h-[70vh]">
     <HeroSection />
