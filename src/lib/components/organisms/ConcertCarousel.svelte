@@ -5,7 +5,7 @@
   
   export let title = '';
   export let subtitle = '';
-  export let viewAllLink = '/concerts'; // Default link
+  export let viewAllLink = '/events'; // Default link now points to /events
   export let concerts: Array<{
     id: string;
     title: string;

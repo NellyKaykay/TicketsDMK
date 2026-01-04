@@ -1,13 +1,11 @@
 <script>
   
-  import { page } from '$app/stores';
+  import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
+  import Container from '$lib/components/layout/Container.svelte';
   import Footer from '$lib/components/organisms/Footer.svelte';
   
-  $: ciudad = $page.params.ciudad;
-  
-  // Todos los eventos disponibles
-  const allConcerts = [
-    // Barcelona Events
+  // Solo eventos próximos (no finalizados)
+  const upcomingConcerts = [
     {
       id: '11111111-1111-4111-8111-111111111111',
       title: 'Barcelona',
@@ -18,6 +16,39 @@
       price: 'Desde 45€',
       category: 'Rock',
       availability: 'available'
+    },
+    {
+      id: '22222222-2222-4222-8222-222222222222',
+      title: 'Valencia',
+      artist: 'Tata Simonyan',
+      date: '2025-11-28',
+      venue: 'Teatro Real Valencia',
+      image: '/carousel/image-2.jpg',
+      price: 'Desde 55€',
+      category: 'Jazz',
+      availability: 'limited'
+    },
+    {
+      id: '33333333-3333-4333-8333-333333333333',
+      title: 'Madrid',
+      artist: 'Brunete',
+      date: '2025-12-31',
+      venue: 'Palacio de la Música Madrid',
+      image: '/carousel/image-4.jpg',
+      price: 'Desde 65€',
+      category: 'Electronic',
+      availability: 'available'
+    },
+    {
+      id: '44444444-4444-4444-8444-444444444444',
+      title: 'Alicante',
+      artist: 'Arkadi Dumikyan',
+      date: '2025-11-20',
+      venue: 'Sala Riviera Alicante',
+      image: '/carousel/image-3.jpg',
+      price: 'Desde 35€',
+      category: 'Acoustic',
+      availability: 'sold-out'
     },
     {
       id: '55555555-5555-4555-8555-555555555555',
@@ -31,29 +62,6 @@
       availability: 'available'
     },
     {
-      id: '99999999-9999-4999-8999-999999999999',
-      title: 'Barcelona',
-      artist: 'Sirusho',
-      date: '2025-12-05',
-      venue: 'Teatro del Liceu Barcelona',
-      image: '/carousel/image-3.jpg',
-      price: 'Desde 60€',
-      category: 'Traditional',
-      availability: 'limited'
-    },
-    // Valencia Events
-    {
-      id: '22222222-2222-4222-8222-222222222222',
-      title: 'Valencia',
-      artist: 'Tata Simonyan',
-      date: '2025-11-28',
-      venue: 'Teatro Real Valencia',
-      image: '/carousel/image-2.jpg',
-      price: 'Desde 55€',
-      category: 'Jazz',
-      availability: 'limited'
-    },
-    {
       id: '66666666-6666-4666-8666-666666666666',
       title: 'Valencia',
       artist: 'Emmy',
@@ -62,18 +70,6 @@
       image: '/carousel/image-4.jpg',
       price: 'Desde 40€',
       category: 'Modern',
-      availability: 'available'
-    },
-    // Madrid Events
-    {
-      id: '33333333-3333-4333-8333-333333333333',
-      title: 'Madrid',
-      artist: 'Brunete',
-      date: '2025-12-31',
-      venue: 'Palacio de la Música Madrid',
-      image: '/carousel/image-4.jpg',
-      price: 'Desde 65€',
-      category: 'Electronic',
       availability: 'available'
     },
     {
@@ -88,29 +84,6 @@
       availability: 'available'
     },
     {
-      id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-      title: 'Madrid',
-      artist: 'Nvard Poghosyan',
-      date: '2025-12-20',
-      venue: 'Auditorio Nacional Madrid',
-      image: '/carousel/image-3.jpg',
-      price: 'Desde 55€',
-      category: 'Classical',
-      availability: 'limited'
-    },
-    // Alicante Events
-    {
-      id: '44444444-4444-4444-8444-444444444444',
-      title: 'Alicante',
-      artist: 'Arkadi Dumikyan',
-      date: '2025-11-20',
-      venue: 'Sala Riviera Alicante',
-      image: '/carousel/image-3.jpg',
-      price: 'Desde 35€',
-      category: 'Acoustic',
-      availability: 'sold-out'
-    },
-    {
       id: '88888888-8888-4888-8888-888888888888',
       title: 'Alicante',
       artist: 'Hayko',
@@ -120,153 +93,190 @@
       price: 'Desde 45€',
       category: 'Rock',
       availability: 'available'
+    },
+    {
+      id: '99999999-9999-4999-8999-999999999999',
+      title: 'Barcelona',
+      artist: 'Sirusho',
+      date: '2025-12-05',
+      venue: 'Teatro del Liceu Barcelona',
+      image: '/carousel/image-3.jpg',
+      price: 'Desde 60€',
+      category: 'Traditional',
+      availability: 'limited'
+    },
+    {
+      id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+      title: 'Madrid',
+      artist: 'Nvard Poghosyan',
+      date: '2025-12-20',
+      venue: 'Auditorio Nacional Madrid',
+      image: '/carousel/image-3.jpg',
+      price: 'Desde 55€',
+      category: 'Classical',
+      availability: 'limited'
     }
   ];
-  
-  // Filtrar eventos por ciudad
-  $: cityEvents = allConcerts.filter(concert => 
-    concert.title.toLowerCase() === ciudad?.toLowerCase()
-  );
-  
-  // Capitalizar primera letra de la ciudad
-  $: cityName = ciudad ? ciudad.charAt(0).toUpperCase() + ciudad.slice(1) : '';
-  
-  // Verificar si la ciudad existe
-  $: validCity = cityEvents.length > 0;
+
+  let selectedCity = 'Todas';
+  let selectedCategory = 'Todas';
+  let sortBy = 'date'; // date, price, availability
+
+  // Obtener valores únicos para filtros
+  $: cities = ['Todas', ...new Set(upcomingConcerts.map(concert => concert.title))].sort();
+  $: categories = ['Todas', ...new Set(upcomingConcerts.map(concert => concert.category))].sort();
+
+  // Filtrar eventos
+  $: filteredConcerts = upcomingConcerts.filter(concert => {
+    const cityMatch = selectedCity === 'Todas' || concert.title === selectedCity;
+    const categoryMatch = selectedCategory === 'Todas' || concert.category === selectedCategory;
+    return cityMatch && categoryMatch;
+  });
+
+  // Ordenar eventos
+  $: sortedConcerts = [...filteredConcerts].sort((a, b) => {
+    if (sortBy === 'date') {
+      return new Date(a.date) - new Date(b.date);
+    } else if (sortBy === 'price') {
+      const priceA = parseInt(a.price.replace(/\D/g, '')) || 0;
+      const priceB = parseInt(b.price.replace(/\D/g, '')) || 0;
+      return priceA - priceB;
+    } else if (sortBy === 'availability') {
+      const order = { 'available': 0, 'limited': 1, 'sold-out': 2 };
+      return order[a.availability] - order[b.availability];
+    }
+    return 0;
+  });
 </script>
 
 <svelte:head>
-  <title>Eventos en {cityName} - TicketsDMK</title>
-  <meta name="description" content="Descubre todos los eventos musicales disponibles en {cityName}. Compra tus entradas de forma segura." />
-  <meta name="keywords" content="eventos, entradas, música, {cityName}, conciertos, tickets" />
+  <title>Próximos Eventos - TicketsDMK</title>
+  <meta name="description" content="Descubre todos nuestros próximos eventos musicales. Reserva tu entrada para los mejores espectáculos." />
 </svelte:head>
 
 <main class="min-h-screen bg-gray-50">
-  {#if validCity}
-    <!-- Hero Section para la ciudad -->
-    <section class="bg-gradient-to-r from-green-800 to-green-600 text-white py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h1 class="text-4xl md:text-6xl font-bold mb-4">
-            Eventos en {cityName}
-          </h1>
-          <p class="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto">
-            Descubre los mejores eventos musicales en {cityName}. 
-            {cityEvents.length} eventos disponibles.
-          </p>
+  <!-- Header -->
+  <section class="text-white py-16" style="background-color: #003333;">
+    <Container>
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Próximos Eventos</h1>
+        <p class="text-xl max-w-2xl mx-auto" style="color: #b3e0e0;">
+          No te pierdas estos increíbles eventos que vienen
+        </p>
+        <div class="mt-6 inline-flex items-center px-4 py-2 rounded-full" style="background-color: #004d4d; color: #b3e0e0;">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          {upcomingConcerts.length} eventos disponibles
         </div>
       </div>
-    </section>
+    </Container>
+  </section>
 
-    <!-- Lista de eventos -->
-    <section class="py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-12">
-          <div class="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h2 class="text-3xl font-bold text-gray-900 mb-2">
-                Todos los eventos en {cityName}
-              </h2>
-              <p class="text-gray-600">
-                {cityEvents.length} eventos encontrados
-              </p>
-            </div>
-            <a 
-              href="/" 
-              class="inline-flex items-center text-green-800 hover:text-green-600 font-medium"
-            >
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-              </svg>
-              Volver al inicio
-            </a>
-          </div>
+  <!-- Filters -->
+  <section class="py-8 bg-white border-b">
+    <Container>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <!-- City Filter -->
+        <div class="flex flex-col">
+          <label for="city-filter" class="text-sm font-medium text-gray-700 mb-2">Ciudad</label>
+          <select id="city-filter" bind:value={selectedCity} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
+            {#each cities as city}
+              <option value={city}>{city}</option>
+            {/each}
+          </select>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {#each cityEvents as concert}
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-200">
-              <img src={concert.image} alt="{concert.artist} en {concert.title}" class="w-full h-48 object-cover" />
-              <div class="p-6">
-                <div class="flex items-start justify-between mb-3">
-                  <h3 class="text-xl font-bold text-gray-900">{concert.artist}</h3>
-                  <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
-                    {concert.availability === 'available' ? 'bg-[#e6f7f7] text-[#003333]' : 
-                     concert.availability === 'limited' ? 'bg-yellow-100 text-yellow-800' : 
-                     'bg-red-100 text-red-800'}">
-                    {concert.availability === 'available' ? 'Disponible' : 
-                     concert.availability === 'limited' ? 'Últimas entradas' : 
-                     'Agotado'}
-                  </span>
-                </div>
-                
-                <div class="space-y-2 mb-4">
-                  <p class="text-gray-600 flex items-center">
-                    <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    {new Date(concert.date).toLocaleDateString('es-ES', { 
-                      weekday: 'long',
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </p>
-                  <p class="text-gray-600 flex items-center">
-                    <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    {concert.venue}
-                  </p>
-                  <p class="text-gray-600 flex items-center">
-                    <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                    </svg>
-                    {concert.category}
-                  </p>
-                </div>
-                
-                <div class="flex items-center justify-between">
-                  <span class="text-2xl font-bold text-green-800">{concert.price}</span>
-                  <button class="bg-green-800 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200
-                    {concert.availability === 'sold-out' ? 'opacity-50 cursor-not-allowed' : ''}"
-                    disabled={concert.availability === 'sold-out'}>
-                    {concert.availability === 'sold-out' ? 'Agotado' : 'Comprar Entradas'}
-                  </button>
-                </div>
-              </div>
-            </div>
+
+        <!-- Category Filter -->
+        <div class="flex flex-col">
+          <label for="category-filter" class="text-sm font-medium text-gray-700 mb-2">Categoría</label>
+          <select id="category-filter" bind:value={selectedCategory} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
+            {#each categories as category}
+              <option value={category}>{category}</option>
+            {/each}
+          </select>
+        </div>
+
+        <!-- Sort Filter -->
+        <div class="flex flex-col">
+          <label for="sort-filter" class="text-sm font-medium text-gray-700 mb-2">Ordenar por</label>
+          <select id="sort-filter" bind:value={sortBy} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
+            <option value="date">Fecha</option>
+            <option value="price">Precio</option>
+            <option value="availability">Disponibilidad</option>
+          </select>
+        </div>
+
+        <!-- Reset Filters -->
+        <div class="flex flex-col justify-end">
+          <button 
+            on:click={() => { selectedCity = 'Todas'; selectedCategory = 'Todas'; sortBy = 'date'; }}
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+          >
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Events Grid -->
+  <section class="py-16">
+    <Container>
+      {#if sortedConcerts.length > 0}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {#each sortedConcerts as concert}
+            <ConcertCard {concert} />
           {/each}
         </div>
-      </div>
-    </section>
-  {:else}
-    <!-- Ciudad no encontrada -->
-    <section class="py-16 text-center">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md mx-auto">
-          <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <h1 class="text-2xl font-bold text-gray-900 mb-2">Ciudad no encontrada</h1>
-          <p class="text-gray-600 mb-6">
-            No hemos encontrado eventos para "{cityName}". 
-            Prueba con Barcelona, Madrid, Valencia o Alicante.
+
+        <!-- Results Count -->
+        <div class="text-center mt-12">
+          <p class="text-gray-600">
+            Mostrando {sortedConcerts.length} de {upcomingConcerts.length} próximos eventos
           </p>
-          <a 
-            href="/" 
-            class="inline-flex items-center bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors duration-200"
-          >
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            Volver al inicio
-          </a>
         </div>
+      {:else}
+        <!-- No Results -->
+        <div class="text-center py-16">
+          <svg class="w-24 h-24 mx-auto mb-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">No se encontraron eventos próximos</h3>
+          <p class="text-gray-600 mb-6">Intenta ajustar los filtros para encontrar más eventos.</p>
+          <button 
+            on:click={() => { selectedCity = 'Todas'; selectedCategory = 'Todas'; }}
+            class="px-6 py-3 text-white rounded-lg transition-colors" style="background-color: #003333;"
+          >
+            Ver todos los próximos eventos
+          </button>
+        </div>
+      {/if}
+
+      <!-- Navigation -->
+      <div class="flex flex-wrap gap-4 justify-center mt-16">
+        <a 
+          href="/" 
+          class="inline-flex items-center px-6 py-3 border rounded-lg transition-colors" style="border-color: #003333; color: #003333;"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Volver al inicio
+        </a>
+        
+        <a 
+          href="/events" 
+          class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors" style="background-color: #003333;"
+        >
+          Ver todos los eventos
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
       </div>
-    </section>
-  {/if}
+    </Container>
+  </section>
 </main>
 
 <Footer />

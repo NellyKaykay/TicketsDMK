@@ -12,7 +12,7 @@ export const GET: RequestHandler = async () => {
   const staticRoutes = [
     { loc: `${SITE_URL}/`, priority: '1.0', changefreq: 'daily' },
     { loc: `${SITE_URL}/concerts`, priority: '0.8', changefreq: 'daily' },
-    { loc: `${SITE_URL}/proximos-eventos`, priority: '0.8', changefreq: 'daily' },
+    { loc: `${SITE_URL}/proximos-events`, priority: '0.8', changefreq: 'daily' },
     { loc: `${SITE_URL}/tickets`, priority: '0.7', changefreq: 'weekly' },
     { loc: `${SITE_URL}/login`, priority: '0.4', changefreq: 'monthly' },
     { loc: `${SITE_URL}/register`, priority: '0.4', changefreq: 'monthly' }

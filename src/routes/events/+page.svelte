@@ -1,11 +1,16 @@
+<script>
+  import EventsView from '$lib/components/organisms/EventsView.svelte';
+  import Footer from '$lib/components/organisms/Footer.svelte';
+
+  export let data;
+  const events = data.events ?? [];
+</script>
+
 <svelte:head>
-  <title>Eventos</title>
+  <title>Eventos - TicketsDMK</title>
+  <meta name="description" content="Explora nuestros próximos eventos musicales." />
 </svelte:head>
 
-<main class="container mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-4">Eventos</h1>
-  <p>Página /events creada</p>
-  <p class="mt-4">
-    <a href="/events/city/Barcelona" class="text-green-800 hover:underline">Ver eventos en Barcelona</a>
-  </p>
-</main>
+<EventsView {events} />
+
+<Footer />

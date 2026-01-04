@@ -45,11 +45,12 @@
     { href: '/contact', label: 'contact' }
   ];
 
-  const eventosCategorias = [
-    { href: '/concerts', label: 'Concierto' },
-    { href: '/teatro', label: 'Teatro' },
-    { href: '/pelicula', label: 'Película' },
-    { href: '/monologo', label: 'Monólogo' }
+  // canonical links: point categories to /events with query
+  const eventsCategorias = [
+    { href: '/events?category=concierto', label: 'Concierto' },
+    { href: '/events?category=teatro', label: 'Teatro' },
+    { href: '/events?category=pelicula', label: 'Película' },
+    { href: '/events?category=monologo', label: 'Monólogo' }
   ];
 
   const baseStyles = 'text-gray-600 transition-colors duration-200';
@@ -64,41 +65,40 @@
     mobile: 'text-2xl font-semibold px-4 py-3 rounded-md hover:bg-gray-100'
   };
 
-  let showEventosDropdown = false;
+  let showEventsDropdown = false;
 </script>
 
 <nav class={variantStyles[variant]}>
   {#if variant === 'desktop'}
-    <!-- Solo un dropdown de Eventos -->
+    <!-- Eventos dropdown -->
     <div class="relative"
          role="button"
          tabindex="0"
-         on:mouseenter={() => showEventosDropdown = true}
-         on:mouseleave={() => showEventosDropdown = false}
-         on:keydown={(e) => e.key === 'Enter' && (showEventosDropdown = !showEventosDropdown)}>
+         on:mouseenter={() => showEventsDropdown = true}
+         on:mouseleave={() => showEventsDropdown = false}
+         on:keydown={(e) => e.key === 'Enter' && (showEventsDropdown = !showEventsDropdown)}>
       <a 
-        href="/#eventos" 
+        href="/events" 
         class="{baseStyles} {linkStyles[variant]} flex items-center"
         style="color: #666666;"
-        on:mouseenter={(e) => e.target.style.color='#003333'}
-        on:mouseleave={(e) => e.target.style.color='#666666'}
-        on:click={(e) => e.preventDefault()}
+        on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
+        on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
       >
         {t.header.events}
         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </a>
-      {#if showEventosDropdown}
+      {#if showEventsDropdown}
         <div class="absolute top-full left-0 mt-1 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-          {#each eventosCategorias as categoria}
+          {#each eventsCategorias as categoria}
             <a 
               href={categoria.href}
               class="block px-4 py-2 text-sm transition-colors duration-200 first:rounded-t-md last:rounded-b-md text-gray-600 hover:bg-gray-50" 
               style="color: #666666;"
-              on:mouseenter={(e) => { e.target.style.color='#003333'; e.target.style.backgroundColor='#f9fafb'; }}
-              on:mouseleave={(e) => { e.target.style.color='#666666'; e.target.style.backgroundColor='transparent'; }}
-              on:click={() => { showEventosDropdown = false; onLinkClick(); }}
+              on:mouseenter={(e) => { (e.target as HTMLElement).style.color='#003333'; (e.target as HTMLElement).style.backgroundColor='#f9fafb'; }}
+              on:mouseleave={(e) => { (e.target as HTMLElement).style.color='#666666'; (e.target as HTMLElement).style.backgroundColor='transparent'; }}
+              on:click={() => { showEventsDropdown = false; onLinkClick(); }}
             >
               {t.header[categoria.label.toLowerCase()]}
             </a>
@@ -115,8 +115,8 @@
           style="color: #666666;"
           target="_self"
           rel=""
-          on:mouseenter={(e) => e.target.style.color='#003333'}
-          on:mouseleave={(e) => e.target.style.color='#666666'}
+          on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
+          on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
           on:click={onLinkClick}
         >
           {t.header[item.label]}
@@ -124,14 +124,13 @@
       {/each}
     </div>
   {:else}
-    <!-- Solo un enlace de Eventos en mobile -->
+    <!-- Mobile: enlace directo a /events -->
     <a 
-      href="/#eventos" 
+      href="/events" 
       class={`${baseStyles} ${linkStyles[variant]}`}
       style="color: #666666;"
-      on:mouseenter={(e) => e.target.style.color='#003333'}
-      on:mouseleave={(e) => e.target.style.color='#666666'}
-      on:click={(e) => e.preventDefault()}
+      on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
+      on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
     >
       {t.header.events}
     </a>
@@ -142,12 +141,12 @@
         style="color: #666666;"
         target="_self"
         rel=""
-        on:mouseenter={(e) => e.target.style.color='#003333'}
-        on:mouseleave={(e) => e.target.style.color='#666666'}
+        on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
+        on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
         on:click={onLinkClick}
       >
         {t.header[item.label]}
       </a>
     {/each}
   {/if}
-  </nav>
+</nav>

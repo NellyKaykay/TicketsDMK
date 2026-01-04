@@ -182,7 +182,7 @@
     <ConcertCarousel
       title=""
       subtitle=""
-      viewAllLink="/proximos-eventos"
+      viewAllLink="/events"
       concerts={concerts}
     />
   </section>
