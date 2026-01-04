@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import PageLoader from '$lib/components/atoms/PageLoader.svelte';
   export let data;
 
   import HeroSection from '$lib/components/molecules/HeroSection.svelte';
@@ -168,7 +167,9 @@
 
 <main class="min-h-screen bg-white">
   {#if showLoader}
-    <PageLoader />
+    <div class="page-loader" role="status" aria-label="Loading">
+      <div class="spinner"></div>
+    </div>
   {/if}
   <!-- Hero Section with Floating Event Card -->
   <div class="relative min-h-[60vh] sm:min-h-[70vh]">
@@ -272,3 +273,24 @@
 
 <!-- Footer -->
 <Footer />
+
+<style>
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(0,0,0,0.08);
+  border-top-color: #38b6ff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
