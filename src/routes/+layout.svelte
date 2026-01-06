@@ -16,6 +16,7 @@
 <!-- Global loading screen removed. -->
 
 <svelte:head>
+  <meta name="msvalidate.01" content="ED80D69059F9688D92F8E33855897834" />
   <title>TicketsDMK | Entradas para conciertos y eventos</title>
 
   <meta
