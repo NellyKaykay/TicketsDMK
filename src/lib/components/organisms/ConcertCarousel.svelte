@@ -6,7 +6,7 @@
   export let title = '';
   export let subtitle = '';
   export let viewAllLink = '/events'; // Default link now points to /events
-  export let concerts: Array<{
+  let concerts: Array<{
     id: string;
     title: string;
     artist: string;
@@ -17,6 +17,40 @@
     category: string;
     availability: 'available' | 'limited' | 'sold-out';
   }> = [];
+
+  let loading = true;
+  let error: string | null = null;
+
+  onMount(async () => {
+    loading = true;
+    error = null;
+    try {
+      const res = await fetch('/api/events?city=Barcelona');
+      if (!res.ok) throw new Error('No se pudieron cargar los eventos');
+      const data = await res.json();
+      concerts = data.events || [];
+    } catch (e: any) {
+      error = e.message || 'Error desconocido';
+    } finally {
+      loading = false;
+    }
+    updateItemsPerView();
+    startAutoplay();
+    const handleResize = () => updateItemsPerView();
+    const handleClickOutside = (event: Event) => {
+      const target = event.target as Element;
+      if (!target.closest('.city-selector')) {
+        showCitySelector = false;
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('click', handleClickOutside);
+      stopAutoplay();
+    };
+  });
   
   let currentIndex = 0;
   let carouselContainer: HTMLDivElement;
@@ -164,7 +198,11 @@
 
 <!-- Carousel -->
 <div class="relative">
-  {#if filteredConcerts.length > 0}
+  {#if loading}
+    <div class="text-center py-12 bg-gray-50 rounded-lg">Cargando eventos...</div>
+  {:else if error}
+    <div class="text-center py-12 bg-gray-50 rounded-lg text-red-600">{error}</div>
+  {:else if filteredConcerts.length > 0}
     <div 
       bind:this={carouselContainer}
       class="overflow-hidden rounded-lg"

@@ -57,7 +57,30 @@
 
   $: t = getSafeTranslations($translations);
 
-  export let concert: Concert;
+  let concert: Concert | null = null;
+  let loading = true;
+  let error: string | null = null;
+
+  onMount(async () => {
+    loading = true;
+    error = null;
+    try {
+      const res = await fetch('/api/events?city=Barcelona');
+      if (!res.ok) throw new Error('No se pudieron cargar los eventos');
+      const data = await res.json();
+      if (Array.isArray(data.events) && data.events.length > 0) {
+        // Elegir el más próximo por fecha
+        concert = data.events.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0];
+      } else {
+        concert = null;
+      }
+    } catch (e: any) {
+      error = e.message || 'Error desconocido';
+      concert = null;
+    } finally {
+      loading = false;
+    }
+  });
 
   function formatDate(dateString: string) {
     const date = new Date(dateString);
@@ -69,7 +92,11 @@
   }
 </script>
 
-{#if show}
+{#if loading}
+  <div class="card-fadein-wrapper text-center py-8">Cargando evento destacado...</div>
+{:else if error}
+  <div class="card-fadein-wrapper text-center py-8 text-red-600">{error}</div>
+{:else if concert}
   <div class="card-fadein-wrapper">
     <Card
       class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] absolute left-1/2 -translate-x-1/2 -top-[224px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 hover:scale-105 animate-floating"

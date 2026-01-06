@@ -24,6 +24,7 @@ export interface EventItem {
   date?: string;
   description?: string;
   flyer_url?: string;
+  venue_id?: string | null;
   venues?: Venue[];
   ticket_types?: TicketType[];
   layout?: {

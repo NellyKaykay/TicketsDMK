@@ -39,16 +39,7 @@ export const GET: RequestHandler = async ({ params }) => {
         eventError = res.error;
       }
 
-      // try slug if still not found
-      if (!eventRow) {
-        const res2 = await supabase
-          .from('events')
-          .select('id, title, artist, date, description, flyer_url, venue_id')
-          .eq('slug', id)
-          .maybeSingle();
-        eventRow = res2.data;
-        eventError = eventError ?? res2.error;
-      }
+      // If slug column does not exist, skip slug lookup
     }
 
     if (eventError) {

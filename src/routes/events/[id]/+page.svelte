@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { EventItem, TicketType } from '$lib/types/event';
+  import SeatMap from '$lib/components/SeatMap.svelte';
   export let data: { event: EventItem | null; error?: { status: number; message: string } };
   const event = data.event;
 
@@ -110,6 +111,16 @@
       {/if}
 
       <!-- Zone map (mobile under the flyer) -->
+      {#if event?.layout}
+        <SeatMap layout={
+          Array.isArray(event.layout)
+            ? { capacity: 0, zones: event.layout }
+            : {
+                capacity: event.layout?.capacity ?? 0,
+                zones: event.layout?.zones ?? []
+              }
+        } />
+      {/if}
       <div class="mt-4 lg:hidden">
         <h2 class="text-lg font-medium mb-2">Mapa de zonas</h2>
         {#if zoneBlocks.length}
