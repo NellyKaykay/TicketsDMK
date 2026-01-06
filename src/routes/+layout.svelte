@@ -8,9 +8,16 @@
 <!-- Global loading screen removed. -->
 
 <svelte:head>
-  <title>TicketsDMK – Entradas para eventos y conciertos</title>
-  <meta name="description" content="Compra entradas para conciertos y eventos en España. TicketsDMK conecta con salas, artistas y vuelos al mejor precio." />
+  <title>TicketsDMK | Entradas para conciertos y eventos</title>
+
+  <meta
+    name="description"
+    content="Compra entradas para conciertos y eventos en Barcelona y otras ciudades. TicketsDMK ofrece venta segura, rápida y sin complicaciones."
+  />
+
   <link rel="canonical" href="https://ticketsdmk.com/" />
+
+  <html lang="es" />
 </svelte:head>
 <Header />
 <main class="app-main">
