@@ -1,6 +1,4 @@
-# allow crawling everything by default
 User-agent: *
-Disallow:
+Allow: /
 
-# Sitemap location — helps crawlers discover all pages
 Sitemap: https://ticketsdmk.com/sitemap.xml
