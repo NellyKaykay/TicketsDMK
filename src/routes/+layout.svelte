@@ -19,7 +19,7 @@
 
   <link rel="canonical" href="https://ticketsdmk.com/" />
 
-  <html lang="es" />
+  <html lang="es"></html>
 </svelte:head>
 <Header />
 <main class="app-main">
