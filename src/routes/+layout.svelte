@@ -1,8 +1,16 @@
 <script lang="ts">
   import Header from '$lib/components/organisms/Header.svelte';
+  import PageLoader from '$lib/components/atoms/PageLoader.svelte';
   import '../app.css';
   import { onMount } from 'svelte';
   import { base } from '$app/paths';
+  import { tick } from 'svelte';
+
+  let loading = true;
+  onMount(async () => {
+    await tick();
+    loading = false;
+  });
 </script>
 
 <!-- Global loading screen removed. -->
@@ -20,6 +28,10 @@
   <html lang="es"></html>
 </svelte:head>
 <Header />
-<main class="app-main">
-  <slot />
-</main>
+{#if loading}
+  <PageLoader ariaLabel="Cargando..." />
+{:else}
+  <main class="app-main">
+    <slot />
+  </main>
+{/if}
