@@ -26,6 +26,10 @@ export interface EventItem {
   flyer_url?: string;
   venues?: Venue[];
   ticket_types?: TicketType[];
+  layout?: {
+    zones?: any[];
+    [key: string]: any;
+  } | any[];
 }
 
 export interface EventResponse {

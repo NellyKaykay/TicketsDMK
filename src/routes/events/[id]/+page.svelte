@@ -2,11 +2,18 @@
   import { onMount } from 'svelte';
   import type { EventItem, TicketType } from '$lib/types/event';
   export let data: { event: EventItem | null; error?: { status: number; message: string } };
-
   const event = data.event;
 
   // Normalize ticket types (guard when event is missing)
   let ticketTypes: TicketType[] = (event?.ticket_types || []).slice().sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
+
+  // reactively update ticketTypes if event changes (helps during HMR/dev)
+  $: if (data.event) {
+    ticketTypes = (data.event.ticket_types || []).slice().sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
+    // reset quantities map when ticket types change
+    quantities = {};
+    ticketTypes.forEach(t => (quantities[t.id] = 0));
+  }
 
   // map of ticket id -> qty
   let quantities: Record<string, number> = {};
@@ -60,41 +67,47 @@
 
   // zone layout is optional; default to empty (map will show "no disponible")
   let zoneBlocks: any[] = [];
+
+  // populate zoneBlocks from payload layout if available
+  $: zoneBlocks = Array.isArray(event?.layout)
+    ? event?.layout
+    : event?.layout?.zones ?? [];
 </script>
 
 <div class="container mx-auto p-4">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <!-- Left: flyer + info -->
     <div class="lg:col-span-2">
-      <div class="bg-white rounded shadow overflow-hidden">
-          {#if event && event.flyer_url}
-            <img src={event.flyer_url} alt={event?.title} class="w-full object-cover max-h-96" />
-          {/if}
-        <div class="p-4">
-          {#if event}
-            <h1 class="text-2xl font-semibold">{event.title}</h1>
-            {#if event.artist}<p class="text-sm text-gray-600">{event.artist}</p>{/if}
-            {#if event.date}<p class="text-sm text-gray-500 mt-1">{new Date(event.date).toLocaleString()}</p>{/if}
-            {#if event.venues && event.venues.length > 0}
-              <div class="mt-3 text-sm">
-                <strong>Sala:</strong> {event.venues[0].name}<br />
-                {event.venues[0].city} — {event.venues[0].address}
+      {#if event && event.flyer_url}
+        <div class="bg-white rounded shadow overflow-hidden">
+          <img src={event.flyer_url} alt={event?.title} class="w-full object-cover max-h-96" />
+
+          <div class="p-4">
+            {#if event}
+              <h1 class="text-2xl font-semibold">{event.title}</h1>
+              {#if event.artist}<p class="text-sm text-gray-600">{event.artist}</p>{/if}
+              {#if event.date}<p class="text-sm text-gray-500 mt-1">{new Date(event.date).toLocaleString()}</p>{/if}
+              {#if event.venues && event.venues.length > 0}
+                <div class="mt-3 text-sm">
+                  <strong>Sala:</strong> {event.venues[0].name}<br />
+                  {event.venues[0].city} — {event.venues[0].address}
+                </div>
+              {/if}
+              {#if event.description}
+                <div class="mt-4 prose max-w-none text-sm text-gray-800">{@html event.description}</div>
+              {/if}
+            {:else}
+              <div class="text-center py-8">
+                <h2 class="text-xl font-semibold">No se puede cargar el evento</h2>
+                <p class="text-sm text-gray-600 mt-2">{data.error?.message ?? 'Ha ocurrido un error al cargar el evento.'}</p>
+                <div class="mt-4">
+                  <a href="/events" class="inline-block px-4 py-2 bg-[#003333] text-white rounded">Volver a eventos</a>
+                </div>
               </div>
             {/if}
-            {#if event.description}
-              <div class="mt-4 prose max-w-none text-sm text-gray-800">{@html event.description}</div>
-            {/if}
-          {:else}
-            <div class="text-center py-8">
-              <h2 class="text-xl font-semibold">No se puede cargar el evento</h2>
-              <p class="text-sm text-gray-600 mt-2">{data.error?.message ?? 'Ha ocurrido un error al cargar el evento.'}</p>
-              <div class="mt-4">
-                <a href="/events" class="inline-block px-4 py-2 bg-[#003333] text-white rounded">Volver a eventos</a>
-              </div>
-            </div>
-          {/if}
+          </div>
         </div>
-      </div>
+      {/if}
 
       <!-- Zone map (mobile under the flyer) -->
       <div class="mt-4 lg:hidden">

@@ -1,26 +1,55 @@
 import { supabase } from '$lib/supabaseClient';
 import type { RequestHandler } from './$types';
+import { readFile } from 'fs/promises';
+import path from 'path';
 
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const GET: RequestHandler = async ({ params }) => {
   const id = params.id;
-
-  if (!id || !UUID_RE.test(id)) {
+  if (!id) {
     return new Response(
-      JSON.stringify({ error: 'Invalid event identifier; use the event UUID.' }),
+      JSON.stringify({ error: 'Missing event identifier.' }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }
 
   try {
-    // 1) Event
-    const { data: eventRow, error: eventError } = await supabase
-      .from('events')
-      .select('id, title, artist, date, description, flyer_url, venue_id')
-      .eq('id', id)
-      .maybeSingle();
+    // 1) Event - try id (uuid), then legacy numeric id, then slug fallback
+    let eventRow: any = null;
+    let eventError: any = null;
+
+    if (UUID_RE.test(id)) {
+      const res = await supabase
+        .from('events')
+        .select('id, title, artist, date, description, flyer_url, venue_id')
+        .eq('id', id)
+        .maybeSingle();
+      eventRow = res.data;
+      eventError = res.error;
+    } else {
+      // try numeric legacy id
+      if (/^\d+$/.test(id)) {
+        const res = await supabase
+          .from('events')
+          .select('id, title, artist, date, description, flyer_url, venue_id')
+          .eq('legacy_id', Number(id))
+          .maybeSingle();
+        eventRow = res.data;
+        eventError = res.error;
+      }
+
+      // try slug if still not found
+      if (!eventRow) {
+        const res2 = await supabase
+          .from('events')
+          .select('id, title, artist, date, description, flyer_url, venue_id')
+          .eq('slug', id)
+          .maybeSingle();
+        eventRow = res2.data;
+        eventError = eventError ?? res2.error;
+      }
+    }
 
     if (eventError) {
       console.error('Supabase event fetch error:', eventError);
@@ -61,7 +90,7 @@ export const GET: RequestHandler = async ({ params }) => {
       venue = vData ?? null;
     }
 
-    // 4) Layout (by venue_id)
+    // 4) Layout (by venue_id) — if not present in DB, try a static city-based fallback
     let layout: any = null;
     if (eventRow.venue_id) {
       const { data: lData, error: lError } = await supabase
@@ -71,12 +100,40 @@ export const GET: RequestHandler = async ({ params }) => {
         .single();
 
       if (lError) {
-        // si no existe aún, no pasa nada
         if ((lError as any)?.code !== 'PGRST116') {
           console.warn('venue_layouts fetch warning:', lError);
         }
       } else {
         layout = lData?.layout_json ?? null;
+      }
+    }
+
+    // If no layout in DB, try loading a static layout based on venue.city
+    if (!layout && eventRow.venue_id) {
+      try {
+        // try to get venue city first (if we fetched venue earlier)
+        let venueCity: string | null = null;
+        if (!venue && eventRow.venue_id) {
+          const { data: vData } = await supabase
+            .from('venues')
+            .select('city')
+            .eq('id', eventRow.venue_id)
+            .maybeSingle();
+          venueCity = vData?.city ?? null;
+        } else {
+          venueCity = venue?.city ?? null;
+        }
+
+        if (venueCity) {
+          const key = venueCity.toString().trim().toLowerCase().replace(/\s+/g, '-');
+          const layoutPath = path.join(process.cwd(), 'src', 'lib', 'venue_layouts', `${key}.json`);
+          const raw = await readFile(layoutPath, 'utf8').catch(() => null);
+          if (raw) {
+            layout = JSON.parse(raw);
+          }
+        }
+      } catch (e) {
+        // ignore missing static layout
       }
     }
 

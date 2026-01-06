@@ -1,0 +1,7 @@
+{
+  "zones": [
+    { "zone_code": "A", "label": "Platea", "x": 60, "y": 60, "width": 380, "height": 220, "color": "#bbf7d0" },
+    { "zone_code": "B", "label": "Lateral", "x": 450, "y": 60, "width": 400, "height": 220, "color": "#bfdbfe" },
+    { "zone_code": "GA", "label": "General", "x": 60, "y": 300, "width": 790, "height": 200, "color": "#fde68a" }
+  ]
+}
