@@ -1,5 +1,6 @@
 <script>
   import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
+  import Card from '$lib/components/atoms/Card.svelte';
   import Container from '$lib/components/layout/Container.svelte';
 
   export let events = [];
@@ -101,13 +102,17 @@
           <p class="text-gray-600">Mostrando {sortedConcerts.length} de {events.length} próximos eventos</p>
         </div>
       {:else}
-        <div class="text-center py-16">
-          <svg class="w-24 h-24 mx-auto mb-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          <h3 class="text-2xl font-semibold text-gray-900 mb-4">No se encontraron eventos próximos</h3>
-          <p class="text-gray-600 mb-6">Intenta ajustar los filtros para encontrar más eventos.</p>
-          <button on:click={() => { selectedCity = 'Todas'; selectedCategory = 'Todas'; }} class="px-6 py-3 text-white rounded-lg transition-colors" style="background-color: #003333;">Ver todos los próximos eventos</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {#each Array(4) as _, i}
+            <Card>
+              <div class="flex flex-col items-center justify-center h-56 opacity-40 select-none">
+                <span class="text-3xl font-bold text-[#003333]">TicketsDMK</span>
+              </div>
+            </Card>
+          {/each}
+        </div>
+        <div class="text-center mt-12">
+          <p class="text-gray-600">No se encontraron eventos próximos</p>
         </div>
       {/if}
 
