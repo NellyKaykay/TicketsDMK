@@ -57,20 +57,27 @@
 
   $: t = getSafeTranslations($translations);
 
-  let concert: Concert | null = null;
+  export let concert: Concert | null = null;
   let loading = true;
   let error: string | null = null;
 
   onMount(async () => {
+    if (concert) {
+      loading = false;
+      return;
+    }
     loading = true;
     error = null;
     try {
-      const res = await fetch('/api/events?city=Barcelona');
+      const res = await fetch('/api/events');
       if (!res.ok) throw new Error('No se pudieron cargar los eventos');
       const data = await res.json();
       if (Array.isArray(data.events) && data.events.length > 0) {
-        // Elegir el más próximo por fecha
-        concert = data.events.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0];
+        const now = new Date();
+        const upcoming = data.events
+          .filter((e: Concert) => new Date(e.date) >= now)
+          .sort((a: Concert, b: Concert) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        concert = upcoming.length > 0 ? upcoming[0] : null;
       } else {
         concert = null;
       }

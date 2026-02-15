@@ -5,8 +5,8 @@
   
   export let title = '';
   export let subtitle = '';
-  export let viewAllLink = '/events'; // Default link now points to /events
-  let concerts: Array<{
+  export let viewAllLink = '/events';
+  export let concerts: Array<{
     id: string;
     title: string;
     artist: string;
@@ -18,39 +18,8 @@
     availability: 'available' | 'limited' | 'sold-out';
   }> = [];
 
-  let loading = true;
+  let loading = false;
   let error: string | null = null;
-
-  onMount(async () => {
-    loading = true;
-    error = null;
-    try {
-      const res = await fetch('/api/events?city=Barcelona');
-      if (!res.ok) throw new Error('No se pudieron cargar los eventos');
-      const data = await res.json();
-      concerts = data.events || [];
-    } catch (e: any) {
-      error = e.message || 'Error desconocido';
-    } finally {
-      loading = false;
-    }
-    updateItemsPerView();
-    startAutoplay();
-    const handleResize = () => updateItemsPerView();
-    const handleClickOutside = (event: Event) => {
-      const target = event.target as Element;
-      if (!target.closest('.city-selector')) {
-        showCitySelector = false;
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.removeEventListener('click', handleClickOutside);
-      stopAutoplay();
-    };
-  });
   
   let currentIndex = 0;
   let carouselContainer: HTMLDivElement;

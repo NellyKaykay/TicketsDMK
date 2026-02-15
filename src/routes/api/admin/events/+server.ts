@@ -45,6 +45,50 @@ export const GET: RequestHandler = async ({ request }) => {
   });
 };
 
+export const DELETE: RequestHandler = async ({ request }) => {
+  try {
+    const token = request.headers.get('x-admin-token');
+    if (!token || token !== ADMIN_TOKEN) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const body = await request.json();
+    const { id } = body;
+
+    if (!id) {
+      return new Response(JSON.stringify({ error: 'Missing event id' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const { error } = await supabaseAdmin
+      .from('events')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (e: any) {
+    return new Response(JSON.stringify({ error: e?.message ?? 'Unknown error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+};
+
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const token = request.headers.get('x-admin-token');

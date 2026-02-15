@@ -10,17 +10,40 @@ import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
-    const data = await request.formData();
-    const file = data.get('file');
+    const token = request.headers.get('x-admin-token');
+    if (!token || token !== ADMIN_TOKEN) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    }
+
+    const formData = await request.formData();
+    const file = formData.get('file');
     if (!file || typeof file === 'string') {
       return new Response(JSON.stringify({ error: 'No file uploaded' }), { status: 400 });
     }
-    // Aquí deberías tener la lógica para subir a Supabase Storage
-    // Supón que ya subiste y tienes la URL pública:
-    // const publicUrl = ...
-    // Simulación:
-    const publicUrl = 'https://supabase.storage.url/flyers/' + file.name;
-    return new Response(JSON.stringify({ publicUrl }), {
+
+    const ext = file.name.split('.').pop() || 'jpg';
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const filePath = `flyers/${fileName}`;
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = new Uint8Array(arrayBuffer);
+
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from('flyers')
+      .upload(filePath, buffer, {
+        contentType: file.type,
+        upsert: false
+      });
+
+    if (uploadError) {
+      return new Response(JSON.stringify({ error: uploadError.message }), { status: 500 });
+    }
+
+    const { data: urlData } = supabaseAdmin.storage
+      .from('flyers')
+      .getPublicUrl(filePath);
+
+    return new Response(JSON.stringify({ publicUrl: urlData.publicUrl }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });

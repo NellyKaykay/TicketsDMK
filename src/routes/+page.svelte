@@ -1,156 +1,32 @@
 <script>
   import { onMount } from 'svelte';
-  export let data;
 
   import HeroSection from '$lib/components/molecules/HeroSection.svelte';
   import ConcertCarousel from '$lib/components/organisms/ConcertCarousel.svelte';
   import ConcertCard from '$lib/components/molecules/ConcertCard.svelte';
   import Footer from '$lib/components/organisms/Footer.svelte';
 
-  // show loader immediately; hide when data is present or on mount
   let showLoader = true;
-  $: if (data && Object.keys(data).length) showLoader = false;
-  onMount(() => { showLoader = false; });
+  let concerts = [];
+  let pastConcerts = [];
 
-  const concerts = [
-    {
-      id: '11111111-1111-4111-8111-111111111111',
-      title: 'Barcelona',
-      artist: 'Tatev Asatryan',
-      date: '2025-12-15',
-      venue: 'Arena Central Barcelona',
-      image: '/carousel/image-1.jpg',
-      price: 'Desde 45€',
-      category: 'Rock',
-      availability: 'available'
-    },
-    {
-      id: '22222222-2222-4222-8222-222222222222',
-      title: 'Madrid',
-      artist: 'Sirusho',
-      date: '2025-12-20',
-      venue: 'WiZink Center Madrid',
-      image: '/carousel/image-2.jpg',
-      price: 'Desde 55€',
-      category: 'Pop',
-      availability: 'limited'
-    },
-    {
-      id: '33333333-3333-4333-8333-333333333333',
-      title: 'Valencia',
-      artist: 'Armen Aloyan',
-      date: '2025-12-22',
-      venue: 'Palau de la Música Valencia',
-      image: '/carousel/image-3.jpg',
-      price: 'Desde 40€',
-      category: 'Folk',
-      availability: 'available'
-    },
-    {
-      id: '44444444-4444-4444-8444-444444444444',
-      title: 'Sevilla',
-      artist: 'Emmy',
-      date: '2025-12-25',
-      venue: 'Teatro de la Maestranza Sevilla',
-      image: '/carousel/image-4.jpg',
-      price: 'Desde 60€',
-      category: 'Modern',
-      availability: 'sold-out'
-    },
-    {
-      id: '55555555-5555-4555-8555-555555555555',
-      title: 'Barcelona',
-      artist: 'Aram MP3',
-      date: '2025-11-25',
-      venue: 'Palau de Vidre Barcelona',
-      image: '/carousel/image-2.jpg',
-      price: 'Desde 50€',
-      category: 'Pop',
-      availability: 'sold-out'
-    },
-    {
-      id: '66666666-6666-4666-8666-666666666666',
-      title: 'Bilbao',
-      artist: 'Hayko',
-      date: '2025-12-28',
-      venue: 'Palacio Euskalduna Bilbao',
-      image: '/carousel/image-1.jpg',
-      price: 'Desde 45€',
-      category: 'Rock',
-      availability: 'available'
-    },
-    {
-      id: '77777777-7777-4777-8777-777777777777',
-      title: 'Zaragoza',
-      artist: 'Armen Aloyan',
-      date: '2025-12-30',
-      venue: 'Auditorio de Zaragoza',
-      image: '/carousel/image-3.jpg',
-      price: 'Desde 40€',
-      category: 'Folk',
-      availability: 'limited'
-    },
-    {
-      id: '88888888-8888-4888-8888-888888888888',
-      title: 'Alicante',
-      artist: 'Hayko',
-      date: '2025-12-08',
-      venue: 'Teatro Principal Alicante',
-      image: '/carousel/image-1.jpg',
-      price: 'Desde 45€',
-      category: 'Rock',
-      availability: 'available'
+  onMount(async () => {
+    try {
+      const res = await fetch('/api/events');
+      if (res.ok) {
+        const data = await res.json();
+        const allEvents = data.events || [];
+        const now = new Date();
+        concerts = allEvents.filter(e => new Date(e.date) >= now);
+        pastConcerts = allEvents.filter(e => new Date(e.date) < now);
+      }
+    } catch (e) {
+      console.error('Error loading events:', e);
+    } finally {
+      showLoader = false;
     }
-  ];
-  
-  const pastConcerts = [
-    {
-      id: '5',
-      title: 'Sevilla',
-      artist: 'Aram Asatryan',
-      date: '2025-10-15',
-      venue: 'Teatro de la Maestranza Sevilla',
-      image: '/carousel/image-1.jpg',
-      price: 'Finalizado',
-      category: 'Traditional',
-      availability: 'sold-out'
-    },
-    {
-      id: '6',
-      title: 'Bilbao',
-      artist: 'Sirusho',
-      date: '2025-09-28',
-      venue: 'Palacio Euskalduna Bilbao',
-      image: '/carousel/image-2.jpg',
-      price: 'Finalizado',
-      category: 'Pop',
-      availability: 'sold-out'
-    },
-    {
-      id: '7',
-      title: 'Zaragoza',
-      artist: 'Armen Aloyan',
-      date: '2025-08-20',
-      venue: 'Auditorio de Zaragoza',
-      image: '/carousel/image-3.jpg',
-      price: 'Finalizado',
-      category: 'Folk',
-      availability: 'sold-out'
-    },
-    {
-      id: '8',
-      title: 'Málaga',
-      artist: 'Emmy',
-      date: '2025-07-12',
-      venue: 'Teatro Cervantes Málaga',
-      image: '/carousel/image-4.jpg',
-      price: 'Finalizado',
-      category: 'Modern',
-      availability: 'sold-out'
-    }
-  ];
-  
-  // Encontrar el próximo evento (el más cercano en fecha)
+  });
+
   $: nextEvent = concerts
     .filter(concert => new Date(concert.date) > new Date())
     .sort((a, b) => new Date(a.date) - new Date(b.date))[0];

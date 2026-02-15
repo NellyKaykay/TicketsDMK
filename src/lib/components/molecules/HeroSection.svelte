@@ -72,18 +72,6 @@
 <div class="w-full flex justify-center relative z-10 hero-card-float mt-[-18rem] sm:mt-[-24rem] lg:mt-[-32rem]">
   <div class="w-full sm:w-4/5 lg:w-3/5 bg-transparent">
     <!-- Eliminado el estilo de drop-shadow y hover del contenedor para evitar conflicto con el efecto de CardFlotante -->
-    <CardFlotante
-      concert={{
-        id: "1",
-        title: t.homepage.cardTitle,
-        artist: t.homepage.cardArtist,
-        date: "2024-07-01",
-        venue: t.homepage.cardVenue,
-        image: `${base}/carousel/image-4.jpg`,
-        price: "25",
-        category: t.homepage.cardCategory,
-        availability: "available"
-      }}
-    />
+    <CardFlotante />
   </div>
 </div>
