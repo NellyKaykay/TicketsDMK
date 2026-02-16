@@ -5,30 +5,30 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
 
 // Lazy initialization to avoid accessing env at module level during build
-let supabaseAdmin: SupabaseClient | null = null;
-let adminToken: string | null = null;
+let supabaseAdminInstance: SupabaseClient | null = null;
+let adminTokenInstance: string | null = null;
 
 function getSupabaseAdmin() {
-  if (!supabaseAdmin) {
+  if (!supabaseAdminInstance) {
     const supabaseUrl = env.PUBLIC_SUPABASE_URL;
     const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
     
     if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
     if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
     
-    supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
+    supabaseAdminInstance = createClient(supabaseUrl, serviceRoleKey, {
       auth: { persistSession: false }
     });
   }
-  return supabaseAdmin;
+  return supabaseAdminInstance;
 }
 
 function getAdminToken() {
-  if (!adminToken) {
-    adminToken = env.ADMIN_TOKEN;
-    if (!adminToken) throw new Error('Missing env: ADMIN_TOKEN');
+  if (!adminTokenInstance) {
+    adminTokenInstance = env.ADMIN_TOKEN;
+    if (!adminTokenInstance) throw new Error('Missing env: ADMIN_TOKEN');
   }
-  return adminToken;
+  return adminTokenInstance;
 }
 
 export const GET: RequestHandler = async ({ request }) => {
