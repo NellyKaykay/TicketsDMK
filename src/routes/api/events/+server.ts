@@ -1,11 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
 import type { RequestHandler } from './$types';
+import { env as publicEnv } from '$env/dynamic/public';
+import { env } from '$env/dynamic/private';
 
-const supabaseAdmin = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false }
-});
+function getSupabaseAdmin() {
+  const supabaseUrl = publicEnv.PUBLIC_SUPABASE_URL || env.PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
+  if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
+
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: { persistSession: false }
+  });
+}
 
 // GET /api/events
 // - Orders by `date` DESC
@@ -17,6 +25,8 @@ export const GET: RequestHandler = async ({ url }) => {
   const cityParam = url.searchParams.get('city')?.trim().toLowerCase() || null;
 
   try {
+    const supabaseAdmin = getSupabaseAdmin();
+
     const { data, error } = await supabaseAdmin
       .from('events')
       .select('id,title,artist,date,flyer_url,venue:venues(name,city),ticket_types(price_cents,capacity,sold)')
