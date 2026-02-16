@@ -1,22 +1,20 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { createClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
+import { getSupabaseAdmin } from '$lib/server/supabase';
 
-
-const supabaseUrl = env.PUBLIC_SUPABASE_URL;
-const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
-const adminToken = env.ADMIN_TOKEN;
-
-if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
-if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
-if (!adminToken) throw new Error('Missing env: ADMIN_TOKEN');
-
-const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
-  auth: { persistSession: false }
-});
+function getAdminToken() {
+  const adminToken = env.ADMIN_TOKEN;
+  if (!adminToken) {
+    throw new Error('Missing ADMIN_TOKEN env var');
+  }
+  return adminToken;
+}
 
 export const GET: RequestHandler = async ({ request }) => {
+  const adminToken = getAdminToken();
+  const supabaseAdmin = getSupabaseAdmin();
+
   const token = request.headers.get('x-admin-token');
   if (!token || token !== adminToken) {
     return new Response(JSON.stringify({ error: 'Unauthorized', received: token }), {
@@ -45,6 +43,9 @@ export const GET: RequestHandler = async ({ request }) => {
 
 export const DELETE: RequestHandler = async ({ request }) => {
   try {
+    const adminToken = getAdminToken();
+    const supabaseAdmin = getSupabaseAdmin();
+
     const token = request.headers.get('x-admin-token');
     if (!token || token !== adminToken) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -89,6 +90,9 @@ export const DELETE: RequestHandler = async ({ request }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    const adminToken = getAdminToken();
+    const supabaseAdmin = getSupabaseAdmin();
+
     const token = request.headers.get('x-admin-token');
     if (!token || token !== adminToken) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -135,7 +139,6 @@ export const POST: RequestHandler = async ({ request }) => {
       });
     }
 
-    // ✅ Devuelve el UUID generado automáticamente
     return new Response(JSON.stringify({ ok: true, event_id: data.id }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

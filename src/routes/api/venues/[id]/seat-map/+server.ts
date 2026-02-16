@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { supabaseAdmin as supabase } from '$lib/server/supabase';
+import { getSupabaseAdmin } from '$lib/server/supabase';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ params }) => {
@@ -8,6 +8,8 @@ export const GET: RequestHandler = async ({ params }) => {
   if (!venueId) {
     return json({ error: 'Missing venue id' }, { status: 400 });
   }
+
+  const supabase = getSupabaseAdmin();
 
   const { data, error } = await supabase
     .from('venue_seat_maps')

@@ -1,19 +1,16 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
-import { ADMIN_TOKEN } from '$env/static/private';
-
-const supabaseAdmin = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false }
-});
+import { env } from '$env/dynamic/private';
+import { getSupabaseAdmin } from '$lib/server/supabase';
 
 export const GET: RequestHandler = async ({ request }) => {
+  const adminToken = env.ADMIN_TOKEN;
   const token = request.headers.get('x-admin-token');
-  if (!token || token !== ADMIN_TOKEN) {
+  if (!token || token !== adminToken) {
     return json({ error: 'Unauthorized' }, { status: 401 });
   }
+
+  const supabaseAdmin = getSupabaseAdmin();
 
   const { data, error } = await supabaseAdmin
     .from('venues')
