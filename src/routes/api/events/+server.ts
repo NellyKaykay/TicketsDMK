@@ -1,11 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/private';
 import type { RequestHandler } from './$types';
 
-const supabaseAdmin = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false }
-});
+// Lazy initialization to avoid accessing env at module level during build
+let supabaseAdminInstance: SupabaseClient | null = null;
+
+function getSupabaseAdmin() {
+  if (!supabaseAdminInstance) {
+    const supabaseUrl = env.PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+    
+    if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
+    if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
+    
+    supabaseAdminInstance = createClient(supabaseUrl, serviceRoleKey, {
+      auth: { persistSession: false }
+    });
+  }
+  return supabaseAdminInstance;
+}
 
 // GET /api/events
 // - Orders by `date` DESC
@@ -17,7 +31,8 @@ export const GET: RequestHandler = async ({ url }) => {
   const cityParam = url.searchParams.get('city')?.trim().toLowerCase() || null;
 
   try {
-    const { data, error } = await supabaseAdmin
+    const admin = getSupabaseAdmin();
+    const { data, error } = await admin
       .from('events')
       .select('id,title,artist,date,flyer_url,venue:venues(name,city),ticket_types(price_cents,capacity,sold)')
       .order('date', { ascending: false })
