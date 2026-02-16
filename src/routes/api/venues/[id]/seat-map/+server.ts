@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { supabase } from '$lib/server/supabase';
+import { supabaseAdmin as supabase } from '$lib/server/supabase';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ params }) => {
