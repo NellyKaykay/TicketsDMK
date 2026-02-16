@@ -1,31 +1,48 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { createClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
 
+// Lazy initialization to avoid accessing env at module level during build
+let supabaseAdmin: SupabaseClient | null = null;
+let adminToken: string | null = null;
 
-const supabaseUrl = env.PUBLIC_SUPABASE_URL;
-const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
-const adminToken = env.ADMIN_TOKEN;
+function getSupabaseAdmin() {
+  if (!supabaseAdmin) {
+    const supabaseUrl = env.PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+    
+    if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
+    if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
+    
+    supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
+      auth: { persistSession: false }
+    });
+  }
+  return supabaseAdmin;
+}
 
-if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
-if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
-if (!adminToken) throw new Error('Missing env: ADMIN_TOKEN');
-
-const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
-  auth: { persistSession: false }
-});
+function getAdminToken() {
+  if (!adminToken) {
+    adminToken = env.ADMIN_TOKEN;
+    if (!adminToken) throw new Error('Missing env: ADMIN_TOKEN');
+  }
+  return adminToken;
+}
 
 export const GET: RequestHandler = async ({ request }) => {
   const token = request.headers.get('x-admin-token');
-  if (!token || token !== adminToken) {
+  const adminTokenValue = getAdminToken();
+  if (!token || token !== adminTokenValue) {
     return new Response(JSON.stringify({ error: 'Unauthorized', received: token }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  const { data, error } = await supabaseAdmin
+  const admin = getSupabaseAdmin();
+  const { data, error } = await admin
     .from('events')
     .select('id,title,artist,date,flyer_url,venue_id')
     .order('date', { ascending: false })
@@ -46,7 +63,8 @@ export const GET: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async ({ request }) => {
   try {
     const token = request.headers.get('x-admin-token');
-    if (!token || token !== adminToken) {
+    const adminTokenValue = getAdminToken();
+    if (!token || token !== adminTokenValue) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' }
@@ -63,7 +81,8 @@ export const DELETE: RequestHandler = async ({ request }) => {
       });
     }
 
-    const { error } = await supabaseAdmin
+    const admin = getSupabaseAdmin();
+    const { error } = await admin
       .from('events')
       .delete()
       .eq('id', id);
@@ -90,7 +109,8 @@ export const DELETE: RequestHandler = async ({ request }) => {
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const token = request.headers.get('x-admin-token');
-    if (!token || token !== adminToken) {
+    const adminTokenValue = getAdminToken();
+    if (!token || token !== adminTokenValue) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' }
@@ -115,7 +135,8 @@ export const POST: RequestHandler = async ({ request }) => {
       });
     }
 
-    const { data, error } = await supabaseAdmin
+    const admin = getSupabaseAdmin();
+    const { data, error } = await admin
       .from('events')
       .insert({
         title,

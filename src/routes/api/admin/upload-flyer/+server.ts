@@ -1,17 +1,40 @@
 import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { SUPABASE_SERVICE_ROLE_KEY, ADMIN_TOKEN } from '$env/static/private';
-
-const supabaseAdmin = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false }
-});
-
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/private';
 import type { RequestHandler } from './$types';
+
+// Lazy initialization to avoid accessing env at module level during build
+let supabaseAdmin: SupabaseClient | null = null;
+let adminToken: string | null = null;
+
+function getSupabaseAdmin() {
+  if (!supabaseAdmin) {
+    const supabaseUrl = env.PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+    
+    if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
+    if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
+    
+    supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
+      auth: { persistSession: false }
+    });
+  }
+  return supabaseAdmin;
+}
+
+function getAdminToken() {
+  if (!adminToken) {
+    adminToken = env.ADMIN_TOKEN;
+    if (!adminToken) throw new Error('Missing env: ADMIN_TOKEN');
+  }
+  return adminToken;
+}
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const token = request.headers.get('x-admin-token');
-    if (!token || token !== ADMIN_TOKEN) {
+    const adminTokenValue = getAdminToken();
+    if (!token || token !== adminTokenValue) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
 
@@ -28,7 +51,8 @@ export const POST: RequestHandler = async ({ request }) => {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = new Uint8Array(arrayBuffer);
 
-    const { error: uploadError } = await supabaseAdmin.storage
+    const admin = getSupabaseAdmin();
+    const { error: uploadError } = await admin.storage
       .from('flyers')
       .upload(filePath, buffer, {
         contentType: file.type,
@@ -39,7 +63,7 @@ export const POST: RequestHandler = async ({ request }) => {
       return new Response(JSON.stringify({ error: uploadError.message }), { status: 500 });
     }
 
-    const { data: urlData } = supabaseAdmin.storage
+    const { data: urlData } = admin.storage
       .from('flyers')
       .getPublicUrl(filePath);
 
