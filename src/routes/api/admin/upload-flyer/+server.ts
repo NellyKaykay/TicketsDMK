@@ -1,19 +1,33 @@
 import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { SUPABASE_SERVICE_ROLE_KEY, ADMIN_TOKEN } from '$env/static/private';
-
-const supabaseAdmin = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false }
-});
-
 import type { RequestHandler } from './$types';
+import { env as publicEnv } from '$env/dynamic/public';
+import { env } from '$env/dynamic/private';
+
+function getSupabaseAdmin() {
+  const supabaseUrl = publicEnv.PUBLIC_SUPABASE_URL || env.PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl) throw new Error('Missing env: PUBLIC_SUPABASE_URL');
+  if (!serviceRoleKey) throw new Error('Missing env: SUPABASE_SERVICE_ROLE_KEY');
+
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: { persistSession: false }
+  });
+}
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    const adminToken = env.ADMIN_TOKEN;
+    if (!adminToken) {
+      return new Response(JSON.stringify({ error: 'Missing env: ADMIN_TOKEN' }), { status: 500 });
+    }
+
     const token = request.headers.get('x-admin-token');
-    if (!token || token !== ADMIN_TOKEN) {
+    if (!token || token !== adminToken) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
+
+    const supabaseAdmin = getSupabaseAdmin();
 
     const formData = await request.formData();
     const file = formData.get('file');
