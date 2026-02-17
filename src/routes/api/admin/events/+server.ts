@@ -109,7 +109,8 @@ export const POST: RequestHandler = async ({ request }) => {
       description = null,
       date,        // ISO string o "YYYY-MM-DD"
       flyer_url = null,
-      venue_id     // UUID de venues (lo pediremos en el siguiente paso)
+      venue_id,    // UUID de venues
+      zones = []   // [{ zone_code, name, price }]
     } = body;
 
     if (!title || !artist || !date || !venue_id) {
@@ -137,6 +138,41 @@ export const POST: RequestHandler = async ({ request }) => {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
+    }
+
+    // Create ticket_types for each zone
+    if (zones.length > 0) {
+      const ZONE_CONFIG: Record<string, { color: string; capacity: number; sort_order: number }> = {
+        A: { color: '#f59e0b', capacity: 56, sort_order: 1 },
+        B: { color: '#38bdf8', capacity: 100, sort_order: 2 },
+        C: { color: '#34d399', capacity: 144, sort_order: 3 }
+      };
+
+      const ticketRows = zones.map((z: { zone_code: string; name: string; price: number }) => {
+        const cfg = ZONE_CONFIG[z.zone_code] || { color: '#cbd5e1', capacity: 0, sort_order: 9 };
+        return {
+          event_id: data.id,
+          name: z.name,
+          zone_code: z.zone_code,
+          price_cents: Math.round(z.price * 100),
+          currency: 'EUR',
+          capacity: cfg.capacity,
+          sold: 0,
+          color: cfg.color,
+          sort_order: cfg.sort_order
+        };
+      });
+
+      const { error: ttError } = await supabaseAdmin
+        .from('ticket_types')
+        .insert(ticketRows);
+
+      if (ttError) {
+        return new Response(JSON.stringify({ error: 'Evento creado pero fallo al crear precios: ' + ttError.message, event_id: data.id }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
     }
 
     return new Response(JSON.stringify({ ok: true, event_id: data.id }), {

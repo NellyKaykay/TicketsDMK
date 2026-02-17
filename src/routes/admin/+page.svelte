@@ -29,7 +29,9 @@
   let artist = '';
   let date = '';
   let venue_id = '';
-  let price = '';
+  let priceVip = '';
+  let pricePreferente = '';
+  let priceGeneral = '';
   let category = '';
   let status = 'available';
   let flyer_url = '';
@@ -85,6 +87,10 @@
       eventError = 'Selecciona una sala / venue';
       return;
     }
+    if (!priceVip || !pricePreferente || !priceGeneral) {
+      eventError = 'Introduce los 3 precios (VIP, Preferente, General)';
+      return;
+    }
     let flyerInput = document.querySelector('input[type="file"]') as HTMLInputElement;
     let file = flyerInput?.files?.[0];
     if (!file && !flyer_url) {
@@ -109,7 +115,12 @@
           date,
           flyer_url: finalFlyerUrl,
           venue_id,
-          description: null
+          description: null,
+          zones: [
+            { zone_code: 'A', name: 'VIP', price: parseFloat(priceVip) },
+            { zone_code: 'B', name: 'Preferente', price: parseFloat(pricePreferente) },
+            { zone_code: 'C', name: 'General', price: parseFloat(priceGeneral) }
+          ]
         })
       });
       const data = await res.json();
@@ -117,7 +128,7 @@
         eventError = data.error || 'Error al guardar el evento';
       } else {
         eventSuccess = data.event_id;
-        title = artist = date = venue_id = price = category = status = flyer_url = '';
+        title = artist = date = venue_id = priceVip = pricePreferente = priceGeneral = category = status = flyer_url = '';
         if (flyerInput) flyerInput.value = '';
       }
     } catch (e: any) {
@@ -191,7 +202,25 @@
             <option value={v.id}>{v.name} — {v.city}</option>
           {/each}
         </select>
-        <input type="text" placeholder="Precio" class="border rounded-md px-4 py-2" bind:value={price} required />
+        <!-- Precios por zona -->
+        <div class="border rounded-md p-4 bg-gray-50 space-y-3">
+          <p class="text-sm font-semibold text-gray-700">Precios por zona (EUR)</p>
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded bg-amber-400 shrink-0"></span>
+            <label class="text-sm text-gray-600 w-24" for="price-vip">VIP</label>
+            <input id="price-vip" type="number" step="0.01" min="0" placeholder="0.00" class="border rounded-md px-3 py-2 flex-1" bind:value={priceVip} required />
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded bg-sky-400 shrink-0"></span>
+            <label class="text-sm text-gray-600 w-24" for="price-pref">Preferente</label>
+            <input id="price-pref" type="number" step="0.01" min="0" placeholder="0.00" class="border rounded-md px-3 py-2 flex-1" bind:value={pricePreferente} required />
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded bg-emerald-400 shrink-0"></span>
+            <label class="text-sm text-gray-600 w-24" for="price-gen">General</label>
+            <input id="price-gen" type="number" step="0.01" min="0" placeholder="0.00" class="border rounded-md px-3 py-2 flex-1" bind:value={priceGeneral} required />
+          </div>
+        </div>
         <select class="border rounded-md px-4 py-2" bind:value={category} required>
           <option value="" disabled>Selecciona categoría</option>
           <option value="Rock">Rock</option>
