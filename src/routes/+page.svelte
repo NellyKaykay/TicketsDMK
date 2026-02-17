@@ -16,9 +16,10 @@
       if (res.ok) {
         const data = await res.json();
         const allEvents = data.events || [];
-        const now = new Date();
-        concerts = allEvents.filter(e => new Date(e.date) >= now);
-        pastConcerts = allEvents.filter(e => new Date(e.date) < now);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        concerts = allEvents.filter(e => new Date(e.date) >= today);
+        pastConcerts = allEvents.filter(e => new Date(e.date) < today);
       }
     } catch (e) {
       console.error('Error loading events:', e);
