@@ -12,7 +12,14 @@ export const load: PageLoad = async ({ params, fetch }) => {
     }
 
     const payload = await res.json();
-    return { event: payload.event };
+    return {
+      event: {
+        ...payload.event,
+        ticket_types: payload.ticket_types ?? [],
+        venues: payload.venue ? [payload.venue] : [],
+        layout: payload.layout ?? null
+      }
+    };
   } catch (e: any) {
     return { event: null, error: { status: 500, message: e?.message || String(e) } };
   }

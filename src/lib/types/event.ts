@@ -33,6 +33,13 @@ export interface EventItem {
   } | any[];
 }
 
+export interface SelectedSeat {
+  id: string;
+  zone_code: string;
+  row: string;
+  seat_number: number;
+}
+
 export interface EventResponse {
   event: EventItem;
 }
