@@ -147,7 +147,7 @@
       aria-label="Tarjeta de evento destacado"
     >
       <Card
-        class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 mx-auto"
+        class="hero-floating-card shadow-[0_4px_24px_0_#003333] rounded-[24px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 mx-auto"
           style="width: 900px; max-width: 96vw; min-width: 320px; max-height: 90vh; overflow: visible;"
       >
         <!-- CONTENEDOR DE IMAGEN: ocupa 100%, sin fondo blanco -->
