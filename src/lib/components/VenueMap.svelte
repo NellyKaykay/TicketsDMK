@@ -30,6 +30,19 @@
     return t?.color || '#cbd5e1';
   }
 
+  function getZonePrice(code: string): string {
+    const t = ticketTypes.find(x => x.zone_code === code);
+    if (!t || !t.price_cents) return '';
+    return (t.price_cents / 100).toFixed(2) + ' EUR';
+  }
+
+  function seatTooltip(seat: SeatData): string {
+    if (soldSeats.has(seat.id)) return `Fila ${seat.row}, Asiento ${seat.seat_number} — Vendido`;
+    const price = getZonePrice(seat.zone_code);
+    const zone = ZONE_LABELS[seat.zone_code] || seat.zone_code;
+    return `Fila ${seat.row}, Asiento ${seat.seat_number} — ${zone}${price ? ' — ' + price : ''}`;
+  }
+
   function generateZoneSeats(
     zone_code: string,
     startRowIndex: number,
@@ -194,13 +207,13 @@
           aria-label="Fila {seat.row}, Asiento {seat.seat_number}"
           aria-disabled={soldSeats.has(seat.id)}
         >
-          <title>Fila {seat.row}, Asiento {seat.seat_number}</title>
+          <title>{seatTooltip(seat)}</title>
         </rect>
       {/each}
     {/each}
 
     <!-- VIP label -->
-    <text x="400" y="168" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">VIP</text>
+    <text x="400" y="168" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">VIP {getZonePrice('A') ? '— ' + getZonePrice('A') : ''}</text>
 
     <!-- Aisle -->
     <line x1="100" y1="298" x2="700" y2="298" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 4" />
@@ -236,13 +249,13 @@
           aria-label="Fila {seat.row}, Asiento {seat.seat_number}"
           aria-disabled={soldSeats.has(seat.id)}
         >
-          <title>Fila {seat.row}, Asiento {seat.seat_number}</title>
+          <title>{seatTooltip(seat)}</title>
         </rect>
       {/each}
     {/each}
 
     <!-- Preferente label -->
-    <text x="400" y="308" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">PREFERENTE</text>
+    <text x="400" y="308" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">PREFERENTE {getZonePrice('B') ? '— ' + getZonePrice('B') : ''}</text>
 
     <!-- Aisle -->
     <line x1="80" y1="445" x2="720" y2="445" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 4" />
@@ -278,13 +291,13 @@
           aria-label="Fila {seat.row}, Asiento {seat.seat_number}"
           aria-disabled={soldSeats.has(seat.id)}
         >
-          <title>Fila {seat.row}, Asiento {seat.seat_number}</title>
+          <title>{seatTooltip(seat)}</title>
         </rect>
       {/each}
     {/each}
 
     <!-- General label -->
-    <text x="400" y="458" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">GENERAL</text>
+    <text x="400" y="458" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">GENERAL {getZonePrice('C') ? '— ' + getZonePrice('C') : ''}</text>
 
     <!-- Exit indicators -->
     <text x="45" y="648" text-anchor="start" fill="#94a3b8" font-size="9" font-weight="600" letter-spacing="1">SALIDA</text>
@@ -305,37 +318,3 @@
     </g>
   </svg>
 </div>
-
-<style>
-  .venue-map-wrapper {
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  .venue-svg {
-    width: 100%;
-    min-width: 500px;
-    height: auto;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .seat {
-    transition: opacity 0.15s ease, transform 0.15s ease;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  .seat:not(.seat-sold):hover {
-    opacity: 0.85 !important;
-    transform: scale(1.2);
-  }
-
-  .seat-selected {
-    transform: scale(1.1);
-  }
-
-  .seat-sold {
-    cursor: not-allowed !important;
-  }
-</style>
