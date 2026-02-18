@@ -70,7 +70,7 @@
       <!-- Left: flyer + info + map -->
       <div class="lg:col-span-2 space-y-4 md:space-y-5">
         {#if event && event.flyer_url}
-          <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden w-full max-w-2xl mx-auto">
+          <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl overflow-hidden w-full max-w-2xl mx-auto">
             <img src={event.flyer_url} alt={event?.title} class="w-full object-cover max-h-96" />
 
             <div class="p-5">
@@ -101,7 +101,7 @@
         {/if}
 
         <!-- Mapa de la sala -->
-        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-2 w-full max-w-2xl mx-auto">
+        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl p-2 w-full max-w-2xl mx-auto">
           <h2 class="text-base font-semibold text-gray-800 mb-1">Selecciona tus asientos</h2>
           <p class="text-xs text-gray-400 mb-2">Haz clic en un asiento para seleccionarlo</p>
           <VenueMap {ticketTypes} {soldSeats} {maxPerZone} />
@@ -122,7 +122,7 @@
 
       <!-- Right column: checkout summary -->
       <aside class="flex justify-center items-center mt-6 w-full">
-        <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden w-full max-w-md mx-auto">
+        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl overflow-hidden w-full max-w-md mx-auto">
           <!-- Header -->
           <div class="bg-[#003333] text-white px-5 py-4">
             <h3 class="text-lg font-semibold">Resumen de compra</h3>
