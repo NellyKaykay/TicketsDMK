@@ -61,7 +61,7 @@
     return rows;
   }
 
-  const vipRows = generateZoneSeats('A', 0, 4, 14, 400, 195, 25, 22);
+  const vipRows = generateZoneSeats('A', 0, 4, 14, 400, 175, 25, 22);
   const prefRows = generateZoneSeats('B', 4, 5, 20, 400, 315, 25, 22);
   const genRows = generateZoneSeats('C', 9, 6, 24, 400, 465, 25, 22);
 
@@ -121,14 +121,38 @@
     }
     return false;
   }
+
+  // Format cents to currency string
+  function formatMoney(cents: number, currency: string = 'USD'): string {
+    return (cents / 100).toLocaleString(undefined, {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+  let tooltip = { visible: false, x: 0, y: 0, text: '', zone: '' };
+
+  function showTooltip(seat) {
+    tooltip = {
+      visible: true,
+      x: seat.x,
+      y: seat.y - 30,
+      text: `Fila ${seat.row}, Asiento ${seat.seat_number} — Precio: ${formatMoney((ticketTypes.find(x => x.zone_code === seat.zone_code)?.price_cents || 0), 'USD')}`,
+      zone: seat.zone_code
+    };
+  }
+  function hideTooltip() {
+    tooltip.visible = false;
+  }
 </script>
 
 <div class="venue-map-wrapper">
   <svg viewBox="0 0 800 660" class="venue-svg" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="stageGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1a1a2e" />
-        <stop offset="100%" stop-color="#16213e" />
+        <stop offset="0%" stop-color="#003333" />
+        <stop offset="100%" stop-color="#003333" />
       </linearGradient>
       <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#f8fafc" />
@@ -150,11 +174,11 @@
 
     <!-- Stage -->
     <path
-      d="M 180,80 Q 400,30 620,80 L 620,130 Q 400,145 180,130 Z"
+      d="M 180,60 Q 400,10 620,60 L 620,110 Q 400,125 180,110 Z"
       fill="url(#stageGrad)"
       filter="url(#stageShadow)"
     />
-    <text x="400" y="108" text-anchor="middle" fill="white" font-size="18" font-weight="700" letter-spacing="4">
+    <text x="400" y="88" text-anchor="middle" fill="#fff" font-size="18" font-weight="700" letter-spacing="4" style="fill:#fff !important; color:#fff !important; text-shadow:0 1px 8px #222;">
       ESCENARIO
     </text>
 
@@ -173,8 +197,8 @@
 
     <!-- VIP seats -->
     {#each vipRows as row}
-      <text x="78" y={row[0].y + 4} text-anchor="end" fill="#64748b" font-size="10" font-weight="600">{row[0].row}</text>
-      <text x="722" y={row[0].y + 4} text-anchor="start" fill="#64748b" font-size="10" font-weight="600">{row[0].row}</text>
+      <text x="78" y={row[0].y + 4} text-anchor="end" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="722" y={row[0].y + 4} text-anchor="start" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
       {#each row as seat}
         <rect
           x={seat.x - 8} y={seat.y - 8} width="16" height="16" rx="3"
@@ -191,16 +215,16 @@
           on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && handleSeatClick(seat)}
           tabindex={soldSeats.has(seat.id) ? -1 : 0}
           role="button"
-          aria-label="Fila {seat.row}, Asiento {seat.seat_number}"
+          aria-label={`Fila ${seat.row}, Asiento ${seat.seat_number}, Precio: ${formatMoney((ticketTypes.find(x => x.zone_code === seat.zone_code)?.price_cents || 0), 'USD')}`}
           aria-disabled={soldSeats.has(seat.id)}
         >
-          <title>Fila {seat.row}, Asiento {seat.seat_number}</title>
+          <title>Fila {seat.row}, Asiento {seat.seat_number} — Precio: {formatMoney((ticketTypes.find(x => x.zone_code === seat.zone_code)?.price_cents || 0), 'USD')}</title>
         </rect>
       {/each}
     {/each}
 
     <!-- VIP label -->
-    <text x="400" y="168" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">VIP</text>
+    <text x="400" y="148" text-anchor="middle" fill="#003333" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">VIP</text>
 
     <!-- Aisle -->
     <line x1="100" y1="298" x2="700" y2="298" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 4" />
@@ -215,8 +239,8 @@
 
     <!-- Preferente seats -->
     {#each prefRows as row}
-      <text x="58" y={row[0].y + 4} text-anchor="end" fill="#64748b" font-size="10" font-weight="600">{row[0].row}</text>
-      <text x="742" y={row[0].y + 4} text-anchor="start" fill="#64748b" font-size="10" font-weight="600">{row[0].row}</text>
+      <text x="58" y={row[0].y + 4} text-anchor="end" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="742" y={row[0].y + 4} text-anchor="start" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
       {#each row as seat}
         <rect
           x={seat.x - 8} y={seat.y - 8} width="16" height="16" rx="3"
@@ -242,7 +266,7 @@
     {/each}
 
     <!-- Preferente label -->
-    <text x="400" y="308" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">PREFERENTE</text>
+    <text x="400" y="288" text-anchor="middle" fill="#003333" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">PREFERENTE</text>
 
     <!-- Aisle -->
     <line x1="80" y1="445" x2="720" y2="445" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 4" />
@@ -257,8 +281,8 @@
 
     <!-- General seats -->
     {#each genRows as row}
-      <text x="40" y={row[0].y + 4} text-anchor="end" fill="#64748b" font-size="10" font-weight="600">{row[0].row}</text>
-      <text x="760" y={row[0].y + 4} text-anchor="start" fill="#64748b" font-size="10" font-weight="600">{row[0].row}</text>
+      <text x="40" y={row[0].y + 4} text-anchor="end" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="760" y={row[0].y + 4} text-anchor="start" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
       {#each row as seat}
         <rect
           x={seat.x - 8} y={seat.y - 8} width="16" height="16" rx="3"
@@ -284,7 +308,7 @@
     {/each}
 
     <!-- General label -->
-    <text x="400" y="458" text-anchor="middle" fill="#334155" font-size="11" font-weight="700" letter-spacing="2">GENERAL</text>
+    <text x="400" y="448" text-anchor="middle" fill="#003333" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">GENERAL</text>
 
     <!-- Exit indicators -->
     <text x="45" y="648" text-anchor="start" fill="#94a3b8" font-size="9" font-weight="600" letter-spacing="1">SALIDA</text>
@@ -293,31 +317,40 @@
     <!-- Legend -->
     <g transform="translate(80, 630)">
       <rect x="0" y="0" width="10" height="10" rx="2" fill={getZoneColor('A')} opacity="0.5" />
-      <text x="14" y="9" fill="#475569" font-size="9">VIP</text>
+      <text x="14" y="9" fill="#003333" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">VIP</text>
       <rect x="80" y="0" width="10" height="10" rx="2" fill={getZoneColor('B')} opacity="0.5" />
-      <text x="94" y="9" fill="#475569" font-size="9">Preferente</text>
+      <text x="94" y="9" fill="#003333" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">Preferente</text>
       <rect x="200" y="0" width="10" height="10" rx="2" fill={getZoneColor('C')} opacity="0.5" />
-      <text x="214" y="9" fill="#475569" font-size="9">General</text>
+      <text x="214" y="9" fill="#003333" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">General</text>
       <rect x="320" y="0" width="10" height="10" rx="2" fill="#2563eb" opacity="1" stroke="#111827" stroke-width="1" />
-      <text x="334" y="9" fill="#475569" font-size="9">Seleccionado</text>
+      <text x="334" y="9" fill="#003333" font-size="15" font-weight="900" style="text-shadow:0 2px 12px #fff;">Seleccionado</text>
       <rect x="440" y="0" width="10" height="10" rx="2" fill="#d1d5db" opacity="0.4" />
-      <text x="454" y="9" fill="#475569" font-size="9">Vendido</text>
+      <text x="454" y="9" fill="#003333" font-size="15" font-weight="900" style="text-shadow:0 2px 12px #fff;">Vendido</text>
     </g>
   </svg>
 </div>
 
 <style>
   .venue-map-wrapper {
+    font-size: 15px;
     width: 100%;
     overflow-x: auto;
   }
 
   .venue-svg {
+    font-size: 15px;
     width: 100%;
     min-width: 500px;
     height: auto;
     border-radius: 12px;
     overflow: hidden;
+  }
+  text, .seat, .venue-svg text, .venue-map-wrapper text {
+    fill: #222 !important;
+    color: #222 !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 4px #fff;
   }
 
   .seat {
