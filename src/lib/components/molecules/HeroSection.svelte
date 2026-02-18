@@ -69,7 +69,7 @@
 </div>
 
 <!-- Card flotante integrado -->
-<div class="w-full flex justify-center relative z-10 hero-card-float mt-[-18rem] sm:mt-[-24rem] lg:mt-[-32rem]">
+<div class="w-full flex justify-center relative z-10 hero-card-float mt-[-18rem] sm:mt-[-23rem] lg:mt-[-28rem]">
   <div class="w-full sm:w-4/5 lg:w-3/5 bg-transparent">
     <!-- Eliminado el estilo de drop-shadow y hover del contenedor para evitar conflicto con el efecto de CardFlotante -->
     <CardFlotante />

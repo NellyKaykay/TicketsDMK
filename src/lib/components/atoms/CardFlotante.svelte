@@ -106,13 +106,13 @@
 {:else if concert}
   <div class="card-fadein-wrapper">
     <Card
-      class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] absolute left-1/2 -translate-x-1/2 -top-[224px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 hover:scale-105 animate-floating"
-        style="top: -224px; width: 520px; max-width: 96vw; min-width: 320px; max-height: 90vh; box-shadow: 0 0 0 8px rgba(0,51,51,0.18), 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid rgba(0,51,51,0.12); outline-offset: 0px; overflow: visible;"
+      class="hero-floating-card border-4 border-[#003333]/60 rounded-[24px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 hover:scale-105 mx-auto"
+        style="width: 580px; max-width: 96vw; min-width: 320px; max-height: 90vh; box-shadow: 0 0 0 8px rgba(0,51,51,0.18), 0 40px 180px 0 rgba(0,51,51,0.85), 0 8px 48px 0 rgba(0,51,51,0.28), 0 0px 0px 8px rgba(0,51,51,0.18); outline: 4px solid rgba(0,51,51,0.12); outline-offset: 0px; overflow: visible;"
     >
       <!-- CONTENEDOR DE IMAGEN: ocupa 100%, sin fondo blanco -->
       <div
         class="relative w-full overflow-hidden rounded-t-[24px] flex-shrink-0"
-        style="aspect-ratio: 16/7;"
+        style="aspect-ratio: 16/9;"
       >
         <img
           src={concert.image ?? '/carousel/image-4.jpg'}
@@ -140,7 +140,7 @@
       </div>
 
       <!-- CONTENIDO TEXTO -->
-      <div class="flex flex-col gap-0 min-h-[120px] px-4 pb-3 pt-8 bg-white rounded-b-[24px] bg-opacity-95 -mt-6">
+      <div class="flex flex-col gap-0 min-h-[140px] px-4 pb-4 pt-8 bg-white rounded-b-[24px] bg-opacity-95 -mt-6">
         <h3 class="text-sm font-bold text-[#003333] truncate mb-0">{concert.artist}</h3>
         <p class="text-xs text-gray-700 truncate mb-0">{concert.title}</p>
 
@@ -184,67 +184,108 @@
       transform: translateY(0);
     }
   }
-  /* Efecto flotante animado */
-  @keyframes floating {
-    0% { transform: translateX(-50%) translateY(0) scale(1); }
-    20% { transform: translateX(-50%) translateY(-32px) scale(1.04) rotate(-2deg); }
-    50% { transform: translateX(-50%) translateY(-56px) scale(1.08) rotate(2deg); }
-    80% { transform: translateX(-50%) translateY(-32px) scale(1.04) rotate(-2deg); }
-    100% { transform: translateX(-50%) translateY(0) scale(1); }
+
+  /* Animacion flotante continua */
+  @keyframes cardFloat {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
   }
-  :global(.animate-floating) {
-    animation: floating 2.2s cubic-bezier(.4,2,.6,1) infinite;
+
+  /* Pulso sutil en la sombra */
+  @keyframes shadowPulse {
+    0%, 100% {
+      box-shadow: 0 30px 80px 0 rgba(0, 51, 51, 0.5),
+        0 12px 40px 0 rgba(0, 51, 51, 0.3),
+        0 0 0 6px rgba(0, 51, 51, 0.15),
+        0 0 60px 0 rgba(0, 51, 51, 0.1);
+    }
+    50% {
+      box-shadow: 0 50px 120px 0 rgba(0, 51, 51, 0.65),
+        0 20px 60px 0 rgba(0, 51, 51, 0.35),
+        0 0 0 8px rgba(0, 51, 51, 0.2),
+        0 0 80px 0 rgba(0, 51, 51, 0.15);
+    }
   }
+
   :global(.hero-floating-card) {
-    transform: translateX(-50%) scale(1);
-    box-shadow: 0 40px 180px 0 rgba(0, 51, 51, 0.85),
-      0 8px 48px 0 rgba(0, 51, 51, 0.28),
-      0 0px 0px 8px rgba(0, 51, 51, 0.18);
+    animation: cardFloat 4s ease-in-out infinite, shadowPulse 4s ease-in-out infinite;
     border-width: 4px;
     border-color: #00333399;
-    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s cubic-bezier(0.4,0,0.2,1);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
     will-change: transform, box-shadow;
   }
 
+  /* Sombra difusa debajo - efecto de "elevacion" */
   :global(.hero-floating-card)::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
+    left: 10%;
+    right: 10%;
+    bottom: -30px;
+    height: 40px;
+    border-radius: 50%;
     z-index: -1;
     background: radial-gradient(
-      circle at 50% 120%,
-      rgba(0, 51, 51, 0.75),
+      ellipse at center,
+      rgba(0, 51, 51, 0.45),
       transparent 70%
     );
-    opacity: 1;
-    filter: blur(32px);
-    transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
-    transform: translate3d(0, 32px, 0) scale(1.08);
+    filter: blur(18px);
+    animation: shadowFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes shadowFloat {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  /* Reflejo / glow sutil en el borde */
+  :global(.hero-floating-card)::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    z-index: -1;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 50%,
+      rgba(0, 51, 51, 0.08) 100%
+    );
+    pointer-events: none;
   }
 
   :global(.hero-floating-card:hover) {
-    transform: translateX(-50%) scale(1.05);
-    box-shadow: 0 60px 240px 0 rgba(0, 51, 51, 1),
-      0 16px 64px 0 rgba(0, 51, 51, 0.35),
-      0 0px 0px 12px rgba(0, 51, 51, 0.28);
+    animation-play-state: paused;
+    transform: scale(1.05) translateY(-8px);
+    box-shadow: 0 60px 160px 0 rgba(0, 51, 51, 0.7),
+      0 24px 80px 0 rgba(0, 51, 51, 0.4),
+      0 0 0 10px rgba(0, 51, 51, 0.25),
+      0 0 100px 0 rgba(0, 51, 51, 0.2);
     border-color: #003333cc;
   }
 
   :global(.hero-floating-card:hover)::before {
-    opacity: 1;
-    filter: blur(48px);
-    transform: translate3d(0, 48px, 0) scale(1.12);
+    opacity: 0.3;
+    filter: blur(24px);
+    transform: scale(0.75);
   }
 
   @media (max-width: 640px) {
     :global(.hero-floating-card) {
       width: 98vw !important;
       min-width: 0 !important;
-      height: 420px !important;
       max-width: 99vw !important;
-      left: 50% !important;
-      transform: translateX(-50%) translateY(-18px) scale(1.01) !important;
     }
 
     :global(.hero-floating-card) img {
