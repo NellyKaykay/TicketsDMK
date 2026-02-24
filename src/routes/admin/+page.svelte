@@ -29,6 +29,7 @@
   let artist = '';
   let date = '';
   let venue_id = '';
+  let city = '';
   let priceVip = '';
   let pricePreferente = '';
   let priceGeneral = '';
@@ -113,6 +114,7 @@
           title,
           artist,
           date,
+          city,
           flyer_url: finalFlyerUrl,
           venue_id,
           description: null,
@@ -128,7 +130,7 @@
         eventError = data.error || 'Error al guardar el evento';
       } else {
         eventSuccess = data.event_id;
-        title = artist = date = venue_id = priceVip = pricePreferente = priceGeneral = category = status = flyer_url = '';
+        title = artist = date = venue_id = city = priceVip = pricePreferente = priceGeneral = category = status = flyer_url = '';
         if (flyerInput) flyerInput.value = '';
       }
     } catch (e: any) {
@@ -196,6 +198,13 @@
         </select>
         <input type="text" placeholder="Artista" class="border rounded-md px-4 py-2" bind:value={artist} required />
         <input type="date" placeholder="Fecha" class="border rounded-md px-4 py-2" bind:value={date} required />
+        <select class="border rounded-md px-4 py-2" bind:value={city} required>
+          <option value="" disabled>Selecciona ciudad</option>
+          <option value="Barcelona">Barcelona</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Valencia">Valencia</option>
+          <option value="Alicante">Alicante</option>
+        </select>
         <select class="border rounded-md px-4 py-2" bind:value={venue_id} required>
           <option value="" disabled>Selecciona una sala / venue</option>
           {#each venues as v}

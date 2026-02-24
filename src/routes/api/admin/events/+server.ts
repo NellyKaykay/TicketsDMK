@@ -108,6 +108,7 @@ export const POST: RequestHandler = async ({ request }) => {
       artist,
       description = null,
       date,        // ISO string o "YYYY-MM-DD"
+      city = null, // Ciudad del evento
       flyer_url = null,
       venue_id,    // UUID de venues
       zones = []   // [{ zone_code, name, price }]
@@ -127,6 +128,7 @@ export const POST: RequestHandler = async ({ request }) => {
         artist,
         description,
         date,
+        city,
         flyer_url,
         venue_id
       })

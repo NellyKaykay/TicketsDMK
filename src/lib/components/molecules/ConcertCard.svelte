@@ -58,6 +58,9 @@
       <span>{formatDate(concert.date)}</span>
       <span class="truncate max-w-[50%] text-right">{concert.venue}</span>
     </div>
+    {#if concert.price}
+      <p class="text-sm font-bold text-[#003333] mt-1">Desde {concert.price}</p>
+    {/if}
     <div class="mt-2">
       {#if concert.availability !== 'sold-out'}
         <a href={`/events/${concert.id}`}

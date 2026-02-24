@@ -43,7 +43,8 @@
   }
 
   function formatMoney(cents: number, currency = 'USD') {
-    return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(cents / 100);
+    // Forzar EUR y mostrar el valor real
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' }).format(cents / 100);
   }
 
   function pay() {
@@ -60,32 +61,54 @@
       subtotal_cents: group.ticket.price_cents * group.seats.length
     }));
     console.log('Order:', order, 'totalCents:', $cartTotal);
-    alert(`Simulacion de pago — total: ${formatMoney($cartTotal, ticketTypes[0]?.currency || 'USD')}`);
+    alert(`Simulacion de pago — total: ${formatMoney($cartTotal, 'EUR')}`);
   }
 </script>
 
 <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
   <div class="container mx-auto px-2 sm:px-4 md:px-6 py-4 lg:py-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-      <!-- Left: flyer + info + map -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-start">
+      <!-- Left: seat map -->
       <div class="lg:col-span-2 space-y-4 md:space-y-5">
-        {#if event && event.flyer_url}
-          <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl overflow-hidden w-full max-w-2xl mx-auto">
-            <img src={event.flyer_url} alt={event?.title} class="w-full object-cover max-h-96" />
+        <!-- Mapa de la sala -->
+        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl p-2 w-full max-w-2xl mx-auto">
+          <h2 class="text-base font-semibold text-gray-800 mb-1">Selecciona tus asientos</h2>
+          <p class="text-xs text-gray-400 mb-2">Haz clic en un asiento para seleccionarlo</p>
+          <VenueMap {ticketTypes} {soldSeats} {maxPerZone} />
 
-            <div class="p-5">
+          <!-- Zone pricing legend -->
+          <div class="mt-2 flex flex-wrap gap-2">
+            {#each ticketTypes as t}
+              <div class="flex items-center gap-1 px-2 py-1 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="w-2 h-2 rounded" style="background:{t.color || '#cbd5e1'}"></span>
+                <span class="text-xs font-medium text-gray-700">{t.name}</span>
+                <span class="text-xs text-gray-500">{formatMoney(t.price_cents, 'EUR')}</span>
+                <span class="text-[10px] text-gray-400">({available(t)} disp.)</span>
+              </div>
+            {/each}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: event info + checkout summary -->
+      <aside class="space-y-3 w-full">
+        <!-- Event card -->
+        {#if event && event.flyer_url}
+          <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden w-full max-w-sm mx-auto">
+            <img src={event.flyer_url} alt={event?.title} class="w-full object-cover max-h-72" />
+
+            <div class="p-3">
               {#if event}
-                <h1 class="text-2xl font-bold text-gray-900">{event.title}</h1>
-                {#if event.artist}<p class="text-sm text-gray-500 mt-1">{event.artist}</p>{/if}
-                {#if event.date}<p class="text-sm text-gray-400 mt-1">{new Date(event.date).toLocaleString()}</p>{/if}
+                <h1 class="text-lg font-bold text-gray-900">{event.title}</h1>
+                {#if event.artist}<p class="text-xs text-gray-500 mt-0.5">{event.artist}</p>{/if}
+                {#if event.date}<p class="text-xs text-gray-400 mt-0.5">{new Date(event.date).toLocaleString()}</p>{/if}
                 {#if event.venues && event.venues.length > 0}
-                  <div class="mt-3 text-sm text-gray-600">
-                    <strong>Sala:</strong> {event.venues[0].name}<br />
-                    {event.venues[0].city} — {event.venues[0].address}
+                  <div class="mt-1.5 text-xs text-gray-600">
+                    <strong>Sala:</strong> {event.venues[0].name} — {event.venues[0].city}
                   </div>
                 {/if}
                 {#if event.description}
-                  <div class="mt-4 prose max-w-none text-sm text-gray-700">{@html event.description}</div>
+                  <div class="mt-2 prose max-w-none text-xs text-gray-700 line-clamp-3">{@html event.description}</div>
                 {/if}
               {:else}
                 <div class="text-center py-8">
@@ -100,38 +123,17 @@
           </div>
         {/if}
 
-        <!-- Mapa de la sala -->
-        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl p-2 w-full max-w-2xl mx-auto">
-          <h2 class="text-base font-semibold text-gray-800 mb-1">Selecciona tus asientos</h2>
-          <p class="text-xs text-gray-400 mb-2">Haz clic en un asiento para seleccionarlo</p>
-          <VenueMap {ticketTypes} {soldSeats} {maxPerZone} />
-
-          <!-- Zone pricing legend -->
-          <div class="mt-2 flex flex-wrap gap-2">
-            {#each ticketTypes as t}
-              <div class="flex items-center gap-1 px-2 py-1 bg-gray-50 rounded-lg border border-gray-100">
-                <span class="w-2 h-2 rounded" style="background:{t.color || '#cbd5e1'}"></span>
-                <span class="text-xs font-medium text-gray-700">{t.name}</span>
-                <span class="text-xs text-gray-500">{formatMoney(t.price_cents, t.currency)}</span>
-                <span class="text-[10px] text-gray-400">({available(t)} disp.)</span>
-              </div>
-            {/each}
-          </div>
-        </div>
-      </div>
-
-      <!-- Right column: checkout summary -->
-      <aside class="flex justify-center items-center mt-6 w-full">
-        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] rounded-xl overflow-hidden w-full max-w-md mx-auto">
+        <!-- Checkout summary -->
+        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden w-full max-w-sm mx-auto">
           <!-- Header -->
-          <div class="bg-[#003333] text-white px-5 py-4">
-            <h3 class="text-lg font-semibold">Resumen de compra</h3>
-            <p class="text-sm text-emerald-200 mt-0.5">{$cart.length} {$cart.length === 1 ? 'entrada' : 'entradas'}</p>
+          <div class="bg-[#003333] text-white px-4 py-3">
+            <h3 class="text-base font-semibold">Resumen de compra</h3>
+            <p class="text-xs text-emerald-200 mt-0.5">{$cart.length} {$cart.length === 1 ? 'entrada' : 'entradas'}</p>
           </div>
 
-          <div class="p-5">
+          <div class="p-4">
             {#if $cart.length === 0}
-              <p class="text-sm text-gray-400 text-center py-6">Selecciona asientos en el mapa</p>
+              <p class="text-sm text-gray-400 text-center py-4">Selecciona asientos en el mapa</p>
             {:else}
               <div class="space-y-4">
                 {#each [...selectedByZone] as [zone_code, group]}
@@ -139,7 +141,7 @@
                     <div class="flex items-center gap-2 mb-2">
                       <span class="w-2.5 h-2.5 rounded-sm" style="background:{group.ticket.color || '#cbd5e1'}"></span>
                       <span class="text-sm font-semibold text-gray-700">{group.ticket.name}</span>
-                      <span class="text-xs text-gray-400 ml-auto">{formatMoney(group.ticket.price_cents, group.ticket.currency)} c/u</span>
+                      <span class="text-xs text-gray-400 ml-auto">{formatMoney(group.ticket.price_cents, 'EUR')} c/u</span>
                     </div>
                     <div class="space-y-1 ml-5">
                       {#each group.seats as seat}
@@ -157,7 +159,7 @@
                     </div>
                     <div class="flex justify-between text-sm mt-2 ml-5 text-gray-500 border-b border-gray-100 pb-2">
                       <span>Subtotal ({group.seats.length})</span>
-                      <span>{formatMoney(group.ticket.price_cents * group.seats.length, group.ticket.currency)}</span>
+                      <span>{formatMoney(group.ticket.price_cents * group.seats.length, 'EUR')}</span>
                     </div>
                   </div>
                 {/each}
@@ -165,7 +167,7 @@
 
               <div class="mt-4 flex justify-between font-bold text-base text-gray-900">
                 <span>Total</span>
-                <span>{formatMoney($cartTotal, ticketTypes[0]?.currency || 'USD')}</span>
+                <span>{formatMoney($cartTotal, 'EUR')}</span>
               </div>
 
               <!-- Clear cart button -->
@@ -183,7 +185,7 @@
               disabled={$cart.length === 0}
             >
               {#if $cart.length > 0}
-                Pagar {formatMoney($cartTotal, ticketTypes[0]?.currency || 'USD')}
+                Pagar {formatMoney($cartTotal, 'EUR')}
               {:else}
                 Pagar
               {/if}

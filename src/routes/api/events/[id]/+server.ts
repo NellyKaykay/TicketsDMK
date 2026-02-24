@@ -1,4 +1,4 @@
-import { supabase } from '$lib/supabaseClient';
+import { getSupabaseAdmin } from '$lib/server/supabase';
 import type { RequestHandler } from './$types';
 import { readFile } from 'fs/promises';
 import path from 'path';
@@ -15,31 +15,70 @@ export const GET: RequestHandler = async ({ params }) => {
   }
 
   try {
-    // 1) Event - try id (uuid), then legacy numeric id, then slug fallback
+    const supabase = getSupabaseAdmin();
+
+    // 1) Event + ticket_types (select anidado)
     let eventRow: any = null;
     let eventError: any = null;
+    let eventRes: any = null;
 
     if (UUID_RE.test(id)) {
-      const res = await supabase
+      eventRes = await supabase
         .from('events')
-        .select('id, title, artist, date, description, flyer_url, venue_id')
+        .select(`
+          id,
+          title,
+          artist,
+          date,
+          description,
+          flyer_url,
+          venue_id,
+          ticket_types (
+            id,
+            name,
+            zone_code,
+            price_cents,
+            currency,
+            capacity,
+            sold,
+            sort_order,
+            color
+          )
+        `)
         .eq('id', id)
         .maybeSingle();
-      eventRow = res.data;
-      eventError = res.error;
+      eventRow = eventRes.data;
+      eventError = eventRes.error;
     } else {
       // try numeric legacy id
       if (/^\d+$/.test(id)) {
-        const res = await supabase
+        eventRes = await supabase
           .from('events')
-          .select('id, title, artist, date, description, flyer_url, venue_id')
+          .select(`
+            id,
+            title,
+            artist,
+            date,
+            description,
+            flyer_url,
+            venue_id,
+            ticket_types (
+              id,
+              name,
+              zone_code,
+              price_cents,
+              currency,
+              capacity,
+              sold,
+              sort_order,
+              color
+            )
+          `)
           .eq('legacy_id', Number(id))
           .maybeSingle();
-        eventRow = res.data;
-        eventError = res.error;
+        eventRow = eventRes.data;
+        eventError = eventRes.error;
       }
-
-      // If slug column does not exist, skip slug lookup
     }
 
     if (eventError) {
@@ -57,16 +96,8 @@ export const GET: RequestHandler = async ({ params }) => {
       });
     }
 
-    // 2) Ticket types (zones)
-    const { data: ticketTypes, error: ttError } = await supabase
-      .from('ticket_types')
-      .select('id, name, price_cents, currency, capacity, sold, sort_order, color, zone_code')
-      .eq('event_id', eventRow.id)
-      .order('sort_order', { ascending: true });
-
-    if (ttError) {
-      console.warn('ticket_types fetch warning:', ttError);
-    }
+    // Debug: mostrar ticket_types recibidos
+    console.log('API ticket_types:', eventRow.ticket_types);
 
     // 3) Venue (by venue_id)
     let venue: any = null;
@@ -140,7 +171,7 @@ export const GET: RequestHandler = async ({ params }) => {
           venue_id: eventRow.venue_id ?? null
         },
         venue,
-        ticket_types: ticketTypes ?? [],
+        ticket_types: eventRow.ticket_types ?? [],
         layout
       }),
       { headers: { 'Content-Type': 'application/json' } }
