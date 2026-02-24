@@ -5,7 +5,7 @@
   
   export let title = '';
   export let subtitle = '';
-  export let viewAllLink = '/events';
+  export const viewAllLink = '/events';
   export let concerts: Array<{
     id: string;
     title: string;
@@ -229,7 +229,7 @@
         style="transform: translateX({translateX}%)"
       >
         {#each filteredConcerts as concert (concert.id)}
-          <div class="flex-shrink-0" style="width: {100 / itemsPerView}%">
+          <div class="flex-shrink-0 px-3" style="width: {100 / itemsPerView}%">
             <ConcertCard {concert} />
           </div>
         {/each}
@@ -277,15 +277,3 @@
   </div>
 {/if}
 
-<!-- View All Button -->
-<div class="text-center mt-12">
-  <a 
-    href={viewAllLink} 
-    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md transition-colors duration-200" style="color: #003333; background-color: #e6f7f7;"
-  >
-    Ver todos los eventos
-    <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-    </svg>
-  </a>
-</div>

@@ -147,68 +147,69 @@
       aria-label="Tarjeta de evento destacado"
     >
       <Card
-        class="hero-floating-card shadow-[0_4px_24px_0_#003333] rounded-[24px] z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 mx-auto"
-          style="width: 900px; max-width: 96vw; min-width: 320px; max-height: 90vh; overflow: visible;"
+        class="hero-floating-card rounded-xl z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 mx-auto"
+          style="width: 520px; max-width: 96vw; min-width: 300px; overflow: visible;"
       >
-        <!-- CONTENEDOR DE IMAGEN: ocupa 100%, sin fondo blanco -->
-      <div
-        class="relative w-full overflow-hidden rounded-t-[24px] flex-shrink-0"
-        style="aspect-ratio: 16/9;"
-      >
-        <img
-          src={concert.image ?? '/carousel/image-4.jpg'}
-          alt="Foto del evento"
-          class="absolute inset-0 w-full h-full object-cover object-center rounded-t-[24px]"
-          loading="lazy"
-        />
+        <!-- Layout horizontal: texto izquierda, imagen derecha -->
+        <div class="flex flex-col sm:flex-row sm:gap-0 w-full h-full rounded-xl overflow-hidden">
+          <!-- CONTENIDO TEXTO (izquierda) -->
+          <div class="flex flex-col justify-center gap-2 px-4 py-5 sm:pl-8 sm:pr-2 sm:py-6 sm:w-3/5 order-2 sm:order-1">
+            <span class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#003333]/70">Próximo evento</span>
+            <h3 class="mt-2 text-xl sm:text-2xl font-bold text-[#003333] leading-tight">{concert.artist}</h3>
+            <div class="mt-1 flex items-center gap-2 text-sm text-gray-600">
+              <svg class="w-4 h-4 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>{formatDate(concert.date)}</span>
+            </div>
+            <div class="mt-1 flex items-center gap-2 text-sm text-gray-600">
+              <svg class="w-4 h-4 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span>{concert.venue}</span>
+            </div>
+            <div class="mt-6">
+              {#if concert.availability !== 'sold-out'}
+                <a href={`/events/${concert.id}`}
+                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-white text-sm font-semibold bg-[#003333] hover:bg-[#004d4d] transition-all duration-200 hover:shadow-md"
+                  title="Ver entradas"
+                >
+                  {t.card.viewTickets}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              {:else}
+                <span
+                  class="inline-flex items-center px-6 py-2.5 rounded-full text-white/70 text-sm font-semibold bg-gray-400 cursor-not-allowed"
+                >
+                  {t.card.soldOut}
+                </span>
+              {/if}
+            </div>
+          </div>
 
-        <span
-          class="absolute top-3 right-3 px-3 py-1 text-xs rounded-full font-semibold shadow-sm
-                 bg-white/90 backdrop-blur-sm"
-          class:bg-[#e6f7f7]={concert.availability === 'available'}
-          class:text-[#003333]={concert.availability === 'available'}
-          class:bg-yellow-100={concert.availability === 'limited'}
-          class:text-yellow-800={concert.availability === 'limited'}
-          class:bg-red-100={concert.availability === 'sold-out'}
-          class:text-red-800={concert.availability === 'sold-out'}
-        >
-          {concert.availability === 'available'
-            ? t.card.available
-            : concert.availability === 'limited'
-            ? t.card.limited
-            : t.card.soldOut}
-        </span>
-      </div>
-
-      <!-- CONTENIDO TEXTO -->
-      <div class="flex flex-col gap-0 min-h-[140px] px-4 pb-4 pt-8 bg-white rounded-b-[24px] bg-opacity-95 -mt-6">
-        <h3 class="text-sm font-bold text-[#003333] truncate mb-0">{concert.artist}</h3>
-        <p class="text-xs text-gray-700 truncate mb-0">{concert.title}</p>
-
-        <div class="flex items-center justify-between text-[11px] text-gray-600 mt-1">
-          <span>{formatDate(concert.date)}</span>
-          <span class="truncate max-w-[50%] text-right">{concert.venue}</span>
-        </div>
-
-        <div class="flex items-center justify-end mt-3">
-          {#if concert.availability !== 'sold-out'}
-            <a href={`/events/${concert.id}`}
-              class="px-4 py-2 rounded-md text-white text-xs font-semibold tracking-wide bg-[#003333] hover:bg-[#002626] opacity-90 inline-block text-center"
-              style="min-width: 120px;"
-              title="Ver entradas"
-            >
-              {t.card.viewTickets}
-            </a>
-          {:else}
+          <!-- IMAGEN (derecha) -->
+          <div class="relative sm:w-2/5 order-1 sm:order-2 overflow-hidden sm:flex sm:items-center sm:pl-0 sm:pr-3 sm:py-3">
+            <img
+              src={concert.image ?? '/carousel/image-4.jpg'}
+              alt="Foto del evento"
+              class="w-full h-32 sm:h-auto sm:max-h-[70%] object-cover object-center sm:rounded-xl"
+              loading="lazy"
+            />
+            <!-- Badge disponibilidad -->
             <span
-              class="px-4 py-2 rounded-md text-white text-xs font-semibold opacity-60 cursor-not-allowed"
-              style="background-color: #003333; min-width: 120px; text-align: center;"
+              class="absolute top-2 right-2 px-2.5 py-0.5 text-[11px] rounded-full font-semibold shadow-sm bg-white/90 backdrop-blur-sm {concert.availability === 'available' ? 'text-emerald-700' : concert.availability === 'limited' ? 'text-amber-700' : 'text-red-700'}"
             >
-              {t.card.soldOut}
+              {concert.availability === 'available'
+                ? t.card.available
+                : concert.availability === 'limited'
+                ? t.card.limited
+                : t.card.soldOut}
             </span>
-          {/if}
+          </div>
         </div>
-      </div>
     </Card>
       <!-- Glare 3D overlay -->
       <div
@@ -244,7 +245,7 @@
   .card-3d-glare {
     position: absolute;
     inset: 0;
-    border-radius: 24px;
+    border-radius: 0.75rem;
     pointer-events: none;
     z-index: 100;
     transition: opacity 0.3s ease;
@@ -267,44 +268,13 @@
     }
   }
 
-  /* Pulso dramatico en la sombra */
-  @keyframes shadowPulse {
-    0%, 100% {
-      box-shadow:
-        0 0 0 6px rgba(0, 51, 51, 0.2),
-        0 25px 60px 0 rgba(0, 51, 51, 0.55),
-        0 10px 30px 0 rgba(0, 51, 51, 0.35),
-        0 0 40px 0 rgba(0, 51, 51, 0.12),
-        0 0 80px 10px rgba(0, 51, 51, 0.08);
-    }
-    50% {
-      box-shadow:
-        0 0 0 10px rgba(0, 51, 51, 0.28),
-        0 50px 120px 0 rgba(0, 51, 51, 0.7),
-        0 20px 60px 0 rgba(0, 51, 51, 0.4),
-        0 0 60px 5px rgba(0, 51, 51, 0.18),
-        0 0 120px 20px rgba(0, 51, 51, 0.12);
-    }
-  }
-
-  /* Glow animado en el borde */
-  @keyframes borderGlow {
-    0%, 100% {
-      border-color: rgba(0, 51, 51, 0.5);
-      outline-color: rgba(0, 51, 51, 0.1);
-    }
-    50% {
-      border-color: rgba(0, 51, 51, 0.8);
-      outline-color: rgba(0, 51, 51, 0.25);
-    }
-  }
-
   :global(.hero-floating-card) {
-    animation: cardFloat 5s ease-in-out infinite, shadowPulse 5s ease-in-out infinite, borderGlow 5s ease-in-out infinite;
-    border-width: 4px;
-    border-color: rgba(0, 51, 51, 0.5);
-    outline: 4px solid rgba(0, 51, 51, 0.1);
-    outline-offset: 2px;
+    animation: cardFloat 5s ease-in-out infinite;
+    box-shadow:
+      0 8px 32px 0 rgba(0, 51, 51, 0.5),
+      0 20px 60px -10px rgba(0, 51, 51, 0.4),
+      0 40px 100px -20px rgba(0, 51, 51, 0.3);
+    border-radius: 0.75rem;
     transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
     will-change: transform, box-shadow;
   }
@@ -340,45 +310,14 @@
     }
   }
 
-  /* Reflejo de luz en esquina superior */
-  :global(.hero-floating-card)::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: inherit;
-    z-index: -1;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.25) 0%,
-      rgba(255, 255, 255, 0.08) 20%,
-      transparent 50%,
-      rgba(0, 51, 51, 0.1) 80%,
-      rgba(0, 51, 51, 0.15) 100%
-    );
-    pointer-events: none;
-    animation: shimmer 5s ease-in-out infinite;
-  }
-
-  @keyframes shimmer {
-    0%, 100% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
 
   :global(.hero-floating-card:hover) {
     animation-play-state: paused;
-    transform: scale(1.06) translateY(-12px);
+    transform: scale(1.03) translateY(-8px);
     box-shadow:
-      0 0 0 12px rgba(0, 51, 51, 0.3),
-      0 60px 160px 0 rgba(0, 51, 51, 0.8),
-      0 30px 80px 0 rgba(0, 51, 51, 0.45),
-      0 0 80px 10px rgba(0, 51, 51, 0.25),
-      0 0 150px 30px rgba(0, 51, 51, 0.15);
-    border-color: rgba(0, 51, 51, 0.9);
-    outline-color: rgba(0, 51, 51, 0.3);
+      0 12px 40px 0 rgba(0, 51, 51, 0.6),
+      0 30px 80px -10px rgba(0, 51, 51, 0.5),
+      0 50px 120px -20px rgba(0, 51, 51, 0.35);
   }
 
   :global(.hero-floating-card:hover)::before {
@@ -387,9 +326,6 @@
     transform: scale(0.6);
   }
 
-  :global(.hero-floating-card:hover)::after {
-    opacity: 1;
-  }
 
   @media (max-width: 640px) {
     :global(.hero-floating-card) {
@@ -399,8 +335,8 @@
     }
 
     :global(.hero-floating-card) img {
-      min-height: 180px !important;
-      max-height: 260px !important;
+      min-height: 140px !important;
+      max-height: 200px !important;
     }
   }
 </style>
