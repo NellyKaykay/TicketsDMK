@@ -15,6 +15,7 @@
     image: string;
     price: string;
     category: string;
+    city: string;
     availability: 'available' | 'limited' | 'sold-out';
   }> = [];
 
@@ -26,18 +27,22 @@
   let itemsPerView = 4;
   let autoplayInterval: ReturnType<typeof setInterval>;
   let selectedCity = 'Todas';
+  let selectedEventType = 'Todos';
   let showCitySelector = false;
-  
-  // Obtener ciudades únicas
-  $: cities = ['Todas', ...Array.from(new Set(concerts.map(concert => concert.title)))];
-  
-  // Filtrar eventos por ciudad seleccionada
-  $: filteredConcerts = selectedCity === 'Todas' 
-    ? concerts 
-    : concerts.filter(concert => concert.title === selectedCity);
-  
+  let showEventTypeSelector = false;
+
+  const cities = ['Todas', 'Barcelona', 'Madrid', 'Valencia', 'Alicante'];
+  const eventTypes = ['Todos', 'Concierto', 'Teatro', 'Película', 'Monólogo'];
+
+  // Filtrar eventos por ciudad y tipo
+  $: filteredConcerts = concerts.filter(concert => {
+    const cityMatch = selectedCity === 'Todas' || concert.city === selectedCity;
+    const typeMatch = selectedEventType === 'Todos' || concert.title === selectedEventType;
+    return cityMatch && typeMatch;
+  });
+
   // Reiniciar índice cuando cambie el filtro
-  $: if (selectedCity) {
+  $: if (selectedCity || selectedEventType) {
     currentIndex = 0;
   }
   
@@ -75,9 +80,20 @@
     selectedCity = city;
     showCitySelector = false;
   }
-  
+
+  function selectEventType(etype: string) {
+    selectedEventType = etype;
+    showEventTypeSelector = false;
+  }
+
   function toggleCitySelector() {
     showCitySelector = !showCitySelector;
+    showEventTypeSelector = false;
+  }
+
+  function toggleEventTypeSelector() {
+    showEventTypeSelector = !showEventTypeSelector;
+    showCitySelector = false;
   }
   
   $: canGoPrevious = currentIndex > 0;
@@ -93,6 +109,9 @@
       const target = event.target as Element;
       if (!target.closest('.city-selector')) {
         showCitySelector = false;
+      }
+      if (!target.closest('.event-type-selector')) {
+        showEventTypeSelector = false;
       }
     };
     
@@ -123,40 +142,65 @@
 <!-- <div class="hero-bg"> ... </div> -->
 
 {#if cities.length > 1}
-  <div class="flex justify-center mb-8">
-    <!-- Desktop Version -->
-    <div class="hidden md:flex bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-      {#each cities as city}
-        <button
-          class="px-4 py-2 text-sm font-medium transition-colors duration-200 {selectedCity === city 
-            ? 'text-white' + ' bg-[#003333]'
-            : 'text-gray-700 hover:bg-gray-50'}"
-          on:click={() => selectCity(city)}
-        >
-          {city}
-        </button>
-      {/each}
-    </div>
-    <!-- Mobile Version -->
-    <div class="md:hidden relative city-selector">
+  <div class="flex flex-wrap justify-center items-center gap-3 mb-8">
+    <!-- Boton Todos -->
+    <button
+      class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {selectedCity === 'Todas' && selectedEventType === 'Todos'
+        ? 'text-white bg-[#003333]'
+        : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
+      on:click={() => { selectedCity = 'Todas'; selectedEventType = 'Todos'; }}
+    >
+      Todos
+    </button>
+
+    <!-- Desplegable Ciudad -->
+    <div class="relative city-selector">
       <button
-        class="flex items-center justify-between w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2" style="--tw-ring-color: #003333;"
+        class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {selectedCity !== 'Todas'
+          ? 'text-white bg-[#003333]'
+          : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
         on:click={toggleCitySelector}
       >
-        <span>{selectedCity}</span>
-        <svg class="w-5 h-5 transition-transform duration-200 {showCitySelector ? 'rotate-180' : ''}" 
-             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <span>{selectedCity === 'Todas' ? 'Ciudad' : selectedCity}</span>
+        <svg class="w-4 h-4 transition-transform duration-200 {showCitySelector ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
       {#if showCitySelector}
-        <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 animate-slide-down">
+        <div class="absolute top-full left-0 mt-1 min-w-[160px] bg-white border border-gray-200 rounded-lg shadow-lg z-20">
           {#each cities as city}
             <button
-              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none {selectedCity === city ? 'font-medium' + ' style=\"background-color: #e6f7f7; color: #003333;\"' : ''}"
+              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 {selectedCity === city ? 'font-semibold bg-[#e6f7f7] text-[#003333]' : ''}"
               on:click={() => selectCity(city)}
             >
               {city}
+            </button>
+          {/each}
+        </div>
+      {/if}
+    </div>
+
+    <!-- Desplegable Evento -->
+    <div class="relative event-type-selector">
+      <button
+        class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {selectedEventType !== 'Todos'
+          ? 'text-white bg-[#003333]'
+          : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
+        on:click={toggleEventTypeSelector}
+      >
+        <span>{selectedEventType === 'Todos' ? 'Evento' : selectedEventType}</span>
+        <svg class="w-4 h-4 transition-transform duration-200 {showEventTypeSelector ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      {#if showEventTypeSelector}
+        <div class="absolute top-full left-0 mt-1 min-w-[160px] bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+          {#each eventTypes as etype}
+            <button
+              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 {selectedEventType === etype ? 'font-semibold bg-[#e6f7f7] text-[#003333]' : ''}"
+              on:click={() => selectEventType(etype)}
+            >
+              {etype}
             </button>
           {/each}
         </div>

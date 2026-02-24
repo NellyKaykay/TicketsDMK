@@ -46,6 +46,15 @@
   let venues: { id: string; name: string; city: string; address: string }[] = [];
   let venuesLoaded = false;
 
+  // Filtrar salas por ciudad seleccionada
+  $: filteredVenues = city ? venues.filter(v => v.city?.toLowerCase() === city.toLowerCase()) : venues;
+
+  // Resetear sala si la ciudad cambia y la sala actual no pertenece a la nueva ciudad
+  $: if (city && venue_id) {
+    const stillValid = filteredVenues.some(v => v.id === venue_id);
+    if (!stillValid) venue_id = '';
+  }
+
   async function loadVenues() {
     try {
       const res = await fetch('/api/admin/venues', {
@@ -206,8 +215,8 @@
           <option value="Alicante">Alicante</option>
         </select>
         <select class="border rounded-md px-4 py-2" bind:value={venue_id} required>
-          <option value="" disabled>Selecciona una sala / venue</option>
-          {#each venues as v}
+          <option value="" disabled>{city ? `Selecciona sala en ${city}` : 'Selecciona ciudad primero'}</option>
+          {#each filteredVenues as v}
             <option value={v.id}>{v.name} — {v.city}</option>
           {/each}
         </select>

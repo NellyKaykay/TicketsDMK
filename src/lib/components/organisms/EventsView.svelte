@@ -6,16 +6,16 @@
   export let events = [];
 
   let selectedCity = 'Todas';
-  let selectedCategory = 'Todas';
+  let selectedEventType = 'Todos';
   let sortBy = 'date';
 
-  $: cities = ['Todas', ...new Set(events.map(concert => concert.title))].sort();
-  $: categories = ['Todas', ...new Set(events.map(concert => concert.category))].sort();
+  const cities = ['Todas', 'Barcelona', 'Madrid', 'Valencia', 'Alicante'];
+  const eventTypes = ['Todos', 'Concierto', 'Teatro', 'Película', 'Monólogo'];
 
   $: filteredConcerts = events.filter(concert => {
-    const cityMatch = selectedCity === 'Todas' || concert.title === selectedCity;
-    const categoryMatch = selectedCategory === 'Todas' || concert.category === selectedCategory;
-    return cityMatch && categoryMatch;
+    const cityMatch = selectedCity === 'Todas' || concert.city === selectedCity;
+    const typeMatch = selectedEventType === 'Todos' || concert.title === selectedEventType;
+    return cityMatch && typeMatch;
   });
 
   $: sortedConcerts = [...filteredConcerts].sort((a, b) => {
@@ -64,10 +64,10 @@
         </div>
 
         <div class="flex flex-col">
-          <label for="category-filter" class="text-sm font-medium text-gray-700 mb-2">Categoría</label>
-          <select id="category-filter" bind:value={selectedCategory} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
-            {#each categories as category}
-              <option value={category}>{category}</option>
+          <label for="event-type-filter" class="text-sm font-medium text-gray-700 mb-2">Evento</label>
+          <select id="event-type-filter" bind:value={selectedEventType} class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333;">
+            {#each eventTypes as etype}
+              <option value={etype}>{etype}</option>
             {/each}
           </select>
         </div>
@@ -82,7 +82,7 @@
         </div>
 
         <div class="flex flex-col justify-end">
-          <button on:click={() => { selectedCity = 'Todas'; selectedCategory = 'Todas'; sortBy = 'date'; }} class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">Limpiar filtros</button>
+          <button on:click={() => { selectedCity = 'Todas'; selectedEventType = 'Todos'; sortBy = 'date'; }} class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">Limpiar filtros</button>
         </div>
       </div>
     </Container>

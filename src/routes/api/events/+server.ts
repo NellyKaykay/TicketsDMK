@@ -15,7 +15,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
     const { data, error } = await supabaseAdmin
       .from('events')
-      .select('id,title,artist,date,flyer_url,venue:venues(name,city),ticket_types(price_cents,capacity,sold)')
+      .select('id,title,artist,date,city,flyer_url,venue:venues(name,city),ticket_types(price_cents,capacity,sold)')
       .order('date', { ascending: false })
       .limit(200);
 
@@ -64,6 +64,7 @@ export const GET: RequestHandler = async ({ url }) => {
         title: e.title ?? '',
         artist: e.artist ?? '',
         date: e.date,
+        city: e.city || e.venue?.city || '',
         venue: venueStr,                   // string como espera tu interfaz
         image: e.flyer_url ?? '',          // aquí mapeamos flyer_url -> image
         price: minPrice == null ? '' : `${(minPrice / 100).toFixed(2)} €`,
