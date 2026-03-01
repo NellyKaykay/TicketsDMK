@@ -47,21 +47,50 @@
     return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' }).format(cents / 100);
   }
 
-  function pay() {
+  let paying = false;
+  let payError = '';
+
+  async function pay() {
     if ($cart.length === 0) {
       alert('Selecciona al menos 1 asiento');
       return;
     }
-    const order = [...selectedByZone].map(([, group]) => ({
+
+    const email = prompt('Introduce tu email para recibir las entradas:');
+    if (!email) return;
+
+    paying = true;
+    payError = '';
+
+    const items = [...selectedByZone].map(([, group]) => ({
       ticket_type_id: group.ticket.id,
       zone: group.ticket.name,
-      seats: group.seats.map(s => s.seatId),
-      qty: group.seats.length,
-      unit_cents: group.ticket.price_cents,
-      subtotal_cents: group.ticket.price_cents * group.seats.length
+      seats: group.seats.map(s => ({ seatId: s.seatId, row: s.row, number: s.number })),
+      unit_cents: group.ticket.price_cents
     }));
-    console.log('Order:', order, 'totalCents:', $cartTotal);
-    alert(`Simulacion de pago — total: ${formatMoney($cartTotal, 'EUR')}`);
+
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event_id: event?.id, email, items })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        payError = data.error || 'Error al iniciar el pago';
+        return;
+      }
+
+      if (data.sessionUrl) {
+        window.location.href = data.sessionUrl;
+      }
+    } catch (err: any) {
+      payError = err.message || 'Error de conexión';
+    } finally {
+      paying = false;
+    }
   }
 </script>
 
@@ -179,12 +208,18 @@
               </button>
             {/if}
 
+            {#if payError}
+              <p class="text-red-600 text-sm mt-2">{payError}</p>
+            {/if}
+
             <button
               class="mt-4 w-full bg-[#003333] hover:bg-[#002626] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               on:click={pay}
-              disabled={$cart.length === 0}
+              disabled={$cart.length === 0 || paying}
             >
-              {#if $cart.length > 0}
+              {#if paying}
+                Procesando...
+              {:else if $cart.length > 0}
                 Pagar {formatMoney($cartTotal, 'EUR')}
               {:else}
                 Pagar
