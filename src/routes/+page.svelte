@@ -146,6 +146,59 @@
       </div>
     </div>
   </section>
+  <!-- Banner Publicidad SkyArmenia -->
+  <section class="w-full py-8 banner-skyarmenia">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="https://skyarmenia.com" target="_blank" rel="noopener noreferrer" class="block group">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-white">
+          <div class="flex items-center gap-4">
+            <div class="bg-white rounded-xl p-2">
+              <img src="/logo-skyarmenia.png" alt="SkyArmenia Logo" class="h-10 w-auto" />
+            </div>
+            <div>
+              <h3 class="text-2xl md:text-3xl font-bold tracking-tight group-hover:underline">SkyArmenia.com</h3>
+              <p class="text-sm md:text-base text-white/80 mt-1">Descubre los mejores vuelos y destinos. ¡Viaja con nosotros!</p>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <span class="inline-flex items-center gap-2 bg-white font-semibold px-6 py-3 rounded-full text-sm md:text-base shadow-lg transition-colors" style="color: #003333;">
+              Visitar sitio
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Bloque Publicidad Disponible -->
+  <section class="w-full py-10 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="ad-placeholder relative overflow-hidden rounded-2xl border-2 border-dashed border-gray-300 bg-white p-8 md:p-12 text-center">
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: repeating-linear-gradient(45deg, #003333 0, #003333 1px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
+        <div class="relative z-10">
+          <div class="flex justify-center mb-4">
+            <div class="inline-flex items-center gap-2 bg-gray-100 rounded-full px-4 py-1.5">
+              <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+              <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Espacio disponible</span>
+            </div>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">Aquí puede estar tu publicidad</h3>
+          <p class="text-gray-500 text-base md:text-lg max-w-2xl mx-auto mb-6">
+            Alcanza a miles de personas apasionadas por los eventos y la música. Promociona tu marca en el lugar perfecto.
+          </p>
+          <a href="mailto:info@ticketsdmk.com?subject=Publicidad%20en%20TicketsDMK" class="inline-flex items-center gap-2 font-semibold text-white px-8 py-3 rounded-full text-sm md:text-base shadow-md hover:shadow-lg transition-all ad-cta">
+            Contáctanos
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <!-- Footer -->
@@ -170,4 +223,14 @@
   animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+.banner-skyarmenia {
+  background: linear-gradient(to right, #003333, #005555);
+}
+.ad-cta {
+  background: linear-gradient(135deg, #003333, #005555);
+}
+.ad-cta:hover {
+  background: linear-gradient(135deg, #004444, #006666);
+  transform: translateY(-1px);
+}
 </style>
