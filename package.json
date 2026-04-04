@@ -18,6 +18,7 @@
 	"dependencies": {
 		"@supabase/supabase-js": "^2.87.2",
 		"@sveltejs/adapter-node": "^5.4.0",
+		"qrcode": "^1.5.4",
 		"stripe": "^20.4.0"
 	},
 	"devDependencies": {
