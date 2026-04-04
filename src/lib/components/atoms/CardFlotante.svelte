@@ -205,7 +205,7 @@
             <img
               src={concert.image ?? '/carousel/image-4.jpg'}
               alt="Foto del evento"
-              class="w-full h-56 sm:h-auto sm:max-h-[90%] object-cover object-center sm:rounded-xl"
+              class="w-full h-72 sm:h-auto sm:max-h-[90%] object-cover object-center sm:rounded-xl"
               loading="lazy"
             />
           </div>
@@ -335,8 +335,8 @@
     }
 
     :global(.hero-floating-card) img {
-      min-height: 140px !important;
-      max-height: 200px !important;
+      min-height: 220px !important;
+      max-height: 300px !important;
     }
   }
 </style>
