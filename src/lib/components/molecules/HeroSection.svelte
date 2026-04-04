@@ -67,7 +67,7 @@
     </div>
   </div>
   <!-- Card flotante integrado - positioned relative to hero bottom -->
-  <div class="absolute left-0 right-0 bottom-0 translate-y-1/2 z-10 flex justify-center hero-card-float">
+  <div class="absolute left-0 right-0 bottom-0 translate-y-[10%] z-10 flex justify-center hero-card-float">
     <div class="w-full bg-transparent">
       <CardFlotante />
     </div>

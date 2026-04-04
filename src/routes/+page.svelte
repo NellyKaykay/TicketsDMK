@@ -54,7 +54,7 @@
   </div>
 
   <!-- Bloque Próximos Eventos Destacados -->
-  <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12">
     <h2 class="text-3xl font-bold text-center mb-8">Próximos Eventos</h2>
     <ConcertCarousel
       title=""
