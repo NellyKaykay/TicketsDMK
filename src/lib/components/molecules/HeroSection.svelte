@@ -55,7 +55,7 @@
   $: t = getSafeTranslations($translations);
 </script>
 
-<div class="relative text-[#003333] overflow-hidden min-h-[70vh] sm:min-h-[80vh] flex items-center hero-no-gap">
+<div class="relative text-[#003333] overflow-visible min-h-[70vh] sm:min-h-[80vh] flex items-center hero-no-gap pb-40 sm:pb-52 lg:pb-64">
   <!-- Background image -->
   <img src={base + '/heroe-image.jpg'} alt="Hero background" class="absolute inset-0 w-full h-full object-cover" on:error={(e) => { e.target.src = base + '/heroe-image.jpg'; }} />
   <!-- Content -->
@@ -66,12 +66,10 @@
       <p class="mb-6">{t.homepage.description}</p>
     </div>
   </div>
-</div>
-
-<!-- Card flotante integrado -->
-<div class="w-full flex justify-center relative z-10 hero-card-float mt-[-16rem] sm:mt-[-24rem] lg:mt-[-28rem]">
-  <div class="w-full bg-transparent">
-    <!-- Eliminado el estilo de drop-shadow y hover del contenedor para evitar conflicto con el efecto de CardFlotante -->
-    <CardFlotante />
+  <!-- Card flotante integrado - positioned relative to hero bottom -->
+  <div class="absolute left-0 right-0 bottom-0 translate-y-1/2 z-10 flex justify-center hero-card-float">
+    <div class="w-full bg-transparent">
+      <CardFlotante />
+    </div>
   </div>
 </div>
