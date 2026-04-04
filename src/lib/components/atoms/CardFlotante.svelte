@@ -147,23 +147,23 @@
       aria-label="Tarjeta de evento destacado"
     >
       <Card
-        class="hero-floating-card rounded-xl z-50 bg-white/95 backdrop-blur-sm object-contain transition-transform duration-200 mx-auto"
-          style="width: 520px; max-width: 96vw; min-width: 300px; overflow: visible;"
+        class="hero-floating-card rounded-xl z-50 bg-[#e6f2f2]/95 backdrop-blur-sm object-contain transition-transform duration-200 mx-auto"
+          style="width: 90%; max-width: 90%; overflow: visible;"
       >
         <!-- Layout horizontal: texto izquierda, imagen derecha -->
         <div class="flex flex-col sm:flex-row sm:gap-0 w-full h-full rounded-xl overflow-hidden">
           <!-- CONTENIDO TEXTO (izquierda) -->
-          <div class="flex flex-col justify-center gap-2 px-4 py-5 sm:pl-8 sm:pr-2 sm:py-6 sm:w-3/5 order-2 sm:order-1">
-            <span class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#003333]/70">Próximo evento</span>
-            <h3 class="mt-2 text-xl sm:text-2xl font-bold text-[#003333] leading-tight">{concert.artist}</h3>
-            <div class="mt-1 flex items-center gap-2 text-sm text-gray-600">
-              <svg class="w-4 h-4 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <div class="flex flex-col justify-center items-start text-left gap-3 px-6 py-6 sm:pl-10 sm:pr-4 sm:py-8 sm:w-2/5 order-2 sm:order-1">
+            <span class="text-lg sm:text-xl font-bold uppercase tracking-widest text-[#003333]/70">Próximo evento</span>
+            <h3 class="mt-2 text-4xl sm:text-5xl font-bold text-[#003333] leading-tight">{concert.artist}</h3>
+            <div class="mt-2 flex items-center gap-2 text-xl text-gray-600">
+              <svg class="w-6 h-6 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
               </svg>
               <span>{formatDate(concert.date)}</span>
             </div>
-            <div class="mt-1 flex items-center gap-2 text-sm text-gray-600">
-              <svg class="w-4 h-4 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="mt-2 flex items-center gap-2 text-xl text-gray-600">
+              <svg class="w-6 h-6 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
@@ -172,7 +172,7 @@
             <div class="mt-6">
               {#if concert.availability !== 'sold-out'}
                 <a href={`/events/${concert.id}`}
-                  class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-white text-sm font-semibold bg-[#003333] hover:bg-[#004d4d] transition-all duration-200 hover:shadow-md"
+                  class="inline-flex items-center gap-2 px-10 py-3.5 rounded-full text-white text-xl font-semibold bg-[#003333] hover:bg-[#004d4d] transition-all duration-200 hover:shadow-md"
                   title="Ver entradas"
                 >
                   {t.card.viewTickets}
@@ -188,19 +188,9 @@
                 </span>
               {/if}
             </div>
-          </div>
-
-          <!-- IMAGEN (derecha) -->
-          <div class="relative sm:w-2/5 order-1 sm:order-2 overflow-hidden sm:flex sm:items-center sm:pl-0 sm:pr-3 sm:py-3">
-            <img
-              src={concert.image ?? '/carousel/image-4.jpg'}
-              alt="Foto del evento"
-              class="w-full h-32 sm:h-auto sm:max-h-[70%] object-cover object-center sm:rounded-xl"
-              loading="lazy"
-            />
             <!-- Badge disponibilidad -->
             <span
-              class="absolute top-2 right-2 px-2.5 py-0.5 text-[11px] rounded-full font-semibold shadow-sm bg-white/90 backdrop-blur-sm {concert.availability === 'available' ? 'text-emerald-700' : concert.availability === 'limited' ? 'text-amber-700' : 'text-red-700'}"
+              class="px-3 py-1 text-lg rounded-full font-semibold text-[#003333] self-start"
             >
               {concert.availability === 'available'
                 ? t.card.available
@@ -208,6 +198,16 @@
                 ? t.card.limited
                 : t.card.soldOut}
             </span>
+          </div>
+
+          <!-- IMAGEN (derecha) -->
+          <div class="relative sm:w-3/5 order-1 sm:order-2 overflow-hidden flex items-center justify-center sm:pl-0 sm:pr-4 sm:py-4">
+            <img
+              src={concert.image ?? '/carousel/image-4.jpg'}
+              alt="Foto del evento"
+              class="w-full h-56 sm:h-auto sm:max-h-[90%] object-cover object-center sm:rounded-xl"
+              loading="lazy"
+            />
           </div>
         </div>
     </Card>
