@@ -18,7 +18,7 @@
   export let concert: Concert;
 
   $: availabilityClasses = concert.availability === 'available'
-    ? 'bg-emerald-500 text-white'
+    ? 'bg-[#003333] text-white'
     : concert.availability === 'limited'
       ? 'bg-amber-400 text-amber-900'
       : 'bg-red-500 text-white';
@@ -47,13 +47,6 @@
     />
     <!-- Overlay degradado inferior -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
-
-    <!-- Badge categoría arriba izquierda -->
-    {#if concert.category}
-      <span class="absolute top-3 left-3 px-2.5 py-1 text-[11px] uppercase tracking-wider font-semibold rounded-full bg-white/90 text-[#003333] backdrop-blur-sm shadow-sm">
-        {concert.category}
-      </span>
-    {/if}
 
     <!-- Badge disponibilidad arriba derecha -->
     <span class="absolute top-3 right-3 px-2.5 py-1 text-[11px] rounded-full font-semibold backdrop-blur-sm shadow-sm {availabilityClasses}"

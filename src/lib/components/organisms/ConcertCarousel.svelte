@@ -145,7 +145,7 @@
   <div class="flex flex-wrap justify-center items-center gap-3 mb-8">
     <!-- Boton Todos -->
     <button
-      class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {selectedCity === 'Todas' && selectedEventType === 'Todos'
+      class="px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 {selectedCity === 'Todas' && selectedEventType === 'Todos'
         ? 'text-white bg-[#003333]'
         : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
       on:click={() => { selectedCity = 'Todas'; selectedEventType = 'Todos'; }}
@@ -156,7 +156,7 @@
     <!-- Desplegable Ciudad -->
     <div class="relative city-selector">
       <button
-        class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {selectedCity !== 'Todas'
+        class="flex items-center gap-2 px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 {selectedCity !== 'Todas'
           ? 'text-white bg-[#003333]'
           : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
         on:click={toggleCitySelector}
@@ -183,7 +183,7 @@
     <!-- Desplegable Evento -->
     <div class="relative event-type-selector">
       <button
-        class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {selectedEventType !== 'Todos'
+        class="flex items-center gap-2 px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 {selectedEventType !== 'Todos'
           ? 'text-white bg-[#003333]'
           : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
         on:click={toggleEventTypeSelector}

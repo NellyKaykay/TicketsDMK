@@ -239,19 +239,6 @@
             <input id="price-gen" type="number" step="0.01" min="0" placeholder="0.00" class="border rounded-md px-3 py-2 flex-1" bind:value={priceGeneral} required />
           </div>
         </div>
-        <select class="border rounded-md px-4 py-2" bind:value={category} required>
-          <option value="" disabled>Selecciona categoría</option>
-          <option value="Rock">Rock</option>
-          <option value="Pop">Pop</option>
-          <option value="Jazz">Jazz</option>
-          <option value="Electronic">Electronic</option>
-          <option value="Acoustic">Acoustic</option>
-          <option value="Classical">Classical</option>
-          <option value="Folk">Folk</option>
-          <option value="Traditional">Traditional</option>
-          <option value="Modern">Modern</option>
-          <option value="General">General</option>
-        </select>
         <select class="border rounded-md px-4 py-2" bind:value={status} required>
           <option value="available">Disponible</option>
           <option value="limited">Pocas entradas</option>
