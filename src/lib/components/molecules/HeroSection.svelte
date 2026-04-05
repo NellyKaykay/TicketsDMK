@@ -1,8 +1,6 @@
 <script lang="ts">
-  import Button from '../atoms/Button.svelte';
   import CardFlotante from '../atoms/CardFlotante.svelte';
   import { translations } from '../../stores/i18n';
-  import { base } from '$app/paths';
   type HeroTranslations = {
     homepage: {
       title: string;
@@ -55,20 +53,10 @@
   $: t = getSafeTranslations($translations);
 </script>
 
-<div class="relative text-[#003333] overflow-visible min-h-[70vh] sm:min-h-[80vh] flex items-center hero-no-gap pb-40 sm:pb-52 lg:pb-64">
-  <!-- Background image -->
-  <img src={base + '/heroe-image.jpg'} alt="Hero background" class="absolute inset-0 w-full h-full object-cover" on:error={(e) => { e.target.src = base + '/heroe-image.jpg'; }} />
-  <!-- Content -->
-  <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="text-center max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4">{t.homepage.title}</h1>
-      <h2 class="text-2xl mb-2">{t.homepage.subtitle}</h2>
-      <p class="mb-6">{t.homepage.description}</p>
-    </div>
-  </div>
-  <!-- Card flotante integrado - positioned relative to hero bottom -->
-  <div class="absolute left-0 right-0 bottom-0 translate-y-[10%] z-10 flex justify-center hero-card-float">
-    <div class="w-full bg-transparent">
+<div class="relative overflow-visible flex items-center justify-center hero-no-gap min-h-[60vh] sm:min-h-[70vh]">
+  <!-- Card principal - ocupa todo el hero -->
+  <div class="w-full h-full z-10 flex justify-center items-center">
+    <div class="w-full">
       <CardFlotante />
     </div>
   </div>

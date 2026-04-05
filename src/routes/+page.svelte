@@ -49,12 +49,19 @@
     </div>
   {/if}
   <!-- Hero Section with Floating Event Card -->
-  <div class="relative min-h-[60vh] sm:min-h-[70vh]">
-    <HeroSection />
-  </div>
+  <HeroSection />
+
+  <!-- Bloque texto descriptivo -->
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-4">
+    <div class="text-center max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4 text-[#003333]">Descubre los mejores eventos</h1>
+      <h2 class="text-2xl mb-2 text-[#003333]/70">Vive experiencias musicales únicas con TicketsDMK</h2>
+      <p class="mb-6 text-gray-600">Encuentra entradas para tus artistas favoritos, descubre nuevos talentos y disfruta de eventos exclusivos en las mejores salas de eventos.</p>
+    </div>
+  </section>
 
   <!-- Bloque Próximos Eventos Destacados -->
-  <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-12">
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-12">
     <h2 class="text-3xl font-bold text-center mb-8">Próximos Eventos</h2>
     <ConcertCarousel
       title=""
@@ -153,7 +160,7 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-white">
           <div class="flex items-center gap-4">
             <div class="bg-white rounded-xl p-2">
-              <img src="/logo-skyarmenia.png" alt="SkyArmenia Logo" class="h-10 w-auto" />
+              <img src="/logo-skyarmenia.jpeg" alt="SkyArmenia Logo" class="h-10 w-auto" />
             </div>
             <div>
               <h3 class="text-2xl md:text-3xl font-bold tracking-tight group-hover:underline">SkyArmenia.com</h3>
