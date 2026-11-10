@@ -1,6 +1,5 @@
 <script lang="ts">
   import { base } from '$app/paths';
-  import logoSrc from '$lib/assets/logo-ticketsdmk.jpg';
   export let size: 'sm' | 'md' | 'lg' | 'header' = 'md';
   
   const sizes = {
@@ -20,7 +19,7 @@
 
 <a href={base + '/'} class="flex items-center">
   <img 
-    src={logoSrc} 
+    src={`${base}/logo-ticketsdmk.jpg`}
     alt="TicketsDMK" 
     class={`object-contain transition-transform duration-200 hover:scale-105 ${sizes[size]}`}
   />

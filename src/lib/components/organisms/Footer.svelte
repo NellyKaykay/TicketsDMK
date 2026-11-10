@@ -43,7 +43,7 @@
   const currentYear = new Date().getFullYear();
 </script>
 
-<footer class="bg-white border-t border-gray-200">
+<footer class="bg-[#001212] text-white border-t border-white/10">
   <Container variant="default" padding="none">
     <div class="px-4 sm:px-6 lg:px-8 pt-8 pb-8 lg:pb-12">
     <!-- Main footer content -->
@@ -71,12 +71,12 @@
               type="email" 
               id="email-address"
               required
-              class="flex-1 min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:border-transparent" style="--tw-ring-color: #003333; border-color: #003333 !important;"
+              class="flex-1 min-w-0 px-4 py-2 text-base text-white placeholder-white/50 bg-[#0B3332] border border-white/10 rounded-l-md focus:outline-none focus:ring-2 focus:border-transparent" style="--tw-ring-color: #00C27E;"
               placeholder="tu@email.com"
             />
             <button 
               type="submit"
-              class="flex-shrink-0 px-4 py-2 border border-transparent text-base font-medium text-white rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200" style="background-color: #003333; --tw-ring-color: #003333;"
+              class="flex-shrink-0 px-4 py-2 border border-transparent text-[#001212] rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200" style="background-color: #00C27E; --tw-ring-color: #00C27E;"
             >
               Suscribirse
             </button>
@@ -101,7 +101,7 @@
     </div>
     
     <!-- Bottom section -->
-    <div class="mt-8 pt-4 border-t border-gray-200">
+    <div class="mt-8 pt-4 border-t border-white/10">
       <Stack direction="responsive" justify="between" align="center">
         <!-- Copyright -->
         <div class="text-base text-gray-400">
@@ -110,16 +110,16 @@
         
         <!-- Legal links -->
         <div class="flex space-x-6">
-          <a href="/privacy" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200">
+          <a href="/privacy" class="text-sm text-white/70 hover:text-[#00C27E] transition-colors duration-200">
             Privacidad
           </a>
-          <a href="/terms" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200">
+          <a href="/terms" class="text-sm text-white/70 hover:text-[#00C27E] transition-colors duration-200">
             Términos
           </a>
-          <a href="/cookies" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200">
+          <a href="/cookies" class="text-sm text-white/70 hover:text-[#00C27E] transition-colors duration-200">
             Cookies
           </a>
-          <a href="/accessibility" class="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200">
+          <a href="/accessibility" class="text-sm text-white/70 hover:text-[#00C27E] transition-colors duration-200">
             Accesibilidad
           </a>
         </div>

@@ -51,7 +51,7 @@
       
       {#if success}
         <!-- Mensaje de éxito -->
-        <div class="rounded-md bg-[#e6f7f7] p-4">
+        <div class="rounded-md bg-[#0B3332] p-4">
           <div class="flex">
             <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -68,7 +68,7 @@
         </div>
         
         <div class="mt-6 flex space-x-3">
-          <a href="/login" class="flex-1 bg-[#003333] text-white px-4 py-2 rounded-md text-sm font-medium text-center hover:bg-[#002626] transition-colors">
+          <a href="/login" class="flex-1 bg-[#00C27E] text-[#001212] px-4 py-2 rounded-md text-sm font-medium text-center hover:brightness-110 transition-colors">
             Volver al Login
           </a>
           <button on:click={() => { success = false; email = ''; }} class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300 transition-colors">
@@ -115,7 +115,7 @@
             <button
               type="submit"
               disabled={loading}
-              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#003333] hover:bg-[#002626] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003333] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-[#001212] bg-[#00C27E] hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00C27E] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? 'Enviando...' : 'Enviar Enlace de Recuperación'}
             </button>
@@ -125,11 +125,11 @@
 
       <!-- Enlaces de navegación -->
       <div class="mt-6 flex justify-center space-x-4 text-sm">
-        <a href="/login" class="text-green-800 hover:text-green-600 font-medium">
+        <a href="/login" class="text-[#00C27E] hover:text-white font-medium">
           ← Volver al Login
         </a>
         <span class="text-gray-300">|</span>
-        <a href="/register" class="text-green-800 hover:text-green-600 font-medium">
+        <a href="/register" class="text-[#00C27E] hover:text-white font-medium">
           Crear cuenta
         </a>
       </div>

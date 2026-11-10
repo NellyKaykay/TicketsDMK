@@ -9,10 +9,10 @@
   const baseStyles = 'inline-flex items-center justify-center font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variants = {
-    primary: 'text-white focus:ring-offset-2',
-    secondary: 'bg-gray-100 hover:bg-gray-200 text-gray-900 focus:ring-gray-500',
+    primary: 'text-[#001212] focus:ring-offset-2',
+    secondary: 'bg-[#0B3332] hover:bg-[#0B3332]/80 text-white focus:ring-[#00C27E]',
     outline: 'border bg-transparent focus:ring-offset-2',
-    ghost: 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500'
+    ghost: 'text-white/75 hover:text-white hover:bg-white/5 focus:ring-[#00C27E]'
   };
   
   const sizes = {
@@ -25,8 +25,8 @@
   
   $: classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${disabled ? disabledStyles : ''}`;
   
-  $: customStyle = variant === 'primary' ? 'background-color: #003333;' : 
-                   variant === 'outline' ? 'border-color: #003333; color: #033333; background-color: transparent;' : 
+  $: customStyle = variant === 'primary' ? 'background-color: var(--accent); color: var(--bg);' : 
+                   variant === 'outline' ? 'border-color: var(--accent); color: var(--accent); background-color: transparent;' : 
                    '';
 </script>
 

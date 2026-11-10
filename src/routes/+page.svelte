@@ -54,8 +54,8 @@
   <!-- Bloque texto descriptivo -->
   <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-4">
     <div class="text-center max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4 text-[#003333]">Descubre los mejores eventos</h1>
-      <h2 class="text-2xl mb-2 text-[#003333]/70">Vive experiencias musicales únicas con TicketsDMK</h2>
+      <h1 class="text-4xl font-bold mb-4 text-[#00C27E]">Descubre los mejores eventos</h1>
+      <h2 class="text-2xl mb-2 text-white/80">Vive experiencias musicales únicas con TicketsDMK</h2>
       <p class="mb-6 text-gray-600">Encuentra entradas para tus artistas favoritos, descubre nuevos talentos y disfruta de eventos exclusivos en las mejores salas de eventos.</p>
     </div>
   </section>
@@ -78,7 +78,7 @@
   <section id="eventos" class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold sm:text-4xl" style="color: #003333;">
+        <h2 class="text-3xl font-bold sm:text-4xl" style="color: #00C27E;">
           Eventos Pasados
         </h2>
         <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
@@ -96,7 +96,7 @@
   <section class="py-16 bg-white" id="about">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
-        <h2 class="text-base font-semibold tracking-wide uppercase" style="color: #003333;">Sobre nosotros</h2>
+        <h2 class="text-base font-semibold tracking-wide uppercase" style="color: #00C27E;">Sobre nosotros</h2>
         <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
           La mejor experiencia en eventos musicales
         </p>
@@ -109,7 +109,7 @@
       <div class="mt-10">
         <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
           <div class="text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md text-white mx-auto" style="background-color: #003333;">
+            <div class="flex items-center justify-center h-12 w-12 rounded-md text-[#001212] mx-auto" style="background-color: #00C27E;">
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -123,7 +123,7 @@
           </div>
 
           <div class="text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md text-white mx-auto" style="background-color: #003333;">
+            <div class="flex items-center justify-center h-12 w-12 rounded-md text-[#001212] mx-auto" style="background-color: #00C27E;">
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
@@ -137,7 +137,7 @@
           </div>
 
           <div class="text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md text-white mx-auto" style="background-color: #003333;">
+            <div class="flex items-center justify-center h-12 w-12 rounded-md text-[#001212] mx-auto" style="background-color: #00C27E;">
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.5a9.5 9.5 0 110 19 9.5 9.5 0 010-19z" />
               </svg>
@@ -160,7 +160,7 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-white">
           <div class="flex items-center gap-4">
             <div class="bg-white rounded-xl p-2">
-              <img src="/logo-skyarmenia.jpeg" alt="SkyArmenia Logo" class="h-10 w-auto" />
+              <img src="/logo-skyarmenia.jpg" alt="SkyArmenia Logo" class="h-10 w-auto" />
             </div>
             <div>
               <h3 class="text-2xl md:text-3xl font-bold tracking-tight group-hover:underline">SkyArmenia.com</h3>
@@ -168,7 +168,7 @@
             </div>
           </div>
           <div class="flex-shrink-0">
-            <span class="inline-flex items-center gap-2 bg-white font-semibold px-6 py-3 rounded-full text-sm md:text-base shadow-lg transition-colors" style="color: #003333;">
+            <span class="inline-flex items-center gap-2 bg-[#00C27E] text-[#001212] font-semibold px-6 py-3 rounded-full text-sm md:text-base shadow-lg transition-colors">
               Visitar sitio
               <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -184,7 +184,7 @@
   <section class="w-full py-10 bg-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="ad-placeholder relative overflow-hidden rounded-2xl border-2 border-dashed border-gray-300 bg-white p-8 md:p-12 text-center">
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: repeating-linear-gradient(45deg, #003333 0, #003333 1px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: repeating-linear-gradient(45deg, #00C27E 0, #00C27E 1px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
         <div class="relative z-10">
           <div class="flex justify-center mb-4">
             <div class="inline-flex items-center gap-2 bg-gray-100 rounded-full px-4 py-1.5">
@@ -215,7 +215,7 @@
 .page-loader {
   position: fixed;
   inset: 0;
-  background: #ffffff;
+  background: #001212;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,20 +224,20 @@
 .spinner {
   width: 28px;
   height: 28px;
-  border: 3px solid rgba(0,0,0,0.08);
-  border-top-color: #38b6ff;
+  border: 3px solid rgb(0 194 126 / 20%);
+  border-top-color: #00C27E;
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .banner-skyarmenia {
-  background: linear-gradient(to right, #003333, #005555);
+  background: linear-gradient(to right, #001212, #0B3332);
 }
 .ad-cta {
-  background: linear-gradient(135deg, #003333, #005555);
+  background-color: #00C27E;
+  color: #001212;
 }
 .ad-cta:hover {
-  background: linear-gradient(135deg, #004444, #006666);
   transform: translateY(-1px);
 }
 </style>

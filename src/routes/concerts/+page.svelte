@@ -12,6 +12,7 @@
     image: string;
     price: string;
     category: string;
+    city: string;
     availability: "available" | "limited" | "sold-out";
   };
 
@@ -25,6 +26,7 @@
       image: '/images/sample-flyer.jpg',
       price: '20.00',
       category: 'concierto',
+      city: 'Barcelona',
       availability: 'available'
     },
     {
@@ -36,6 +38,7 @@
       image: '/images/sample-flyer-2.jpg',
       price: '15.00',
       category: 'concierto',
+      city: 'Madrid',
       availability: 'limited'
     }
   ];
@@ -49,7 +52,7 @@
 <main class="min-h-screen bg-gray-50">
   <Container>
     <section class="py-12">
-      <h1 class="text-3xl font-bold mb-6" style="color:#003333;">Todos los eventos</h1>
+      <h1 class="text-3xl font-bold mb-6" style="color:#00C27E;">Todos los eventos</h1>
       <ConcertCarousel
         title="Conciertos destacados"
         subtitle="Próximos eventos"

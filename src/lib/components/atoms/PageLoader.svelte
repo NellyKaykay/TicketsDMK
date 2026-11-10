@@ -10,7 +10,7 @@
 .page-loader {
   position: fixed;
   inset: 0;
-  background: #ffffff;
+  background: #001212;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,8 +19,8 @@
 .spinner {
   width: 28px;
   height: 28px;
-  border: 3px solid rgba(0,0,0,0.08);
-  border-top-color: #38b6ff;
+  border: 3px solid rgb(0 194 126 / 20%);
+  border-top-color: #00C27E;
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }

@@ -4,7 +4,7 @@
 </script>
 
 <div class="space-y-4">
-  <h3 class="text-sm font-semibold text-gray-900 tracking-wider uppercase">
+  <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
     {title}
   </h3>
   
@@ -13,7 +13,7 @@
       <li>
         <a 
           href={link.href}
-          class="text-base text-gray-500 hover:text-gray-900 transition-colors duration-200"
+          class="text-base text-white/70 hover:text-[#00C27E] transition-colors duration-200"
           target={link.external ? '_blank' : undefined}
           rel={link.external ? 'noopener noreferrer' : undefined}
         >

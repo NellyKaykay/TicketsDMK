@@ -137,7 +137,7 @@
     </h2>
     <p class="mt-2 text-center text-sm text-gray-600">
       ¿Ya tienes cuenta?
-      <a href="/login" class="font-medium" style="color: #003333;">
+      <a href="/login" class="font-medium" style="color: #00C27E;">
         Inicia sesión aquí
       </a>
     </p>
@@ -201,7 +201,7 @@
                 autocomplete="given-name"
                 required
                 bind:value={firstName}
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #003333;"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #00C27E;"
                 placeholder="Nombre"
               />
             </div>
@@ -219,7 +219,7 @@
                 autocomplete="family-name"
                 required
                 bind:value={lastName}
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #003333;"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #00C27E;"
                 placeholder="Apellido"
               />
             </div>
@@ -238,7 +238,7 @@
               autocomplete="email"
               required
               bind:value={email}
-              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #003333;"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #00C27E;"
               placeholder="tu@ejemplo.com"
             />
           </div>
@@ -256,7 +256,7 @@
               autocomplete="new-password"
               required
               bind:value={password}
-              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #003333;"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #00C27E;"
               placeholder="Mínimo 8 caracteres"
             />
           </div>
@@ -277,7 +277,7 @@
               autocomplete="new-password"
               required
               bind:value={confirmPassword}
-              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #003333;"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 sm:text-sm" style="--tw-ring-color: #00C27E;"
               placeholder="Repite tu contraseña"
             />
           </div>
@@ -292,13 +292,13 @@
             name="accept-terms"
             type="checkbox"
             bind:checked={acceptTerms}
-            class="h-4 w-4 border-gray-300 rounded" style="color: #003333; --tw-ring-color: #003333;"
+            class="h-4 w-4 border-gray-300 rounded accent-[#00C27E]" style="color: #00C27E; --tw-ring-color: #00C27E;"
           />
           <label for="accept-terms" class="ml-2 block text-sm text-gray-900">
             Acepto los
-            <a href="/terms" class="font-medium" style="color: #003333;">términos y condiciones</a>
+            <a href="/terms" class="font-medium" style="color: #00C27E;">términos y condiciones</a>
             y la
-            <a href="/privacy" class="font-medium" style="color: #003333;">política de privacidad</a>
+            <a href="/privacy" class="font-medium" style="color: #00C27E;">política de privacidad</a>
           </label>
         </div>
 
@@ -321,7 +321,7 @@
           <button
             type="submit"
             disabled={loading}
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #003333; --tw-ring-color: #003333;"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-[#001212] disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2" style="background-color: #00C27E; --tw-ring-color: #00C27E;"
           >
             {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
           </button>

@@ -103,7 +103,7 @@
 
   function seatStroke(seat: SeatData): string {
     if (soldSeats.has(seat.id)) return 'transparent';
-    if (selectedSeats.has(seat.id)) return '#111827';
+    if (selectedSeats.has(seat.id)) return '#001212';
     return getZoneColor(seat.zone_code);
   }
 
@@ -151,8 +151,8 @@
   <svg viewBox="0 0 800 660" class="venue-svg" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="stageGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#003333" />
-        <stop offset="100%" stop-color="#003333" />
+        <stop offset="0%" stop-color="#0B3332" />
+        <stop offset="100%" stop-color="#001212" />
       </linearGradient>
       <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#f8fafc" />
@@ -162,7 +162,7 @@
         <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.25" />
       </filter>
       <filter id="selectedGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#003333" flood-opacity="0.5" />
+        <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#00C27E" flood-opacity="0.5" />
       </filter>
     </defs>
 
@@ -197,8 +197,8 @@
 
     <!-- VIP seats -->
     {#each vipRows as row}
-      <text x="78" y={row[0].y + 4} text-anchor="end" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
-      <text x="722" y={row[0].y + 4} text-anchor="start" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="78" y={row[0].y + 4} text-anchor="end" fill="#001212" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="722" y={row[0].y + 4} text-anchor="start" fill="#001212" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
       {#each row as seat}
         <rect
           x={seat.x - 8} y={seat.y - 8} width="16" height="16" rx="3"
@@ -224,7 +224,7 @@
     {/each}
 
     <!-- VIP label -->
-    <text x="400" y="148" text-anchor="middle" fill="#003333" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">VIP</text>
+    <text x="400" y="148" text-anchor="middle" fill="#001212" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">VIP</text>
 
     <!-- Aisle -->
     <line x1="100" y1="298" x2="700" y2="298" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 4" />
@@ -239,8 +239,8 @@
 
     <!-- Preferente seats -->
     {#each prefRows as row}
-      <text x="58" y={row[0].y + 4} text-anchor="end" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
-      <text x="742" y={row[0].y + 4} text-anchor="start" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="58" y={row[0].y + 4} text-anchor="end" fill="#001212" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="742" y={row[0].y + 4} text-anchor="start" fill="#001212" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
       {#each row as seat}
         <rect
           x={seat.x - 8} y={seat.y - 8} width="16" height="16" rx="3"
@@ -266,7 +266,7 @@
     {/each}
 
     <!-- Preferente label -->
-    <text x="400" y="288" text-anchor="middle" fill="#003333" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">PREFERENTE</text>
+    <text x="400" y="288" text-anchor="middle" fill="#001212" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">PREFERENTE</text>
 
     <!-- Aisle -->
     <line x1="80" y1="445" x2="720" y2="445" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="4 4" />
@@ -281,8 +281,8 @@
 
     <!-- General seats -->
     {#each genRows as row}
-      <text x="40" y={row[0].y + 4} text-anchor="end" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
-      <text x="760" y={row[0].y + 4} text-anchor="start" fill="#003333" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="40" y={row[0].y + 4} text-anchor="end" fill="#001212" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
+      <text x="760" y={row[0].y + 4} text-anchor="start" fill="#001212" font-size="16" font-weight="900" style="text-shadow:0 2px 12px #fff;">{row[0].row}</text>
       {#each row as seat}
         <rect
           x={seat.x - 8} y={seat.y - 8} width="16" height="16" rx="3"
@@ -308,7 +308,7 @@
     {/each}
 
     <!-- General label -->
-    <text x="400" y="448" text-anchor="middle" fill="#003333" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">GENERAL</text>
+    <text x="400" y="448" text-anchor="middle" fill="#001212" font-size="22" font-weight="900" letter-spacing="2" style="text-shadow:0 1px 8px #fff;">GENERAL</text>
 
     <!-- Exit indicators -->
     <text x="45" y="648" text-anchor="start" fill="#94a3b8" font-size="9" font-weight="600" letter-spacing="1">SALIDA</text>
@@ -317,15 +317,15 @@
     <!-- Legend -->
     <g transform="translate(80, 630)">
       <rect x="0" y="0" width="10" height="10" rx="2" fill={getZoneColor('A')} opacity="0.5" />
-      <text x="14" y="9" fill="#003333" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">VIP</text>
+      <text x="14" y="9" fill="#001212" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">VIP</text>
       <rect x="80" y="0" width="10" height="10" rx="2" fill={getZoneColor('B')} opacity="0.5" />
-      <text x="94" y="9" fill="#003333" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">Preferente</text>
+      <text x="94" y="9" fill="#001212" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">Preferente</text>
       <rect x="200" y="0" width="10" height="10" rx="2" fill={getZoneColor('C')} opacity="0.5" />
-      <text x="214" y="9" fill="#003333" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">General</text>
-      <rect x="320" y="0" width="10" height="10" rx="2" fill="#2563eb" opacity="1" stroke="#111827" stroke-width="1" />
-      <text x="334" y="9" fill="#003333" font-size="15" font-weight="900" style="text-shadow:0 2px 12px #fff;">Seleccionado</text>
+      <text x="214" y="9" fill="#001212" font-size="18" font-weight="900" style="text-shadow:0 2px 12px #fff;">General</text>
+      <rect x="320" y="0" width="10" height="10" rx="2" fill="#00C27E" opacity="1" stroke="#001212" stroke-width="1" />
+      <text x="334" y="9" fill="#001212" font-size="15" font-weight="900" style="text-shadow:0 2px 12px #fff;">Seleccionado</text>
       <rect x="440" y="0" width="10" height="10" rx="2" fill="#d1d5db" opacity="0.4" />
-      <text x="454" y="9" fill="#003333" font-size="15" font-weight="900" style="text-shadow:0 2px 12px #fff;">Vendido</text>
+      <text x="454" y="9" fill="#001212" font-size="15" font-weight="900" style="text-shadow:0 2px 12px #fff;">Vendido</text>
     </g>
   </svg>
 </div>
@@ -346,8 +346,8 @@
     overflow: hidden;
   }
   text, .seat, .venue-svg text, .venue-map-wrapper text {
-    fill: #222 !important;
-    color: #222 !important;
+    fill: #001212 !important;
+    color: #001212 !important;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-shadow: 0 1px 4px #fff;

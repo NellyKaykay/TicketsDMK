@@ -41,7 +41,7 @@
   });
 </script>
 
-<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40 text-xl" style="height:112px;">
+<header class="shadow-sm border-b sticky top-0 z-40 text-xl" style="height:112px; background-color: var(--bg); border-color: var(--border); color: var(--text);">
   <div class="max-w-7xl mx-auto px-0">
   <div class="flex justify-between items-center" style="height:100%;">
       <!-- Logo -->

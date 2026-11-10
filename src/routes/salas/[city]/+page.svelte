@@ -72,10 +72,10 @@
 
 <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
   <!-- Header -->
-  <section class="text-white py-10" style="background-color: #003333;">
+  <section class="text-white py-10" style="background-color: #0B3332;">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-3xl md:text-4xl font-bold mb-2">Sala {data.city}</h1>
-      <p class="text-sm" style="color: #b3e0e0;">Selecciona un evento y elige tus asientos</p>
+      <p class="text-sm text-white/80">Selecciona un evento y elige tus asientos</p>
     </div>
   </section>
 
@@ -83,13 +83,13 @@
     {#if !data.city}
       <div class="text-center py-16">
         <h2 class="text-xl font-semibold text-gray-800">Ciudad no encontrada</h2>
-        <a href="/events" class="mt-4 inline-block px-4 py-2 bg-[#003333] text-white rounded-lg">Volver a eventos</a>
+        <a href="/events" class="mt-4 inline-block px-4 py-2 bg-[#00C27E] text-[#001212] rounded-lg">Volver a eventos</a>
       </div>
     {:else if events.length === 0}
       <div class="text-center py-16">
         <h2 class="text-xl font-semibold text-gray-800">No hay eventos en {data.city}</h2>
         <p class="text-sm text-gray-500 mt-2">Vuelve pronto para ver nuevos eventos.</p>
-        <a href="/events" class="mt-4 inline-block px-4 py-2 bg-[#003333] text-white rounded-lg">Ver todos los eventos</a>
+        <a href="/events" class="mt-4 inline-block px-4 py-2 bg-[#00C27E] text-[#001212] rounded-lg">Ver todos los eventos</a>
       </div>
     {:else}
       <!-- Event selector -->
@@ -97,7 +97,7 @@
         <div class="max-w-md mx-auto mb-6">
           <select
             class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-medium focus:ring-2 focus:border-transparent"
-            style="--tw-ring-color: #003333;"
+            style="--tw-ring-color: #00C27E;"
             bind:value={selectedEventIndex}
             on:change={onEventChange}
           >
@@ -111,7 +111,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-start">
         <!-- Left: seat map -->
         <div class="lg:col-span-2 space-y-4 md:space-y-5">
-          <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] p-2 w-full max-w-2xl mx-auto">
+          <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] p-2 w-full max-w-2xl mx-auto">
             <h2 class="text-base font-semibold text-gray-800 mb-1">Selecciona tus asientos</h2>
             <p class="text-xs text-gray-400 mb-2">Haz clic en un asiento para seleccionarlo</p>
             <VenueMap {ticketTypes} {soldSeats} {maxPerZone} />
@@ -134,7 +134,7 @@
         <aside class="space-y-3 w-full">
           <!-- Event card -->
           {#if selectedEvent}
-            <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden w-full max-w-sm mx-auto">
+            <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] overflow-hidden w-full max-w-sm mx-auto">
               {#if selectedEvent.image}
                 <img src={selectedEvent.image} alt={selectedEvent.artist} class="w-full object-cover max-h-72" />
               {/if}
@@ -152,8 +152,8 @@
           {/if}
 
           <!-- Checkout summary -->
-          <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden w-full max-w-sm mx-auto">
-            <div class="bg-[#003333] text-white px-4 py-3">
+          <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] overflow-hidden w-full max-w-sm mx-auto">
+            <div class="bg-[#001212] text-white px-4 py-3">
               <h3 class="text-base font-semibold">Resumen de compra</h3>
               <p class="text-xs text-emerald-200 mt-0.5">{$cart.length} {$cart.length === 1 ? 'entrada' : 'entradas'}</p>
             </div>
@@ -206,7 +206,7 @@
               {/if}
 
               <button
-                class="mt-4 w-full bg-[#003333] hover:bg-[#002626] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                class="mt-4 w-full bg-[#00C27E] hover:brightness-110 text-[#001212] py-3 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 on:click={pay}
                 disabled={$cart.length === 0}
               >

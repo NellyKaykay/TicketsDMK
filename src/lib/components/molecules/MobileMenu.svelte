@@ -20,15 +20,15 @@
   ></div>
   
   <!-- Mobile menu panel -->
-  <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-xl z-50 md:hidden transform transition-transform duration-300 ease-in-out">
+  <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B3332] text-white shadow-xl z-50 md:hidden transform transition-transform duration-300 ease-in-out">
     <div class="h-full flex flex-col">
       <!-- Header -->
-      <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <div class="flex items-center justify-between p-4 border-b border-white/10">
         <Logo size="sm" />
-        <h2 class="text-lg font-semibold text-gray-900">Menú</h2>
+        <h2 class="text-lg font-semibold text-white">Menú</h2>
         <button
           on:click={onClose}
-          class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+          class="p-2 rounded-md text-white/60 hover:text-[#00C27E] hover:bg-white/5"
           aria-label="Cerrar menú"
         >
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,7 +42,7 @@
         <Navigation variant="mobile" onLinkClick={onClose} />
         
         <!-- Divider -->
-        <hr class="border-gray-200">
+        <hr class="border-white/10">
         
         <!-- User Menu -->
         <UserMenu variant="mobile" />

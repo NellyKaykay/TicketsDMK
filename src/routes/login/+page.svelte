@@ -58,7 +58,7 @@
       <button
         on:click={handleGoogleLogin}
         disabled={loading}
-        class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors mb-4"
+        class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-white hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors mb-4"
       >
         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -107,7 +107,7 @@
         <div>
           <button
             type="submit"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-[#001212] bg-[#00C27E] hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00C27E]"
             disabled={loading}
           >
             {loading ? 'Cargando...' : isLogin ? 'Entrar' : 'Crear cuenta'}
@@ -115,7 +115,7 @@
         </div>
       </form>
       <div class="mt-4 text-center">
-        <button class="text-blue-600 hover:underline text-sm" on:click={() => isLogin = !isLogin}>
+        <button class="text-[#00C27E] hover:underline text-sm" on:click={() => isLogin = !isLogin}>
           {isLogin ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión'}
         </button>
       </div>

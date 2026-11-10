@@ -131,7 +131,7 @@
 {#if title}
 <!-- Header -->
 <div class="text-center mb-8">
-  <h2 class="text-3xl font-bold mb-2" style="color: #003333;">{title}</h2>
+  <h2 class="text-3xl font-bold mb-2 text-[#00C27E]">{title}</h2>
   {#if subtitle}
     <p class="text-lg text-gray-600 mb-6">{subtitle}</p>
   {/if}
@@ -146,8 +146,8 @@
     <!-- Boton Todos -->
     <button
       class="px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 {selectedCity === 'Todas' && selectedEventType === 'Todos'
-        ? 'text-white bg-[#003333]'
-        : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
+        ? 'text-[#001212] bg-[#00C27E]'
+        : 'text-white bg-[#0B3332] border border-white/10 hover:bg-[#0B3332]/80'}"
       on:click={() => { selectedCity = 'Todas'; selectedEventType = 'Todos'; }}
     >
       Todos
@@ -157,8 +157,8 @@
     <div class="relative city-selector">
       <button
         class="flex items-center gap-2 px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 {selectedCity !== 'Todas'
-          ? 'text-white bg-[#003333]'
-          : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
+          ? 'text-[#001212] bg-[#00C27E]'
+          : 'text-white bg-[#0B3332] border border-white/10 hover:bg-[#0B3332]/80'}"
         on:click={toggleCitySelector}
       >
         <span>{selectedCity === 'Todas' ? 'Ciudad' : selectedCity}</span>
@@ -167,10 +167,10 @@
         </svg>
       </button>
       {#if showCitySelector}
-        <div class="absolute top-full left-0 mt-1 min-w-[160px] bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+        <div class="absolute top-full left-0 mt-1 min-w-[160px] bg-[#0B3332] text-white border border-white/10 rounded-lg shadow-lg z-20">
           {#each cities as city}
             <button
-              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 {selectedCity === city ? 'font-semibold bg-[#e6f7f7] text-[#003333]' : ''}"
+              class="w-full px-4 py-2 text-left text-sm text-white/80 hover:bg-white/5 {selectedCity === city ? 'font-semibold bg-[#001212] text-[#00C27E]' : ''}"
               on:click={() => selectCity(city)}
             >
               {city}
@@ -184,8 +184,8 @@
     <div class="relative event-type-selector">
       <button
         class="flex items-center gap-2 px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 {selectedEventType !== 'Todos'
-          ? 'text-white bg-[#003333]'
-          : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}"
+          ? 'text-[#001212] bg-[#00C27E]'
+          : 'text-white bg-[#0B3332] border border-white/10 hover:bg-[#0B3332]/80'}"
         on:click={toggleEventTypeSelector}
       >
         <span>{selectedEventType === 'Todos' ? 'Evento' : selectedEventType}</span>
@@ -194,10 +194,10 @@
         </svg>
       </button>
       {#if showEventTypeSelector}
-        <div class="absolute top-full left-0 mt-1 min-w-[160px] bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+        <div class="absolute top-full left-0 mt-1 min-w-[160px] bg-[#0B3332] text-white border border-white/10 rounded-lg shadow-lg z-20">
           {#each eventTypes as etype}
             <button
-              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 {selectedEventType === etype ? 'font-semibold bg-[#e6f7f7] text-[#003333]' : ''}"
+              class="w-full px-4 py-2 text-left text-sm text-white/80 hover:bg-white/5 {selectedEventType === etype ? 'font-semibold bg-[#001212] text-[#00C27E]' : ''}"
               on:click={() => selectEventType(etype)}
             >
               {etype}
@@ -255,7 +255,7 @@
       <h3 class="text-lg font-medium text-gray-900 mb-2">No hay eventos en {selectedCity}</h3>
       <p class="text-gray-500 mb-4">Selecciona otra ciudad o vuelve más tarde para ver nuevos eventos.</p>
       <button 
-        class="px-4 py-2 text-white rounded-lg transition-colors" style="background-color: #003333;"
+        class="px-4 py-2 bg-[#00C27E] text-[#001212] rounded-lg transition-colors"
         on:click={() => selectCity('Todas')}
       >
         Ver todos los eventos
@@ -269,11 +269,10 @@
   <div class="flex justify-center mt-8 space-x-2">
     {#each Array(Math.ceil(filteredConcerts.length / itemsPerView)) as _, index}
       <button
-        class="w-2 h-2 rounded-full transition-colors duration-200 {index === Math.floor(currentIndex / itemsPerView) ? '' + ' style=\"background-color: #003333;\"' : 'bg-gray-300'}"
+        class="w-2 h-2 rounded-full transition-colors duration-200 {index === Math.floor(currentIndex / itemsPerView) ? 'bg-[#00C27E]' : 'bg-white/30'}"
         on:click={() => currentIndex = index * itemsPerView}
         aria-label="Ir a slide {index + 1}"
       ></button>
     {/each}
   </div>
 {/if}
-

@@ -23,10 +23,15 @@ body {
 
 /* Variables CSS personalizadas */
 :root {
-  --bg: #ffffff;
-  --text: #0a0a0a;
-  --brand: #003333; /* color de proyecto (ajustable) */
+  --bg: #001212;
+  --surface: #0B3332;
+  --accent: #00C27E;
+  --text: #FFFFFF;
+  --muted: rgb(255 255 255 / 72%);
+  --border: rgb(0 194 126 / 22%);
+  --brand: var(--accent);
   --header-height: 112px;
+  color-scheme: dark;
 }
 
 /* Estilos base */
@@ -59,6 +64,110 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+.app-main {
+  min-height: calc(100vh - var(--header-height));
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.app-main [class~="bg-white"],
+.app-main [class*="bg-white/"] {
+  background-color: var(--surface) !important;
+  color: var(--text);
+}
+
+.app-main [class~="bg-gray-50"],
+.app-main [class~="bg-black"] {
+  background-color: var(--bg) !important;
+}
+
+.app-main [class~="bg-gray-100"],
+.app-main [class~="bg-gray-200"] {
+  background-color: rgb(11 51 50 / 72%) !important;
+}
+
+.app-main [class~="text-gray-900"],
+.app-main [class~="text-gray-800"],
+.app-main [class~="text-gray-700"] {
+  color: var(--text) !important;
+}
+
+.app-main [class~="text-gray-600"],
+.app-main [class~="text-gray-500"] {
+  color: var(--muted) !important;
+}
+
+.app-main [class~="text-gray-400"] {
+  color: rgb(255 255 255 / 56%) !important;
+}
+
+.app-main [class*="border-gray-"] {
+  border-color: var(--border) !important;
+}
+
+.app-main [class*="bg-[#003333]"],
+.app-main [style*="background-color: #003333"],
+.app-main [style*="background-color:#003333"],
+.app-main [class*="bg-[#e6f7f7]"],
+.app-main [class*="bg-[#e6f2f2]"],
+.app-main [class*="bg-blue-50"] {
+  background-color: var(--surface) !important;
+}
+
+.app-main a[class*="bg-[#003333]"],
+.app-main button[class*="bg-[#003333]"],
+.app-main a[style*="background-color: #003333"],
+.app-main a[style*="background-color:#003333"],
+.app-main button[style*="background-color: #003333"],
+.app-main button[style*="background-color:#003333"] {
+  background-color: var(--accent) !important;
+  color: var(--bg) !important;
+}
+
+.app-main [class*="text-[#003333]"],
+.app-main [style*="color: #003333"],
+.app-main [style*="color:#003333"],
+.app-main [style*="color: #033333"] {
+  color: var(--accent) !important;
+}
+
+.app-main [class*="bg-[#004d4d]"],
+.app-main [style*="background-color: #004d4d"],
+.app-main [style*="background-color:#004d4d"] {
+  background-color: var(--surface) !important;
+}
+
+.app-main [class*="from-gray-50"][class*="to-white"] {
+  background-image: linear-gradient(to bottom, var(--bg), var(--surface)) !important;
+}
+
+.app-main input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.app-main select,
+.app-main textarea {
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+  color-scheme: dark;
+}
+
+.app-main input:not([type="checkbox"]):not([type="radio"]):not([type="range"])::placeholder,
+.app-main textarea::placeholder {
+  color: rgb(255 255 255 / 56%);
+}
+
+.app-main input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus,
+.app-main select:focus,
+.app-main textarea:focus {
+  border-color: var(--accent) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(0 194 126 / 25%);
+}
+
+.app-main option {
+  background-color: var(--surface);
+  color: var(--text);
 }
 
 /* Floating card optimizations */

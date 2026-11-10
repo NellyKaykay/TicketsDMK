@@ -97,14 +97,14 @@
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+<div class="min-h-screen bg-gradient-to-b from-[#001212] via-[#0B3332] to-[#001212]">
   <div class="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 py-4 lg:py-6 space-y-4 md:space-y-6">
 
     <!-- TOP ROW: Event Card + Trailer -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-stretch">
       <!-- Event Card -->
       {#if event}
-        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden h-full flex flex-col">
+        <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] overflow-hidden h-full flex flex-col">
           {#if event.flyer_url}
             <img src={event.flyer_url} alt={event.title} class="w-full object-cover max-h-72" />
           {/if}
@@ -123,17 +123,17 @@
           </div>
         </div>
       {:else}
-        <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] p-8 text-center">
+        <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] p-8 text-center">
           <h2 class="text-xl font-semibold">No se puede cargar el evento</h2>
           <p class="text-sm text-gray-600 mt-2">{data.error?.message ?? 'Ha ocurrido un error al cargar el evento.'}</p>
           <div class="mt-4">
-            <a href="/events" class="inline-block px-4 py-2 bg-[#003333] text-white rounded-lg">Volver a eventos</a>
+            <a href="/events" class="inline-block px-4 py-2 bg-[#00C27E] text-[#001212] rounded-lg">Volver a eventos</a>
           </div>
         </div>
       {/if}
 
       <!-- Trailer -->
-      <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden h-full">
+      <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] overflow-hidden h-full">
         {#if trailerUrl}
           <div class="aspect-video h-full min-h-[220px]">
             <iframe
@@ -162,7 +162,7 @@
     <!-- BOTTOM ROW: Seat Map + Checkout -->
     <div class="grid grid-cols-1 md:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] gap-4 md:gap-6 items-start">
       <!-- Seat Map -->
-      <div class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] p-2 w-full">
+      <div class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] p-2 w-full">
         <h2 class="text-sm font-semibold text-gray-800 mb-1">Selecciona tus asientos</h2>
         <p class="text-[10px] text-gray-400 mb-1">Haz clic en un asiento para seleccionarlo</p>
         <VenueMap {ticketTypes} {soldSeats} {maxPerZone} />
@@ -181,9 +181,9 @@
       </div>
 
       <!-- Checkout Box -->
-      <aside class="bg-white rounded-xl shadow-[0_4px_24px_0_#003333] overflow-hidden md:sticky md:top-24 lg:top-28 self-start">
+      <aside class="bg-[#0B3332] rounded-xl shadow-[0_4px_24px_rgba(0,194,126,0.12)] overflow-hidden md:sticky md:top-24 lg:top-28 self-start">
         <!-- Header -->
-        <div class="bg-[#003333] text-white px-4 py-3">
+        <div class="bg-[#001212] text-white px-4 py-3">
           <h3 class="text-base font-semibold">Resumen de compra</h3>
           <p class="text-xs text-emerald-200 mt-0.5">{$cart.length} {$cart.length === 1 ? 'entrada' : 'entradas'}</p>
         </div>
@@ -241,7 +241,7 @@
           {/if}
 
           <button
-            class="mt-4 w-full bg-[#003333] hover:bg-[#002626] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            class="mt-4 w-full bg-[#00C27E] hover:brightness-110 text-[#001212] py-3 rounded-lg font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             on:click={pay}
             disabled={$cart.length === 0 || paying}
           >

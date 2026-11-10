@@ -11,7 +11,7 @@
     <!-- Sidebar -->
     <aside class="w-full md:w-72 p-0 flex flex-col gap-6 md:sticky md:top-12 h-fit">
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-[#003333] flex items-center justify-center text-lg font-bold text-white">
+        <div class="w-12 h-12 rounded-full bg-[#0B3332] flex items-center justify-center text-lg font-bold text-white">
           {usuario?.user_metadata?.name ? usuario.user_metadata.name.charAt(0).toUpperCase() : (usuario?.email ? usuario.email.charAt(0).toUpperCase() : 'C')}
         </div>
         <div>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <!-- Separador verde largo debajo del bloque de usuario -->
-      <div class="w-full h-0.5 bg-[#003333] rounded my-4"></div>
+      <div class="w-full h-0.5 bg-[#00C27E] rounded my-4"></div>
       <nav class="flex flex-col gap-2 mt-8">
         <button
           type="button"
@@ -30,11 +30,11 @@
           class={
             "flex items-center gap-3 px-4 py-3 rounded-md w-full text-left transition-transform duration-150 ease-in-out " +
             (showProfile
-              ? 'bg-[#003333] text-white font-semibold shadow-sm'
+              ? 'bg-[#00C27E] text-[#001212] font-semibold shadow-sm'
               : 'text-gray-800 hover:bg-gray-50 hover:translate-x-1 hover:shadow-sm')
           }
         ><span class="text-lg">Mi Perfil</span></button>
-        <div class="w-20 my-3 h-0.5 bg-[#003333] rounded mx-auto"></div>
+        <div class="w-20 my-3 h-0.5 bg-[#00C27E] rounded mx-auto"></div>
 
         {#if showProfile}
           <div class="mt-4">
@@ -56,7 +56,7 @@
           class={
             "flex items-center gap-3 px-4 py-3 rounded-md w-full text-left transition-transform duration-150 ease-in-out " +
             (showEntradas
-              ? 'bg-[#003333] text-white font-semibold shadow-sm'
+              ? 'bg-[#00C27E] text-[#001212] font-semibold shadow-sm'
               : 'text-gray-800 hover:bg-gray-50 hover:translate-x-1 hover:shadow-sm')
           }
         ><span class="text-lg">Mis Entradas</span></button>

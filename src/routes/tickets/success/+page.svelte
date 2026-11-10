@@ -34,14 +34,14 @@
 <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
   {#if status === 'loading'}
     <div class="text-center">
-      <div class="w-16 h-16 border-4 border-[#003333] border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <div class="w-16 h-16 border-4 border-[#00C27E] border-t-transparent rounded-full animate-spin mx-auto"></div>
       <p class="mt-4 text-gray-600">Verificando tu pago...</p>
     </div>
 
   {:else if status === 'success'}
     <div class="bg-white rounded-2xl shadow-[0_4px_24px_0_rgba(0,51,51,0.15)] max-w-lg w-full overflow-hidden">
       <!-- Header -->
-      <div class="bg-[#003333] text-white text-center py-8 px-6">
+      <div class="bg-[#0B3332] text-white text-center py-8 px-6">
         <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
@@ -69,7 +69,7 @@
               <h3 class="text-sm font-semibold text-gray-700">Tus asientos:</h3>
               {#each orderData.seats as seat}
                 <div class="flex items-center gap-2 text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span class="w-2 h-2 rounded bg-[#003333]"></span>
+                  <span class="w-2 h-2 rounded bg-[#00C27E]"></span>
                   <span>{seat.zone} — Fila {seat.row}, Asiento {seat.number}</span>
                 </div>
               {/each}
@@ -79,7 +79,7 @@
           {#if orderData.total}
             <div class="flex justify-between items-center pt-2 border-t border-gray-100">
               <span class="font-semibold text-gray-700">Total pagado</span>
-              <span class="text-lg font-bold text-[#003333]">{orderData.total}</span>
+              <span class="text-lg font-bold text-[#00C27E]">{orderData.total}</span>
             </div>
           {/if}
         {/if}
@@ -100,7 +100,7 @@
           </a>
           <a
             href="/"
-            class="flex-1 text-center py-3 bg-[#003333] hover:bg-[#002626] text-white rounded-xl font-medium transition-colors"
+            class="flex-1 text-center py-3 bg-[#00C27E] hover:brightness-110 text-[#001212] rounded-xl font-medium transition-colors"
           >
             Inicio
           </a>
@@ -117,7 +117,7 @@
       </div>
       <h1 class="text-xl font-bold text-gray-900">Error en el pago</h1>
       <p class="text-gray-500 mt-2">{errorMsg}</p>
-      <a href="/events" class="mt-6 inline-block px-6 py-3 bg-[#003333] text-white rounded-xl font-medium hover:bg-[#002626] transition-colors">
+      <a href="/events" class="mt-6 inline-block px-6 py-3 bg-[#00C27E] text-[#001212] rounded-xl font-medium hover:brightness-110 transition-colors">
         Volver a eventos
       </a>
     </div>

@@ -18,7 +18,7 @@
   export let concert: Concert;
 
   $: availabilityClasses = concert.availability === 'available'
-    ? 'bg-[#003333] text-white'
+    ? 'bg-[#00C27E] text-[#001212]'
     : concert.availability === 'limited'
       ? 'bg-amber-400 text-amber-900'
       : 'bg-red-500 text-white';
@@ -67,7 +67,7 @@
   <div class="flex flex-col justify-between flex-1 p-4 gap-2">
     <!-- Artista y título -->
     <div class="space-y-1">
-      <h3 class="text-[15px] font-bold text-[#003333] leading-tight line-clamp-1">{concert.artist}</h3>
+      <h3 class="text-[15px] font-bold text-[#00C27E] leading-tight line-clamp-1">{concert.artist}</h3>
       <p class="text-sm text-gray-500 line-clamp-1">{concert.title}</p>
     </div>
 
@@ -88,12 +88,12 @@
       {#if concert.price}
         <div class="flex flex-col">
           <span class="text-[11px] text-gray-400 uppercase tracking-wide">Desde</span>
-          <span class="text-lg font-bold text-[#003333] leading-tight">{concert.price}</span>
+          <span class="text-lg font-bold text-[#00C27E] leading-tight">{concert.price}</span>
         </div>
       {/if}
       {#if concert.availability !== 'sold-out'}
         <a href={`/events/${concert.id}`}
-          class="inline-flex items-center gap-1 px-4 py-2 rounded-full text-white text-sm font-semibold bg-[#003333] hover:bg-[#004d4d] transition-all duration-200 hover:shadow-md {!concert.price ? 'w-full justify-center' : ''}"
+          class="inline-flex items-center gap-1 px-4 py-2 rounded-full text-[#001212] text-sm font-semibold bg-[#00C27E] hover:brightness-110 transition-all duration-200 hover:shadow-md {!concert.price ? 'w-full justify-center' : ''}"
           title="Comprar entradas"
         >
           Comprar
@@ -111,5 +111,4 @@
     </div>
   </div>
 </Card>
-
 

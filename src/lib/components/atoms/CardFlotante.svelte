@@ -103,15 +103,15 @@
       aria-label="Tarjeta de evento destacado"
     >
       <Card
-        class="hero-floating-card rounded-none z-50 bg-[#e6f2f2] object-contain mx-auto"
+        class="hero-floating-card rounded-none z-50 bg-[#0B3332] object-contain mx-auto"
           style="width: 100%; max-width: 100%; overflow: visible;"
       >
         <!-- Layout horizontal: texto izquierda, imagen derecha -->
         <div class="flex flex-col sm:flex-row sm:gap-0 w-full h-full rounded-xl overflow-hidden">
           <!-- CONTENIDO TEXTO (izquierda) -->
           <div class="flex flex-col justify-center items-start text-left gap-3 px-6 py-6 sm:pl-10 sm:pr-4 sm:py-8 sm:w-2/5 order-2 sm:order-1">
-            <span class="text-lg sm:text-xl font-bold uppercase tracking-widest text-[#003333]/70">Próximo evento</span>
-            <h3 class="mt-2 text-4xl sm:text-5xl font-bold text-[#003333] leading-tight">{concert.artist}</h3>
+            <span class="text-lg sm:text-xl font-bold uppercase tracking-widest text-[#00C27E]/70">Próximo evento</span>
+            <h3 class="mt-2 text-4xl sm:text-5xl font-bold text-[#00C27E] leading-tight">{concert.artist}</h3>
             <div class="mt-2 flex items-center gap-2 text-xl text-gray-600">
               <svg class="w-6 h-6 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -128,7 +128,7 @@
             <div class="mt-6">
               {#if concert.availability !== 'sold-out'}
                 <a href={`/events/${concert.id}`}
-                  class="inline-flex items-center gap-2 px-10 py-3.5 rounded-full text-white text-xl font-semibold bg-[#003333] hover:bg-[#004d4d] transition-all duration-200 hover:shadow-md"
+                  class="inline-flex items-center gap-2 px-10 py-3.5 rounded-full text-[#001212] text-xl font-semibold bg-[#00C27E] hover:brightness-110 transition-all duration-200 hover:shadow-md"
                   title="Ver entradas"
                 >
                   {t.card.viewTickets}
@@ -146,7 +146,7 @@
             </div>
             <!-- Badge disponibilidad -->
             <span
-              class="px-3 py-1 text-lg rounded-full font-semibold text-[#003333] self-start"
+              class="px-3 py-1 text-lg rounded-full font-semibold text-[#00C27E] self-start"
             >
               {concert.availability === 'available'
                 ? t.card.available

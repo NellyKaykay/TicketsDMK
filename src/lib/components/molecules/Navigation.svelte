@@ -53,7 +53,7 @@
     { href: '/events?category=monologo', label: 'Monólogo' }
   ];
 
-  const baseStyles = 'text-gray-600 transition-colors duration-200';
+  const baseStyles = 'text-white/80 transition-colors duration-200';
 
   const variantStyles = {
     desktop: 'hidden md:flex items-center space-x-8',
@@ -62,7 +62,7 @@
 
   const linkStyles = {
     desktop: 'text-2xl font-semibold',
-    mobile: 'text-2xl font-semibold px-4 py-3 rounded-md hover:bg-gray-100'
+    mobile: 'text-2xl font-semibold px-4 py-3 rounded-md hover:bg-[#0B3332]'
   };
 
   let showEventsDropdown = false;
@@ -80,9 +80,9 @@
       <a 
         href="/events" 
         class="{baseStyles} {linkStyles[variant]} flex items-center"
-        style="color: #666666;"
-        on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
-        on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
+        style="color: var(--muted);"
+        on:mouseenter={(e) => (e.target as HTMLElement).style.color='var(--accent)'}
+        on:mouseleave={(e) => (e.target as HTMLElement).style.color='var(--muted)'}
       >
         {t.header.events}
         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,14 +90,14 @@
         </svg>
       </a>
       {#if showEventsDropdown}
-        <div class="absolute top-full left-0 mt-1 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+        <div class="absolute top-full left-0 mt-1 w-40 bg-[#0B3332] rounded-md shadow-lg border border-white/10 z-50">
           {#each eventsCategorias as categoria}
             <a 
               href={categoria.href}
-              class="block px-4 py-2 text-sm transition-colors duration-200 first:rounded-t-md last:rounded-b-md text-gray-600 hover:bg-gray-50" 
-              style="color: #666666;"
-              on:mouseenter={(e) => { (e.target as HTMLElement).style.color='#003333'; (e.target as HTMLElement).style.backgroundColor='#f9fafb'; }}
-              on:mouseleave={(e) => { (e.target as HTMLElement).style.color='#666666'; (e.target as HTMLElement).style.backgroundColor='transparent'; }}
+              class="block px-4 py-2 text-sm transition-colors duration-200 first:rounded-t-md last:rounded-b-md text-white/80 hover:bg-white/5" 
+              style="color: var(--muted);"
+              on:mouseenter={(e) => { (e.target as HTMLElement).style.color='var(--accent)'; (e.target as HTMLElement).style.backgroundColor='rgb(255 255 255 / 5%)'; }}
+              on:mouseleave={(e) => { (e.target as HTMLElement).style.color='var(--muted)'; (e.target as HTMLElement).style.backgroundColor='transparent'; }}
               on:click={() => { showEventsDropdown = false; onLinkClick(); }}
             >
               {t.header[categoria.label.toLowerCase()]}
@@ -112,11 +112,11 @@
         <a 
           href={item.href} 
           class={`${baseStyles} ${linkStyles[variant]}`}
-          style="color: #666666;"
+          style="color: var(--muted);"
           target="_self"
           rel=""
-          on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
-          on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
+          on:mouseenter={(e) => (e.target as HTMLElement).style.color='var(--accent)'}
+          on:mouseleave={(e) => (e.target as HTMLElement).style.color='var(--muted)'}
           on:click={onLinkClick}
         >
           {t.header[item.label]}
@@ -128,9 +128,9 @@
     <a 
       href="/events" 
       class={`${baseStyles} ${linkStyles[variant]}`}
-      style="color: #666666;"
-      on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
-      on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
+      style="color: var(--muted);"
+      on:mouseenter={(e) => (e.target as HTMLElement).style.color='var(--accent)'}
+      on:mouseleave={(e) => (e.target as HTMLElement).style.color='var(--muted)'}
     >
       {t.header.events}
     </a>
@@ -138,11 +138,11 @@
       <a 
         href={item.href} 
         class={`${baseStyles} ${linkStyles[variant]}`}
-        style="color: #666666;"
+        style="color: var(--muted);"
         target="_self"
         rel=""
-        on:mouseenter={(e) => (e.target as HTMLElement).style.color='#003333'}
-        on:mouseleave={(e) => (e.target as HTMLElement).style.color='#666666'}
+        on:mouseenter={(e) => (e.target as HTMLElement).style.color='var(--accent)'}
+        on:mouseleave={(e) => (e.target as HTMLElement).style.color='var(--muted)'}
         on:click={onLinkClick}
       >
         {t.header[item.label]}

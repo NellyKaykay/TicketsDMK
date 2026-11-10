@@ -55,7 +55,7 @@
     <!-- Usuario logueado -->
     <button
       on:click={handleHeaderClick}
-      class="flex items-center space-x-2 text-gray-700 hover:text-gray-900 focus:outline-none"
+      class="flex items-center space-x-2 text-white/80 hover:text-[#00C27E] focus:outline-none"
       class:w-full={variant === 'mobile'}
       class:justify-between={variant === 'mobile'}
     >
@@ -69,11 +69,11 @@
     </button>
     
     {#if isOpen}
-      <div class={variant === 'desktop' ? 'absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-50' : 'mt-2 bg-gray-50 rounded-md p-2'}>
+      <div class={variant === 'desktop' ? 'absolute right-0 mt-2 w-56 bg-[#0B3332] text-white rounded-md shadow-lg border border-white/10 z-50' : 'mt-2 bg-[#001212] text-white rounded-md p-2'}>
         <!-- Información del usuario -->
-        <div class="px-4 py-3 border-b border-gray-200">
-          <p class="text-sm font-medium text-gray-900">{currentUser.user_metadata?.name || 'Usuario'}</p>
-          <p class="text-sm text-gray-500 truncate">{currentUser.email}</p>
+        <div class="px-4 py-3 border-b border-white/10">
+          <p class="text-sm font-medium text-white">{currentUser.user_metadata?.name || 'Usuario'}</p>
+          <p class="text-sm text-white/70 truncate">{currentUser.email}</p>
           <!-- Proveedor de conexión eliminado -->
         </div>
         
@@ -82,7 +82,7 @@
           <a
             href="/profile"
             on:click|preventDefault={() => { closeMenu(); goto('/profile'); }}
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
+            class="block px-4 py-2 text-sm text-white/80 hover:text-[#00C27E] hover:bg-white/5 rounded-md"
           >
             Mi Perfil
           </a>
@@ -90,13 +90,13 @@
           <a
             href="/tickets"
             on:click|preventDefault={() => { closeMenu(); goto('/tickets'); }}
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
+            class="block px-4 py-2 text-sm text-white/80 hover:text-[#00C27E] hover:bg-white/5 rounded-md"
           >
             Mis Entradas
           </a>
         </div>
         
-        <hr class="my-1 border-gray-200">
+        <hr class="my-1 border-white/10">
         
         <div class="py-1">
           <button 
@@ -116,7 +116,7 @@
     <div class={variant === 'desktop' ? 'flex items-center space-x-3' : 'flex flex-col space-y-2'}>
       <a 
         href="/login" 
-        class={variant === 'desktop' ? 'text-gray-600 hover:text-gray-900 text-2xl font-semibold px-4 py-2' : 'text-center py-3 text-gray-600 hover:text-gray-900 text-2xl font-semibold'}
+        class={variant === 'desktop' ? 'text-white/80 hover:text-[#00C27E] text-2xl font-semibold px-4 py-2' : 'text-center py-3 text-white/80 hover:text-[#00C27E] text-2xl font-semibold'}
       >
         Iniciar Sesión
       </a>
