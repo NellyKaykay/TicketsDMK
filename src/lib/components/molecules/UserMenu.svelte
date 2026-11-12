@@ -116,7 +116,7 @@
     <div class={variant === 'desktop' ? 'flex items-center space-x-3' : 'flex flex-col space-y-2'}>
       <a 
         href="/login" 
-        class={variant === 'desktop' ? 'text-white/80 hover:text-[#00C27E] text-2xl font-semibold px-4 py-2' : 'text-center py-3 text-white/80 hover:text-[#00C27E] text-2xl font-semibold'}
+        class={variant === 'desktop' ? 'text-white/80 hover:text-[#00C27E] text-lg xl:text-xl font-semibold px-2 xl:px-4 py-2' : 'text-center py-3 text-white/80 hover:text-[#00C27E] text-2xl font-semibold'}
       >
         Iniciar Sesión
       </a>

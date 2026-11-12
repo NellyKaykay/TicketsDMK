@@ -53,7 +53,7 @@
   $: t = getSafeTranslations($translations);
 </script>
 
-<div class="hero-background relative overflow-visible flex items-center justify-center hero-no-gap min-h-[60vh] sm:min-h-[70vh]">
+<div class="hero-background relative overflow-visible flex items-center justify-center min-h-[60vh] sm:min-h-[70vh]">
   <!-- Card principal - ocupa todo el hero -->
   <div class="w-full h-full z-10 flex justify-center items-center">
     <div class="w-full">

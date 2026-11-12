@@ -11,7 +11,7 @@
 {#if isOpen}
   <!-- Overlay -->
   <div 
-    class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+    class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
     on:click={onClose}
     on:keydown={(e) => e.key === 'Escape' && onClose()}
     role="button"
@@ -20,7 +20,7 @@
   ></div>
   
   <!-- Mobile menu panel -->
-  <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B3332] text-white shadow-xl z-50 md:hidden transform transition-transform duration-300 ease-in-out">
+  <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B3332] text-white shadow-xl z-50 lg:hidden transform transition-transform duration-300 ease-in-out">
     <div class="h-full flex flex-col">
       <!-- Header -->
       <div class="flex items-center justify-between p-4 border-b border-white/10">

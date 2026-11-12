@@ -28,12 +28,12 @@
 <div class="relative language-selector">
   <button
     on:click={toggleDropdown}
-    class="flex items-center space-x-2 px-6 py-3 text-2xl text-white/80 hover:text-[#00C27E] focus:outline-none font-semibold"
+    class="flex items-center space-x-2 px-3 py-2 text-lg xl:px-4 xl:py-3 xl:text-xl text-white/80 hover:text-[#00C27E] focus:outline-none font-semibold"
     aria-expanded={isOpen}
     aria-haspopup="true"
   >
     <span>{languages.find(lang => lang.code === selectedLang)?.flag}</span>
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg class="w-5 h-5 xl:w-6 xl:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
     </svg>
   </button>
@@ -43,7 +43,7 @@
       {#each languages as lang}
         <button
           on:click={() => selectLanguage(lang.code)}
-          class="w-full text-left flex items-center justify-center px-4 py-3 text-2xl text-white/80 hover:bg-white/5 first:rounded-t-md last:rounded-b-md font-semibold"
+          class="w-full text-left flex items-center justify-center px-3 py-2 xl:px-4 xl:py-3 text-lg xl:text-xl text-white/80 hover:bg-white/5 first:rounded-t-md last:rounded-b-md font-semibold"
           class:bg-gray-50={lang.code === selectedLang}
         >
           <span>{lang.flag}</span>

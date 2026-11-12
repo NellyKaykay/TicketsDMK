@@ -56,12 +56,12 @@
   const baseStyles = 'text-white/80 transition-colors duration-200';
 
   const variantStyles = {
-    desktop: 'hidden md:flex items-center space-x-8',
+    desktop: 'hidden lg:flex items-center space-x-4 xl:space-x-8',
     mobile: 'flex flex-col space-y-3'
   };
 
   const linkStyles = {
-    desktop: 'text-2xl font-semibold',
+    desktop: 'text-lg xl:text-xl font-semibold',
     mobile: 'text-2xl font-semibold px-4 py-3 rounded-md hover:bg-[#0B3332]'
   };
 
@@ -107,7 +107,7 @@
       {/if}
     </div>
     <!-- Otros items: Nosotros y Contacto -->
-    <div class="flex items-center space-x-8">
+    <div class="flex items-center space-x-4 xl:space-x-8">
       {#each navItems as item}
         <a 
           href={item.href} 

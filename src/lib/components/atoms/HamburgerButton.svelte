@@ -5,7 +5,7 @@
 
 <button
   on:click={onClick}
-  class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white/70 hover:text-[#00C27E] hover:bg-white/5 focus:outline-none"
+  class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-white/70 hover:text-[#00C27E] hover:bg-white/5 focus:outline-none"
   aria-expanded={isOpen}
   aria-label="Abrir menú principal"
 >

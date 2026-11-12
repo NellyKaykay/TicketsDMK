@@ -42,23 +42,23 @@
 </script>
 
 <header class="shadow-sm border-b sticky top-0 z-40 text-xl" style="height:112px; background-color: var(--bg); border-color: var(--border); color: var(--text);">
-  <div class="max-w-7xl mx-auto px-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div class="flex justify-between items-center" style="height:100%;">
       <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center mr-16" style="height:100%;">
+      <div class="flex-shrink-0 flex items-center mr-4 xl:mr-12" style="height:100%;">
         <Logo size="header" />
       </div>
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-16">
+      <div class="hidden lg:flex items-center space-x-4 xl:space-x-8">
         <Navigation variant="desktop" />
       </div>
       <!-- Desktop Right Side -->
-      <div class="hidden md:flex items-center space-x-8 text-2xl">
+      <div class="hidden lg:flex items-center space-x-3 xl:space-x-6">
         <LanguageSelector />
         <UserMenu variant="desktop" />
       </div>
       <!-- Mobile Hamburger -->
-      <div class="md:hidden">
+      <div class="lg:hidden">
         <HamburgerButton 
           isOpen={isMobileMenuOpen} 
           onClick={toggleMobileMenu} 
