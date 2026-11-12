@@ -6,7 +6,7 @@
     sm: 'h-10 w-10',
     md: 'h-24 w-24',
     lg: 'h-40 w-40',
-    header: 'h-14 w-auto sm:h-20'
+    header: 'h-20 w-auto sm:h-24'
   };
   
   const textSizes = {
